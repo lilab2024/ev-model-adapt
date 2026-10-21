@@ -1,0 +1,21 @@
+# Data are never stored in this repository (see README)
+/data/
+*.parquet
+
+# Results are committed only at submission
+/results/
+
+# Model checkpoints and logs
+/checkpoints/
+*.pt
+*.log
+
+# Python, notebook and tool caches
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+*.ipynb
+.venv/
+*.egg-info/
+.DS_Store

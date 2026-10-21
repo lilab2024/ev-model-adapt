@@ -1,0 +1,14 @@
+# Shared data (read-only). Location: environment variable EMA_DATA_ROOT.
+# Processed by the ev-ice-acc pipeline (https://github.com/lilab2024/ev-ice-acc,
+# commit 3c6301f). This repository never writes to the data folder.
+processed:
+  dir: processed
+  files:
+    trajectories: trajectories_10hz.parquet
+    manifest: runs_manifest.csv
+    qc: runs_qc.csv
+  md5:
+    trajectories: 8cde7b27a7b0d1cd08cf45bc1c2e6020
+  expected_rows:
+    total: 449765
+    ev: 162194
