@@ -7,6 +7,16 @@ import pandas as pd
 from ema import simulate
 
 
+def context_data(ctx_rows, runs_by_id):
+    """DataFrames of the context segments (rows of the context table: run_id, t0, t1)."""
+    pieces = []
+    for rid, t0, t1 in zip(ctx_rows["run_id"], ctx_rows["t0"], ctx_rows["t1"]):
+        g = runs_by_id[rid]
+        t = g["t"].to_numpy()
+        pieces.append(g[(t >= t0 - 1e-6) & (t <= t1 + 1e-6)].reset_index(drop=True))
+    return pieces
+
+
 def evaluate_fold(method, fold, rt, ct, traj_fd, runs_by_id, train_run_ids, cfg_e):
     """Fit the method on the training runs of one fold, then simulate every query run of
     every held-out task and draw. Returns one row per (task, draw, length, query run)."""
@@ -15,15 +25,23 @@ def evaluate_fold(method, fold, rt, ct, traj_fd, runs_by_id, train_run_ids, cfg_
     rows = []
     for (task, draw), q in test[test["role"] == "query"].groupby(["task", "draw"]):
         if method.uses_context:
-            raise NotImplementedError("Methods that use the context are added in a later step")
-        settings = [(np.nan, None)]
+            c = test[(test["role"] == "context") & (test["task"] == task) & (test["draw"] == draw)]
+            if set(c["run_id"]) & set(q["run_id"]):
+                raise RuntimeError(f"Context and query runs overlap for {task}, draw {draw}")
+            settings = [(float(length), dict(task=task, draw=int(draw), length_s=float(length),
+                                             segments=context_data(g, runs_by_id)))
+                        for length, g in c.groupby("length_s")]
+        else:
+            settings = [(np.nan, None)]
         for length, context in settings:
             controller = method.controller(context)
+            info = method.context_info(context) if context is not None and hasattr(
+                method, "context_info") else {}
             for rid in q["run_id"]:
                 _, m = simulate.simulate_run(controller, runs_by_id[rid], cfg_e)
                 rows.append(dict(fold_id=fold["fold_id"], level=fold["level"],
                                  method=method.name, task=task, draw=draw,
-                                 length_s=length, run_id=rid, **m))
+                                 length_s=length, run_id=rid, **m, **info))
     return pd.DataFrame(rows)
 
 

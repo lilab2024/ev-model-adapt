@@ -3,7 +3,9 @@
 Training runs are cut into task-balanced segments; a parameter set is scored by
 simulating all segments at once (same Euler rule and leader-position spacing as
 ema.simulate) and averaging the spacing RMSE per segment. Differential evolution
-searches the parameter bounds of config/models.yaml.
+searches the parameter bounds of config/models.yaml; the whole population of candidate
+parameter sets is simulated at once (vectorized), which gives the same results as
+evaluating the candidates one by one, only faster.
 """
 import numpy as np
 from scipy import optimize
@@ -39,6 +41,23 @@ def make_segments(traj_fd, rt, run_ids, cfg_models=None, dt=0.1):
             pieces.append(g.iloc[start:start + n])
             labels.append((task, rid, start))
 
+    return pack_segments(pieces, dt, labels)
+
+
+def cut_into_segments(pieces, seg_len):
+    """Split each DataFrame into consecutive chunks of at most seg_len samples
+    (chunks with fewer than 2 samples are dropped)."""
+    out = []
+    for p in pieces:
+        for start in range(0, len(p), int(seg_len)):
+            chunk = p.iloc[start:start + int(seg_len)]
+            if len(chunk) >= 2:
+                out.append(chunk)
+    return out
+
+
+def pack_segments(pieces, dt, labels=None):
+    """Padded arrays (n_segments x max_len) for a list of DataFrames with columns s, v_f, v_l."""
     lengths = np.array([len(p) for p in pieces])
     T = int(lengths.max())
     shape = (len(pieces), T)
@@ -52,20 +71,25 @@ def make_segments(traj_fd, rt, run_ids, cfg_models=None, dt=0.1):
         v_lead[i, n:], s_obs[i, n:], lead_pos[i, n:] = v_lead[i, n - 1], s_i[-1], lead_pos[i, n - 1]
     return dict(v_lead=v_lead, s_obs=s_obs, lead_pos=lead_pos, length=lengths,
                 s0=s_obs[:, 0].copy(), v0=np.array([p["v_f"].iloc[0] for p in pieces], float),
-                labels=labels)
+                labels=labels if labels is not None else list(range(len(pieces))))
 
 
-def simulate_idm_batch(p, seg, dt, collision_gap=0.0, min_gap=0.1):
-    """Simulate all segments with IDM parameters p (vectorized over segments).
+def simulate_idm_population(P, seg, dt, collision_gap=0.0, min_gap=0.1):
+    """Simulate all segments for S parameter sets at once.
 
-    Returns (spacing RMSE per segment, failed flag per segment). A segment fails if it
-    collides (simulated gap <= collision_gap) or the acceleration is not finite.
+    P maps parameter names to arrays of length S (or scalars shared by all sets).
+    Returns (spacing RMSE, failed flag), both of shape (S, n_segments). A segment fails if
+    it collides (simulated gap <= collision_gap) or the acceleration is not finite.
     """
+    S = max(int(np.size(v)) for v in P.values())
+    p = {k: (np.asarray(v, dtype=float).reshape(-1, 1) if np.size(v) > 1
+             else float(np.asarray(v, dtype=float).ravel()[0])) for k, v in P.items()}
     n, T = seg["v_lead"].shape
-    s, v = seg["s0"].astype(float).copy(), seg["v0"].astype(float).copy()
+    s = np.broadcast_to(seg["s0"].astype(float), (S, n)).copy()
+    v = np.broadcast_to(seg["v0"].astype(float), (S, n)).copy()
     x = seg["lead_pos"][:, 0] - s
-    failed = np.zeros(n, dtype=bool)
-    err_sum = np.zeros(n)
+    failed = np.zeros((S, n), dtype=bool)
+    err_sum = np.zeros((S, n))
     length = seg["length"]
     with np.errstate(all="ignore"):
         for k in range(T - 1):
@@ -88,11 +112,23 @@ def simulate_idm_batch(p, seg, dt, collision_gap=0.0, min_gap=0.1):
     return np.where(failed, np.nan, rmse), failed
 
 
+def simulate_idm_batch(p, seg, dt, collision_gap=0.0, min_gap=0.1):
+    """One parameter set: (spacing RMSE per segment, failed flag per segment)."""
+    rmse, failed = simulate_idm_population({k: [v] for k, v in p.items()}, seg, dt,
+                                           collision_gap, min_gap)
+    return rmse[0], failed[0]
+
+
 def objective(x, free, fixed, seg, dt, collision_gap, min_gap, collision_cost):
-    """Mean over segments of the spacing RMSE (collision_cost for failed segments)."""
-    p = {**fixed, **dict(zip(free, x))}
-    rmse, failed = simulate_idm_batch(p, seg, dt, collision_gap, min_gap)
-    return float(np.mean(np.where(failed, collision_cost, rmse)))
+    """Mean over segments of the spacing RMSE (collision_cost for failed segments).
+    x has shape (n_free,) for one parameter set or (n_free, S) for S sets."""
+    x = np.asarray(x, dtype=float)
+    single = x.ndim == 1
+    X = x[:, None] if single else x
+    P = {**fixed, **{name: X[i] for i, name in enumerate(free)}}
+    rmse, failed = simulate_idm_population(P, seg, dt, collision_gap, min_gap)
+    cost = np.mean(np.where(failed, collision_cost, rmse), axis=1)
+    return float(cost[0]) if single else cost
 
 
 def calibrate_idm_sim(seg, cfg_models=None, dt=0.1, collision_gap=0.0):
@@ -105,6 +141,7 @@ def calibrate_idm_sim(seg, cfg_models=None, dt=0.1, collision_gap=0.0):
         objective, bounds,
         args=(free, fixed, seg, dt, collision_gap, m["min_gap_m"], sc["collision_cost_m"]),
         popsize=int(opt["popsize"]), maxiter=int(opt["maxiter"]), tol=float(opt["tol"]),
-        polish=bool(opt["polish"]), seed=int(sc["seed"]), updating="deferred")
+        polish=bool(opt["polish"]), seed=int(sc["seed"]), updating="deferred",
+        vectorized=True)
     params = {**fixed, **dict(zip(free, map(float, res.x)))}
     return params, float(res.fun), int(res.nfev)

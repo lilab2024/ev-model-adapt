@@ -6,6 +6,8 @@
     controller = method.controller(context)  # controller for one held-out task and context
     method.state()                           # dict saved with the results (e.g. parameters)
 """
+import json
+
 from ema import calibrate, config, sim_calibrate
 from ema.models import idm
 
@@ -70,4 +72,60 @@ class NoAdaptationSim:
                     **{f"idm_{k}": v for k, v in self.params.items()})
 
 
-REGISTRY = {m.name: m for m in (NoAdaptation, NoAdaptationSim)}
+class ContextRecalibration:
+    """M1: the IDM is recalibrated in closed loop on the context of the held-out task only
+    (same bounds and optimizer as no_adaptation_sim); training runs are not used. A fit
+    depends only on (task, draw, context length) and the configuration, so it is cached
+    and reused across folds and levels."""
+
+    name = "context_recalibration"
+    uses_context = True
+    _cache = {}
+
+    def __init__(self, cfg_models=None, cfg_eval=None):
+        self.cfg = cfg_models or config.load_yaml("models.yaml")
+        self.cfg_eval = cfg_eval or config.load_yaml("evaluation.yaml")
+        self.n_new_fits, self.n_cached_fits = 0, 0
+        self.train_run_ids = []
+
+    def fit(self, traj_fd, rt, train_run_ids):
+        self.train_run_ids = []          # by design, no training data are used
+
+    def _key(self, context):
+        cfg_part = json.dumps(dict(idm=self.cfg["idm"], sim=self.cfg["sim_calibration"],
+                                   simulation=self.cfg_eval["simulation"],
+                                   context=self.cfg_eval.get("context")), sort_keys=True)
+        return (context["task"], int(context["draw"]), float(context["length_s"]), cfg_part)
+
+    def _fit(self, context, count=True):
+        key = self._key(context)
+        if key in self._cache:
+            self.n_cached_fits += int(count)
+            return self._cache[key]
+        sim = self.cfg_eval["simulation"]
+        if sim.get("spacing_from") != "leader_position":
+            raise ValueError("Simulation-based calibration requires spacing_from: leader_position")
+        seg_len = int(round(self.cfg["sim_calibration"]["segment_s"] / sim["dt_s"]))
+        pieces = sim_calibrate.cut_into_segments(context["segments"], seg_len)
+        seg = sim_calibrate.pack_segments(pieces, sim["dt_s"])
+        params, cost, nfev = sim_calibrate.calibrate_idm_sim(seg, self.cfg, sim["dt_s"],
+                                                             sim["collision_gap_m"])
+        self._cache[key] = dict(params=params, cost=cost, n_evaluations=nfev,
+                                n_segments=len(pieces))
+        self.n_new_fits += 1
+        return self._cache[key]
+
+    def controller(self, context):
+        return idm.IDMController(self._fit(context)["params"], self.cfg["idm"]["min_gap_m"])
+
+    def context_info(self, context):
+        fit = self._fit(context, count=False)
+        return dict(ctx_cost=fit["cost"], ctx_n_segments=fit["n_segments"],
+                    **{f"ctx_idm_{k}": v for k, v in fit["params"].items()})
+
+    def state(self):
+        return dict(method=self.name, n_train_runs=0, n_new_fits=self.n_new_fits,
+                    n_cached_fits=self.n_cached_fits)
+
+
+REGISTRY = {m.name: m for m in (NoAdaptation, NoAdaptationSim, ContextRecalibration)}
