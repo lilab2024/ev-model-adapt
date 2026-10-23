@@ -1,0 +1,18 @@
+# Physics models and their calibration.
+# Parameter spec: [low, high] = calibrated within bounds; single value = fixed.
+idm:
+  params:
+    v0: [25.0, 60.0]     # desired speed (m/s)
+    T: [0.3, 4.0]        # desired time gap (s)
+    s0: [0.5, 15.0]      # standstill gap (m)
+    a: [0.2, 4.0]        # maximum acceleration (m/s2)
+    b: [0.2, 6.0]        # comfortable deceleration (m/s2)
+    delta: 4.0           # free-road exponent (fixed, usual value)
+  min_gap_m: 0.1         # gaps below this value are clipped inside the model
+
+# One-step least squares on pooled training samples
+calibration:
+  target: forward_difference   # (v_f[k+1] - v_f[k]) / dt, consistent with the simulation
+  samples_per_task: 3000       # the same number of samples from every task (equal weight)
+  n_starts: 5                  # multi-start: midpoint of the bounds + random starts
+  seed: 42
