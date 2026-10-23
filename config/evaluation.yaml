@@ -21,3 +21,13 @@ levels: [L1_new_setting, L2_new_vehicle, L3_cross_powertrain, L2_no_ice]
 validation:
   fraction_of_configs: 0.2
   seed: 42
+
+# Inside a held-out task: a share of its configurations is reserved for the closed-loop
+# test (query); the context given to the model is cut from the other configurations.
+# The split depends only on the task and the draw, so a task is tested identically at
+# every level and for every method.
+context:
+  query_fraction: 0.5
+  lengths_s: [10, 30, 60, 120, 300]   # nested: a longer context starts with the shorter one
+  draws: 5
+  seed: 42
