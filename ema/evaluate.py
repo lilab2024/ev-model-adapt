@@ -27,9 +27,11 @@ def evaluate_fold(method, fold, rt, ct, traj_fd, runs_by_id, train_run_ids, cfg_
     return pd.DataFrame(rows)
 
 
-def run_evaluation(method_cls, cfg_m, rt, folds, assignment, ct, traj_fd, cfg_e, verbose=True):
-    """Evaluate a method on all folds. A new method object is created for every fold.
-    Returns (results DataFrame, list of per-fold states)."""
+def run_evaluation(method_cls, cfg_m, rt, folds, assignment, ct, traj_fd, cfg_e, verbose=True,
+                   on_fold_done=None):
+    """Evaluate a method on the given folds. A new method object is created for every fold.
+    on_fold_done(fold, results, state) is called after each fold (e.g. to save it).
+    Returns (results DataFrame, list of per-fold states); empty if folds is empty."""
     runs_by_id = {rid: g.reset_index(drop=True) for rid, g in traj_fd.groupby("run_id", sort=False)}
     results, states = [], []
     for f in folds:
@@ -40,10 +42,12 @@ def run_evaluation(method_cls, cfg_m, rt, folds, assignment, ct, traj_fd, cfg_e,
         res = evaluate_fold(method, f, rt, ct, traj_fd, runs_by_id, train_ids, cfg_e)
         results.append(res)
         states.append(dict(fold_id=f["fold_id"], level=f["level"], **method.state()))
+        if on_fold_done is not None:
+            on_fold_done(f, res, states[-1])
         if verbose:
             print(f"  {f['fold_id']:24s} {len(res):5d} simulations, "
                   f"{int(res['collided'].sum()):3d} collided, {time.time() - t0:6.1f} s", flush=True)
-    return pd.concat(results, ignore_index=True), states
+    return (pd.concat(results, ignore_index=True) if results else pd.DataFrame()), states
 
 
 def summarize(results, rt):

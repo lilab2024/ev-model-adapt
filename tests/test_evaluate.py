@@ -84,3 +84,20 @@ def test_m0_learns_only_from_training_runs_of_the_fold():
         m.fit(traj_fd, rt, a.loc[a["role"] == "train", "run_id"].tolist())
         used = set(m.train_run_ids)
         assert used and not used & set(a.loc[a["role"].isin(["test", "val"]), "run_id"])
+
+
+def test_callback_after_each_fold_and_empty_fold_list():
+    runs, traj = synthetic_dataset()
+    rt = protocol.run_table(runs, CFG_E)
+    folds = protocol.make_folds(rt, CFG_E)
+    asg = protocol.assign_runs(rt, folds, CFG_E)
+    ct = context.context_table(rt, CFG_E)
+    traj_fd = calibrate.forward_difference(traj, DT)
+    seen = []
+    res, states = evaluate.run_evaluation(
+        methods.NoAdaptation, CFG_M, rt, folds[:1], asg, ct, traj_fd, CFG_E, verbose=False,
+        on_fold_done=lambda f, r, s: seen.append((f["fold_id"], len(r), s["method"])))
+    assert seen == [(folds[0]["fold_id"], len(res), "no_adaptation")]
+    empty, no_states = evaluate.run_evaluation(methods.NoAdaptation, CFG_M, rt, [], asg, ct,
+                                               traj_fd, CFG_E, verbose=False)
+    assert empty.empty and no_states == []
