@@ -31,3 +31,14 @@ context:
   lengths_s: [10, 30, 60, 120, 300]   # nested: a longer context starts with the shorter one
   draws: 5
   seed: 42
+
+# Closed-loop simulation: only the measured leader speed and the measured initial state
+# are used; the follower is driven by the model (explicit Euler at the data rate).
+simulation:
+  dt_s: 0.1
+  collision_gap_m: 0.0     # a simulated net gap <= this value counts as a collision
+  # leader_position : leader position = measured spacing + distance driven by the measured
+  #                   follower; simulated spacing = leader position - simulated follower
+  #                   position (inconsistencies of the recorded data stay in the leader input)
+  # speed_difference: spacing integrated from (v_lead - v); drifts on long runs
+  spacing_from: leader_position
