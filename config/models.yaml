@@ -6,7 +6,8 @@ idm:
     T: [0.3, 4.0]        # desired time gap (s)
     s0: [0.5, 15.0]      # standstill gap (m)
     a: [0.2, 4.0]        # maximum acceleration (m/s2)
-    b: [0.2, 6.0]        # comfortable deceleration (m/s2)
+    b: [0.01, 6.0]       # 'comfortable deceleration' (m/s2); in closed-loop fits it mainly
+                         # sets the sensitivity to the closing speed, hence the low bound
     delta: 4.0           # free-road exponent (fixed, usual value)
   min_gap_m: 0.1         # gaps below this value are clipped inside the model
 
