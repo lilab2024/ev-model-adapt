@@ -16,3 +16,15 @@ calibration:
   samples_per_task: 3000       # the same number of samples from every task (equal weight)
   n_starts: 5                  # multi-start: midpoint of the bounds + random starts
   seed: 42
+
+# Simulation-based (closed-loop) calibration (D012)
+sim_calibration:
+  segment_s: 60.0            # segments cut from training runs; shorter runs are used whole
+  segments_per_task: 20      # the same number of segments from every training task
+  collision_cost_m: 100.0    # cost of a segment whose simulation collides
+  optimizer:                 # scipy.optimize.differential_evolution
+    popsize: 15
+    maxiter: 50
+    tol: 1.0e-4
+    polish: true             # final local refinement of the best parameter set
+  seed: 42

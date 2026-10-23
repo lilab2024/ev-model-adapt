@@ -36,7 +36,7 @@ def run_evaluation(method_cls, cfg_m, rt, folds, assignment, ct, traj_fd, cfg_e,
         t0 = time.time()
         a = assignment[assignment["fold_id"] == f["fold_id"]]
         train_ids = a.loc[a["role"] == "train", "run_id"].tolist()
-        method = method_cls(cfg_m)
+        method = method_cls(cfg_m, cfg_e)
         res = evaluate_fold(method, f, rt, ct, traj_fd, runs_by_id, train_ids, cfg_e)
         results.append(res)
         states.append(dict(fold_id=f["fold_id"], level=f["level"], **method.state()))
