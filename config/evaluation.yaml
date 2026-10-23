@@ -1,0 +1,23 @@
+# Evaluation protocol. Every result depends on this file; change it deliberately.
+
+runs:
+  qc_pass_only: true
+  include_stop_runs: true     # stop runs = EV runs with v_reduced_mph == 0 (provisional)
+
+# A task is one controller: vehicle x gap setting
+task_keys: [powertrain, vehicle, gap]
+# A configuration is one experiment; repeated runs of a configuration are never split
+config_keys: [vehicle, gap, profile, desired_mph, v_free_mph, v_reduced_mph]
+
+# Evaluation levels
+#   L1_new_setting      : test one task of a vehicle that has >= 2 tasks; train on all others
+#   L2_new_vehicle      : test all tasks of one vehicle; train on all other tasks
+#   L3_cross_powertrain : test all EV tasks; train on ICE tasks only
+#   L2_no_ice           : as L2 for EV vehicles, but train on the other EV tasks only
+levels: [L1_new_setting, L2_new_vehicle, L3_cross_powertrain, L2_no_ice]
+
+# Validation runs: inside every training task, a fixed share of its configurations
+# (same configurations in every fold; tasks with a single configuration give none)
+validation:
+  fraction_of_configs: 0.2
+  seed: 42
