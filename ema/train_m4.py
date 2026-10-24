@@ -6,9 +6,14 @@ parameters; the loss is the closed-loop spacing RMSE of the targets, simulated w
 differentiable rollout of ema.torch_sim (same rules as the evaluation).
 """
 import copy
+import datetime
+import json
+import os
 import time
+from pathlib import Path
 
 import numpy as np
+import pandas as pd
 import torch
 
 from ema import nets, simulate, torch_sim
@@ -116,14 +121,40 @@ def episode_loss(net, episodes, dt, scales, min_gap=0.1):
     return targets_rmse(p, episodes, dt, min_gap, dtype=x.dtype).mean()
 
 
-def train(net, sampler, val_episodes, cfg_tr, dt, scales, log=print, min_gap=0.1):
+def _atomic_write(path, write):
+    """Write to a temporary file, then replace the target (a crash never leaves a half file)."""
+    tmp = path.with_name(path.name + ".tmp")
+    write(tmp)
+    os.replace(tmp, path)
+
+
+def save_checkpoint(directory, best_state, history, step, best_val, best_step):
+    """net_best.pt (only if best_state is given), history.csv and checkpoint.json."""
+    directory = Path(directory)
+    directory.mkdir(parents=True, exist_ok=True)
+    if best_state is not None:
+        _atomic_write(directory / "net_best.pt", lambda p: torch.save(
+            {k: v.detach().cpu() for k, v in best_state.items()}, p))
+    _atomic_write(directory / "history.csv",
+                  lambda p: pd.DataFrame(history).to_csv(p, index=False))
+    info = dict(step=step, best_step=best_step, best_val_loss=best_val,
+                saved=datetime.datetime.now().isoformat(timespec="seconds"))
+    _atomic_write(directory / "checkpoint.json",
+                  lambda p: p.write_text(json.dumps(info, indent=2), encoding="utf-8"))
+
+
+def train(net, sampler, val_episodes, cfg_tr, dt, scales, log=print, min_gap=0.1,
+          checkpoint_dir=None):
     """Adam with gradient clipping; validation loss every val_every steps; the best state
     (lowest validation loss) is restored; stops after `patience` evaluations without
-    improvement. Returns the history as a list of dicts."""
+    improvement. With checkpoint_dir, the best weights (net_best.pt), the history and
+    checkpoint.json are written after every validation, so an interrupted run can be
+    resumed from net_best.pt. Returns the history as a list of dicts."""
     torch.manual_seed(int(cfg_tr["seed"]))
     opt = torch.optim.Adam(net.parameters(), lr=float(cfg_tr["lr"]))
     best, best_state, bad, history = float("inf"), copy.deepcopy(net.state_dict()), 0, []
     t_start = time.time()
+    best_step = 0
     for step in range(1, int(cfg_tr["steps"]) + 1):
         net.train()
         loss = episode_loss(net, sampler.sample(int(cfg_tr["batch_episodes"])), dt, scales, min_gap)
@@ -140,12 +171,16 @@ def train(net, sampler, val_episodes, cfg_tr, dt, scales, log=print, min_gap=0.1
             history.append(dict(step=step, train_loss=tl, val_loss=vl, elapsed_s=elapsed))
             log(f"step {step:5d}  train {tl:7.3f}  val {vl:7.3f}  "
                 f"({elapsed / step:.2f} s/step, {elapsed / 60:.1f} min)")
-            if vl < best - 1e-4:
-                best, best_state, bad = vl, copy.deepcopy(net.state_dict()), 0
+            improved = vl < best - 1e-4
+            if improved:
+                best, best_state, bad, best_step = vl, copy.deepcopy(net.state_dict()), 0, step
             else:
                 bad += 1
-                if bad >= int(cfg_tr["patience"]):
-                    break
+            if checkpoint_dir is not None:
+                save_checkpoint(checkpoint_dir, best_state if improved else None, history,
+                                step, best, best_step)
+            if bad >= int(cfg_tr["patience"]):
+                break
     net.load_state_dict(best_state)
     return history
 

@@ -94,6 +94,25 @@ def test_training_reduces_the_closed_loop_loss():
     assert after < before and after == pytest.approx(min(h["val_loss"] for h in hist), rel=1e-5)
 
 
+def test_checkpoints_hold_the_best_weights_and_the_history(tmp_path):
+    import json
+    import pandas as pd
+    runs, arrays, task_runs, _ = data()
+    torch.manual_seed(0)
+    net = nets.AdaptNet(CFG_NET, CFG_M["idm"]["params"])
+    val = train_m4.EpisodeSampler(arrays, task_runs, CFG_TR, DT, seed=99).sample(16)
+    sampler = train_m4.EpisodeSampler(arrays, task_runs, CFG_TR, DT, seed=2)
+    hist = train_m4.train(net, sampler, val, CFG_TR, DT, SCALES, log=lambda *a: None,
+                          checkpoint_dir=tmp_path)
+    saved = torch.load(tmp_path / "net_best.pt")
+    assert all(torch.equal(saved[k], v.cpu()) for k, v in net.state_dict().items())
+    assert len(pd.read_csv(tmp_path / "history.csv")) == len(hist)
+    info = json.loads((tmp_path / "checkpoint.json").read_text())
+    assert info["best_val_loss"] == pytest.approx(min(h["val_loss"] for h in hist))
+    assert info["step"] == hist[-1]["step"]
+    assert not list(tmp_path.glob("*.tmp"))
+
+
 def test_predict_params_returns_floats_within_bounds():
     runs, arrays, task_runs, _ = data()
     torch.manual_seed(0)

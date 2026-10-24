@@ -115,8 +115,9 @@ def run(out_dir, cfg_pre=None, cfg_models=None, dt=0.1, log=print, n_vehicles=No
     val_sampler = train_m4.EpisodeSampler(arrays, {t: task_runs[t] for t in val_tasks}, tr, dt,
                                           int(tr["seed"]) + 1)
     val_eps = val_sampler.sample(int(tr["val_episodes"]))
+    out_dir.mkdir(parents=True, exist_ok=True)
     history = train_m4.train(net, sampler, val_eps, tr, dt, nw["scales"], log=log,
-                             min_gap=cfg_models["idm"]["min_gap_m"])
+                             min_gap=cfg_models["idm"]["min_gap_m"], checkpoint_dir=out_dir)
 
     pop = {k: float(np.exp(np.log(params.loc[train_tasks, k]).median())) for k in params.columns}
     items = fixed_episodes(arrays, task_runs, val_tasks, tr["context_s"], tr, dt, int(tr["seed"]) + 2)
