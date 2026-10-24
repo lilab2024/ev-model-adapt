@@ -119,8 +119,9 @@ def simulate_idm_batch(p, seg, dt, collision_gap=0.0, min_gap=0.1):
     return rmse[0], failed[0]
 
 
-def objective(x, free, fixed, seg, dt, collision_gap, min_gap, collision_cost):
-    """Mean over segments of the spacing RMSE (collision_cost for failed segments).
+def objective(x, free, fixed, seg, dt, collision_gap, min_gap, collision_cost, prior=None):
+    """Mean over segments of the spacing RMSE (collision_cost for failed segments), plus
+    prior["lam"] * mean(z^2) if a prior is given (z = (log x - mu) / sd per free parameter).
     x has shape (n_free,) for one parameter set or (n_free, S) for S sets."""
     x = np.asarray(x, dtype=float)
     single = x.ndim == 1
@@ -128,18 +129,33 @@ def objective(x, free, fixed, seg, dt, collision_gap, min_gap, collision_cost):
     P = {**fixed, **{name: X[i] for i, name in enumerate(free)}}
     rmse, failed = simulate_idm_population(P, seg, dt, collision_gap, min_gap)
     cost = np.mean(np.where(failed, collision_cost, rmse), axis=1)
+    if prior is not None and prior["lam"] > 0:
+        z = (np.log(X) - prior["mu"][:, None]) / prior["sd"][:, None]
+        cost = cost + prior["lam"] * np.mean(z ** 2, axis=0)
     return float(cost[0]) if single else cost
 
 
-def calibrate_idm_sim(seg, cfg_models=None, dt=0.1, collision_gap=0.0):
-    """Differential evolution over the IDM bounds. Returns (params, objective, n_evaluations)."""
+def make_prior(param_sets, free, lam, min_log_std=0.05):
+    """Prior from fitted parameter sets: mean and standard deviation of log parameters
+    (sd floored at min_log_std; 1.0 if fewer than two sets)."""
+    L = np.log(np.array([[float(p[k]) for k in free] for p in param_sets]))
+    mu = L.mean(axis=0)
+    sd = L.std(axis=0, ddof=1) if len(L) > 1 else np.ones(len(free))
+    return dict(free=list(free), mu=mu, sd=np.maximum(sd, min_log_std), lam=float(lam))
+
+
+def calibrate_idm_sim(seg, cfg_models=None, dt=0.1, collision_gap=0.0, prior=None):
+    """Differential evolution over the IDM bounds, optionally with a prior term.
+    Returns (params, objective, n_evaluations)."""
     cfg_models = cfg_models or config.load_yaml("models.yaml")
     m, sc = cfg_models["idm"], cfg_models["sim_calibration"]
     free, bounds, fixed = split_spec(m["params"])
+    if prior is not None and list(prior["free"]) != list(free):
+        raise ValueError(f"Prior parameters {prior['free']} differ from {free}")
     opt = sc["optimizer"]
     res = optimize.differential_evolution(
         objective, bounds,
-        args=(free, fixed, seg, dt, collision_gap, m["min_gap_m"], sc["collision_cost_m"]),
+        args=(free, fixed, seg, dt, collision_gap, m["min_gap_m"], sc["collision_cost_m"], prior),
         popsize=int(opt["popsize"]), maxiter=int(opt["maxiter"]), tol=float(opt["tol"]),
         polish=bool(opt["polish"]), seed=int(sc["seed"]), updating="deferred",
         vectorized=True)

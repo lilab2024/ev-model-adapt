@@ -81,12 +81,14 @@ def summarize(results, rt):
                            speed_rmse=("speed_rmse", "mean"),
                            collision_rate=("collided", "mean"),
                            n_runs=("run_id", "size")))
-        per_task = (per_draw.groupby(["level", "task", "length_s"], dropna=False)
-                            [["spacing_rmse", "speed_rmse", "collision_rate"]].mean()
-                            .assign(subset=subset))
+        g = per_draw.groupby(["level", "task", "length_s"], dropna=False)
+        per_task = (g[["spacing_rmse", "speed_rmse", "collision_rate"]].mean()
+                    .join(g["spacing_rmse"].median().rename("spacing_rmse_median_draws"))
+                    .assign(subset=subset))
         per_level = (per_task.groupby(["level", "length_s"], dropna=False)
                              .agg(n_tasks=("spacing_rmse", "size"),
                                   spacing_rmse=("spacing_rmse", "mean"),
+                                  spacing_rmse_median_draws=("spacing_rmse_median_draws", "mean"),
                                   speed_rmse=("speed_rmse", "mean"),
                                   collision_rate=("collision_rate", "mean"))
                              .assign(subset=subset))
