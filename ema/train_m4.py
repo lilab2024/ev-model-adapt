@@ -84,16 +84,21 @@ def context_tensors(episodes, dt, scales):
     return nets.collate_contexts(feats)
 
 
+def targets_rmse(p, episodes, dt, min_gap=0.1, dtype=torch.float32):
+    """Per-episode mean closed-loop spacing RMSE of the targets for IDM parameters p
+    (dict of tensors of shape (n_episodes,))."""
+    seg, tgt_ep = pack_targets(episodes, dt, dtype=dtype)
+    out = torch_sim.rollout({k: v[tgt_ep] for k, v in p.items()}, seg, dt, min_gap=min_gap)
+    rmse = torch_sim.spacing_rmse(out["s"], seg)
+    per_ep = torch.zeros(len(episodes), dtype=rmse.dtype).index_add(0, tgt_ep, rmse)
+    return per_ep / torch.bincount(tgt_ep, minlength=len(episodes)).clamp(min=1)
+
+
 def episode_loss(net, episodes, dt, scales, min_gap=0.1):
     """Mean over episodes of the mean target spacing RMSE (closed loop)."""
     x, lengths, ep = context_tensors(episodes, dt, scales)
     p = net(x, lengths, ep, len(episodes))
-    seg, tgt_ep = pack_targets(episodes, dt, dtype=x.dtype)
-    out = torch_sim.rollout({k: v[tgt_ep] for k, v in p.items()}, seg, dt, min_gap=min_gap)
-    rmse = torch_sim.spacing_rmse(out["s"], seg)
-    per_ep = torch.zeros(len(episodes)).index_add(0, tgt_ep, rmse)
-    per_ep = per_ep / torch.bincount(tgt_ep, minlength=len(episodes)).clamp(min=1)
-    return per_ep.mean()
+    return targets_rmse(p, episodes, dt, min_gap, dtype=x.dtype).mean()
 
 
 def train(net, sampler, val_episodes, cfg_tr, dt, scales, log=print, min_gap=0.1):
