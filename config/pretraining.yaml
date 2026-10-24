@@ -29,3 +29,24 @@ synthetic:
     min_gap_m: 0.5                 # runs whose true gap leaves this range are dropped
     max_gap_m: 150.0
   seed: 42
+
+network:
+  scales: {s: 50.0, v_f: 30.0, dv: 5.0, a_fd: 2.0}   # feature scaling (fixed)
+  encoder: gru
+  hidden: 64
+  z_dim: 8
+  head_hidden: 64
+
+training:                       # pretraining on synthetic vehicles
+  context_s: [10, 30, 60]       # context lengths (the synthetic runs last 60 s)
+  target_s: 60.0
+  targets_per_episode: 2
+  batch_episodes: 32
+  steps: 3000
+  lr: 1.0e-3
+  grad_clip: 1.0
+  val_share: 0.1                # synthetic vehicles held out for early stopping
+  val_episodes: 256
+  val_every: 100
+  patience: 10                  # evaluations without improvement before stopping
+  seed: 42
