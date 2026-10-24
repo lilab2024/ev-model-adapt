@@ -10,7 +10,8 @@ synthetic:
     kinds: [dip, osc, step]        # speed dip (as in the EV runs), oscillation, steps
     dip_depth_frac: [0.2, 1.0]     # share of the cruise speed removed (1.0 = stop)
     dip_start_s: [5.0, 20.0]
-    hold_s: [0.0, 10.0]            # time at the lowest speed
+    hold_s: [0.0, 15.0]            # time at the lowest speed
+    dip_stop_share: 0.4            # share of dips that go down to standstill
     osc_amplitude_mps: [1.0, 5.0]
     osc_period_s: [10.0, 40.0]
     step_size_mps: [3.0, 8.0]
@@ -21,6 +22,9 @@ synthetic:
   noise:
     spacing_m: 0.2                 # measurement noise added to the records
     speed_mps: 0.05
+  smoothing:                       # records are smoothed like the processed real data
+    window_s: 1.0                  # Savitzky-Golay window (1 s, as in the processed data)
+    polyorder: 2                   # chosen here (not documented for the real data)
   reject:
     min_gap_m: 0.5                 # runs whose true gap leaves this range are dropped
     max_gap_m: 150.0

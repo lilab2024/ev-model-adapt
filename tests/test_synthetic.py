@@ -13,12 +13,14 @@ CFG_M = {"idm": {"params": {"v0": [25.0, 60.0], "T": [0.3, 4.0], "s0": [0.5, 15.
 CFG_P = {"synthetic": {
     "n_vehicles": 60, "runs_per_vehicle": 3, "run_s": 60.0,
     "leader": {"base_speed_mps": [12.0, 30.0], "kinds": ["dip", "osc", "step"],
-               "dip_depth_frac": [0.2, 1.0], "dip_start_s": [5.0, 20.0], "hold_s": [0.0, 10.0],
+               "dip_depth_frac": [0.2, 1.0], "dip_start_s": [5.0, 20.0], "hold_s": [0.0, 15.0],
+               "dip_stop_share": 0.4,
                "osc_amplitude_mps": [1.0, 5.0], "osc_period_s": [10.0, 40.0],
                "step_size_mps": [3.0, 8.0], "step_every_s": [10.0, 25.0],
                "decel_mps2": [0.5, 2.5], "accel_mps2": [0.5, 2.0]},
     "init_gap_factor": [0.8, 1.3],
     "noise": {"spacing_m": 0.2, "speed_mps": 0.05},
+    "smoothing": {"window_s": 1.0, "polyorder": 2},
     "reject": {"min_gap_m": 0.5, "max_gap_m": 150.0},
     "seed": 7}}
 
@@ -51,6 +53,15 @@ def test_noise_free_records_follow_the_idm_exactly():
     a_idm = idm.accel(fd["s"].to_numpy(), fd["v_f"].to_numpy(), fd["v_l"].to_numpy(), p)
     moving = (fd["v_f"].to_numpy() + a_idm * DT) > 0          # no clipping at standstill
     assert np.allclose(fd["a_fd"].to_numpy()[moving], a_idm[moving], atol=1e-8)
+
+
+def test_some_runs_stop_and_records_are_smooth():
+    runs, traj, params = synthetic.make_dataset(CFG_P, CFG_M, DT)
+    stopped = traj.groupby("run_id")["v_l"].min() < 0.5
+    assert stopped.sum() > 0
+    a = calibrate.forward_difference(traj, DT)["a_fd"].dropna()
+    # unsmoothed speed noise of 0.05 m/s alone would give an std of about 0.7 m/s2
+    assert a.std() < 0.6
 
 
 def test_existing_pipeline_accepts_the_synthetic_data():

@@ -4,12 +4,14 @@ Every virtual vehicle has one IDM parameter set, drawn log-uniformly within the 
 of config/models.yaml (delta fixed), and several runs behind programmatic leader speed
 profiles (dip, oscillation, steps; rate-limited). Followers are simulated with the same
 Euler rule as the evaluation; records get measurement noise; runs whose true gap leaves
-[min_gap_m, max_gap_m] are dropped. The output has the same format as the real data
+[min_gap_m, max_gap_m] are dropped; noisy records are smoothed (Savitzky-Golay) like
+the processed real data. The output has the same format as the real data
 (a run table with a task per vehicle and 10 Hz trajectories), so the existing pipeline
 (segments, contexts, simulation) can be reused.
 """
 import numpy as np
 import pandas as pd
+from scipy.signal import savgol_filter
 
 from ema import calibrate, config
 from ema.models import idm
@@ -34,7 +36,10 @@ def leader_speeds(rng, n_runs, n_steps, dt, lc, v_cap):
     for i in range(n_runs):
         if kinds[i] == "dip":
             t0 = rng.uniform(*lc["dip_start_s"])
-            low = base[i] * (1.0 - rng.uniform(*lc["dip_depth_frac"]))
+            if rng.uniform() < lc.get("dip_stop_share", 0.0):
+                low = 0.0
+            else:
+                low = base[i] * (1.0 - rng.uniform(*lc["dip_depth_frac"]))
             ramp = (base[i] - low) / lc["decel_mps2"][0]
             t1 = t0 + ramp + rng.uniform(*lc["hold_s"])
             target[i, (t >= t0) & (t < t1)] = low
@@ -102,6 +107,10 @@ def make_dataset(cfg_pre=None, cfg_models=None, dt=0.1, n_vehicles=None, noise=T
         S_rec = S + rng.normal(0.0, sc["noise"]["spacing_m"], S.shape)
         V_rec = np.maximum(0.0, V + rng.normal(0.0, sc["noise"]["speed_mps"], V.shape))
         VL_rec = np.maximum(0.0, v_lead + rng.normal(0.0, sc["noise"]["speed_mps"], v_lead.shape))
+        w = int(round(sc["smoothing"]["window_s"] / dt)) | 1          # odd window length
+        order = int(sc["smoothing"]["polyorder"])
+        S_rec, V_rec, VL_rec = (savgol_filter(x, w, order, axis=1) for x in (S_rec, V_rec, VL_rec))
+        V_rec, VL_rec = np.maximum(V_rec, 0.0), np.maximum(VL_rec, 0.0)
     else:
         S_rec, V_rec, VL_rec = S, V, v_lead
 
