@@ -108,6 +108,9 @@ def run(out_dir, cfg_pre=None, cfg_models=None, dt=0.1, log=print, n_vehicles=No
     if resume_from is not None:
         net.load_state_dict(torch.load(resume_from, map_location="cpu"))
         log(f"starting from saved weights: {resume_from}")
+        if "resume_lr" in tr:
+            tr = {**tr, "lr": tr["resume_lr"]}
+    log(f"learning rate: {tr['lr']}")
     net = net.to(device)
     log(f"device: {device}")
     sampler = train_m4.EpisodeSampler(arrays, {t: task_runs[t] for t in train_tasks}, tr, dt,
@@ -129,7 +132,8 @@ def run(out_dir, cfg_pre=None, cfg_models=None, dt=0.1, log=print, n_vehicles=No
     pd.DataFrame(history).to_csv(out_dir / "history.csv", index=False)
     summary.to_csv(out_dir / "diagnostics.csv", index=False)
     per_episode.to_csv(out_dir / "diagnostics_episodes.csv", index=False)
-    info = dict(**provenance(), device=str(device),
+    info = dict(**provenance(), device=str(device), lr=float(tr["lr"]),
+                n_skipped_steps=history[-1]["skipped"] if history else 0,
                 resumed_from=str(resume_from) if resume_from is not None else None,
                 n_vehicles=len(task_runs), n_train=len(train_tasks),
                 n_val=len(val_tasks), steps_run=history[-1]["step"] if history else 0,

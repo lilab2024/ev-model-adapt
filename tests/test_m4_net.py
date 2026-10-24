@@ -113,6 +113,34 @@ def test_checkpoints_hold_the_best_weights_and_the_history(tmp_path):
     assert not list(tmp_path.glob("*.tmp"))
 
 
+def test_a_non_finite_batch_is_skipped_and_does_not_corrupt_the_weights():
+    runs, arrays, task_runs, _ = data()
+
+    class PoisonFirst(train_m4.EpisodeSampler):
+        calls = 0
+
+        def sample(self, n):
+            eps = super().sample(n)
+            PoisonFirst.calls += 1
+            if PoisonFirst.calls == 1:
+                ctx, targets = eps[0]
+                targets[0] = {**targets[0], "s": targets[0]["s"] * np.nan}
+            return eps
+
+    torch.manual_seed(0)
+    net = nets.AdaptNet(CFG_NET, CFG_M["idm"]["params"])
+    before = copy.deepcopy(net.state_dict())
+    val = train_m4.EpisodeSampler(arrays, task_runs, CFG_TR, DT, seed=99).sample(8)
+    sampler = PoisonFirst(arrays, task_runs, CFG_TR, DT, seed=2)
+    one = {**CFG_TR, "steps": 1, "val_every": 1}
+    hist = train_m4.train(net, sampler, val, one, DT, SCALES, log=lambda *a: None)
+    assert hist[0]["skipped"] == 1
+    assert all(torch.equal(before[k], v) for k, v in net.state_dict().items())
+    more = {**CFG_TR, "steps": 5, "val_every": 5}
+    hist = train_m4.train(net, sampler, val, more, DT, SCALES, log=lambda *a: None)
+    assert hist[-1]["skipped"] == 0 and np.isfinite(hist[-1]["val_loss"])
+
+
 def test_predict_params_returns_floats_within_bounds():
     runs, arrays, task_runs, _ = data()
     torch.manual_seed(0)

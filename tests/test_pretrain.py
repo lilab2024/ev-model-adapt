@@ -45,7 +45,7 @@ def test_run_writes_all_outputs(tmp_path):
 def test_resume_starts_from_the_saved_weights(tmp_path):
     cfg_pre = {**CFG_P, "network": CFG_NET,
                "training": {**CFG_TR, "steps": 5, "val_every": 5, "val_share": 0.2,
-                            "val_episodes": 8, "device": "cpu"}}
+                            "val_episodes": 8, "device": "cpu", "resume_lr": 1e-4}}
     pretrain.run(tmp_path / "a", cfg_pre, CFG_M, DT, log=lambda *a: None)
     saved = torch.load(tmp_path / "a" / "net.pt")
     zero = {**cfg_pre, "training": {**cfg_pre["training"], "steps": 0}}
@@ -54,7 +54,9 @@ def test_resume_starts_from_the_saved_weights(tmp_path):
     again = torch.load(tmp_path / "b" / "net.pt")
     assert all(torch.equal(saved[k], again[k]) for k in saved)
     info = json.loads((tmp_path / "b" / "run_info.json").read_text())
-    assert info["resumed_from"].endswith("net.pt")
+    assert info["resumed_from"].endswith("net.pt") and info["lr"] == 1e-4
+    first = json.loads((tmp_path / "a" / "run_info.json").read_text())
+    assert first["lr"] == CFG_TR["lr"] and first["n_skipped_steps"] == 0
 
 
 def test_missing_gpu_gives_a_clear_error():

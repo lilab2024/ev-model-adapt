@@ -149,27 +149,36 @@ def train(net, sampler, val_episodes, cfg_tr, dt, scales, log=print, min_gap=0.1
     (lowest validation loss) is restored; stops after `patience` evaluations without
     improvement. With checkpoint_dir, the best weights (net_best.pt), the history and
     checkpoint.json are written after every validation, so an interrupted run can be
-    resumed from net_best.pt. Returns the history as a list of dicts."""
+    resumed from net_best.pt. A step whose loss or gradient is not finite is skipped (no
+    update) and counted, so one bad batch cannot corrupt the weights. Returns the history
+    as a list of dicts."""
     torch.manual_seed(int(cfg_tr["seed"]))
     opt = torch.optim.Adam(net.parameters(), lr=float(cfg_tr["lr"]))
     best, best_state, bad, history = float("inf"), copy.deepcopy(net.state_dict()), 0, []
     t_start = time.time()
-    best_step = 0
+    best_step, skipped = 0, 0
     for step in range(1, int(cfg_tr["steps"]) + 1):
         net.train()
         loss = episode_loss(net, sampler.sample(int(cfg_tr["batch_episodes"])), dt, scales, min_gap)
         opt.zero_grad()
-        loss.backward()
-        torch.nn.utils.clip_grad_norm_(net.parameters(), float(cfg_tr["grad_clip"]))
-        opt.step()
+        if torch.isfinite(loss):
+            loss.backward()
+            norm = torch.nn.utils.clip_grad_norm_(net.parameters(), float(cfg_tr["grad_clip"]))
+            if torch.isfinite(norm):
+                opt.step()
+            else:
+                skipped += 1
+        else:
+            skipped += 1
         if step % int(cfg_tr["val_every"]) == 0:
             net.eval()
             with torch.no_grad():
                 vl = float(episode_loss(net, val_episodes, dt, scales, min_gap))
             tl = float(loss.detach())
             elapsed = time.time() - t_start
-            history.append(dict(step=step, train_loss=tl, val_loss=vl, elapsed_s=elapsed))
-            log(f"step {step:5d}  train {tl:7.3f}  val {vl:7.3f}  "
+            history.append(dict(step=step, train_loss=tl, val_loss=vl, elapsed_s=elapsed,
+                                skipped=skipped))
+            log(f"step {step:5d}  train {tl:7.3f}  val {vl:7.3f}  skipped {skipped}  "
                 f"({elapsed / step:.2f} s/step, {elapsed / 60:.1f} min)")
             improved = vl < best - 1e-4
             if improved:
