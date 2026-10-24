@@ -26,16 +26,32 @@ def run_arrays(traj, run_ids=None):
             for rid, g in d.sort_values(["run_id", "t"]).groupby("run_id", sort=False)}
 
 
+def cut_pieces(pieces, max_len):
+    """Split each piece (dict of equal-length arrays) into consecutive chunks of at most
+    max_len samples; chunks with fewer than 2 samples are dropped (as in
+    ema.sim_calibrate.cut_into_segments)."""
+    out = []
+    for p in pieces:
+        n = len(p["s"])
+        for start in range(0, n, int(max_len)):
+            if min(n, start + int(max_len)) - start >= 2:
+                out.append({k: v[start:start + int(max_len)] for k, v in p.items()})
+    return out
+
+
 class EpisodeSampler:
     """Random episodes from tasks with at least two runs; context and target runs are
     disjoint. Context: random start in the first context run, consecutive runs until the
-    requested length (capped so that at least one run is left for the targets)."""
+    requested length (capped so that at least one run is left for the targets). With
+    piece_len, the context is cut into pieces of at most piece_len samples (the random
+    draws are the same as without it)."""
 
-    def __init__(self, arrays, task_runs, cfg_tr, dt, seed):
+    def __init__(self, arrays, task_runs, cfg_tr, dt, seed, piece_len=None):
         self.arrays, self.dt, self.cfg = arrays, dt, cfg_tr
         self.tasks = sorted(t for t, r in task_runs.items() if len(r) >= 2)
         self.task_runs = {t: sorted(task_runs[t]) for t in self.tasks}
         self.rng = np.random.default_rng(seed)
+        self.piece_len = piece_len
 
     def one(self, task, length_s):
         rng, dt = self.rng, self.dt
@@ -60,12 +76,57 @@ class EpisodeSampler:
             n = len(a["s"])
             start = int(rng.integers(0, max(n - tgt_len, 0) + 1))
             targets.append({k: v[start:start + tgt_len] for k, v in a.items()})
+        if self.piece_len is not None:
+            ctx_pieces = cut_pieces(ctx_pieces, self.piece_len)
         return ctx_pieces, targets
 
     def sample(self, n_episodes):
         tasks = self.rng.choice(self.tasks, n_episodes)
         lengths = self.rng.choice(self.cfg["context_s"], n_episodes)
         return [self.one(t, float(L)) for t, L in zip(tasks, lengths)]
+
+
+def validation_episodes(arrays, context_runs, target_runs, lengths, n_per, cfg_tr, dt, seed,
+                        piece_len=None):
+    """Fixed validation episodes: for every task with context and target runs, n_per
+    episodes per context length. The context is cut from the task's context_runs (random
+    run order, random start in the first run, consecutive runs until the length), the
+    targets are windows of target_s from its target_runs. Returns a list of
+    (task, length, episode)."""
+    rng = np.random.default_rng(seed)
+    tgt_len = int(round(cfg_tr["target_s"] / dt)) + 1
+    items = []
+    for task in sorted(context_runs):
+        ctx_ids, tgt_ids = sorted(context_runs[task]), sorted(target_runs.get(task, []))
+        if not ctx_ids or not tgt_ids:
+            continue
+        if set(ctx_ids) & set(tgt_ids):
+            raise ValueError(f"context and target runs overlap for {task}")
+        for length in lengths:
+            for _ in range(int(n_per)):
+                order = [ctx_ids[i] for i in rng.permutation(len(ctx_ids))]
+                need = int(round(float(length) / dt)) + 1
+                ctx = []
+                for i, rid in enumerate(order):
+                    a = arrays[rid]
+                    n = len(a["s"])
+                    start = int(rng.integers(0, max(n - need, 0) + 1)) if i == 0 else 0
+                    stop = min(n, start + need)
+                    if stop - start >= 2:
+                        ctx.append({k: v[start:stop] for k, v in a.items()})
+                        need -= stop - start - 1
+                    if need <= 1:
+                        break
+                if piece_len is not None:
+                    ctx = cut_pieces(ctx, piece_len)
+                targets = []
+                for _ in range(int(cfg_tr["targets_per_episode"])):
+                    a = arrays[tgt_ids[int(rng.integers(len(tgt_ids)))]]
+                    n = len(a["s"])
+                    start = int(rng.integers(0, max(n - tgt_len, 0) + 1))
+                    targets.append({k: v[start:start + tgt_len] for k, v in a.items()})
+                items.append((task, float(length), (ctx, targets)))
+    return items
 
 
 def device_of(net):
@@ -144,19 +205,28 @@ def save_checkpoint(directory, best_state, history, step, best_val, best_step):
 
 
 def train(net, sampler, val_episodes, cfg_tr, dt, scales, log=print, min_gap=0.1,
-          checkpoint_dir=None):
+          checkpoint_dir=None, eval_at_start=False):
     """Adam with gradient clipping; validation loss every val_every steps; the best state
     (lowest validation loss) is restored; stops after `patience` evaluations without
     improvement. With checkpoint_dir, the best weights (net_best.pt), the history and
     checkpoint.json are written after every validation, so an interrupted run can be
     resumed from net_best.pt. A step whose loss or gradient is not finite is skipped (no
-    update) and counted, so one bad batch cannot corrupt the weights. Returns the history
+    update) and counted, so one bad batch cannot corrupt the weights. With eval_at_start,
+    the validation loss is also computed before the first step (history row step 0), so
+    the starting weights are kept unless training improves on them. Returns the history
     as a list of dicts."""
     torch.manual_seed(int(cfg_tr["seed"]))
     opt = torch.optim.Adam(net.parameters(), lr=float(cfg_tr["lr"]))
     best, best_state, bad, history = float("inf"), copy.deepcopy(net.state_dict()), 0, []
     t_start = time.time()
     best_step, skipped = 0, 0
+    if eval_at_start:
+        net.eval()
+        with torch.no_grad():
+            best = float(episode_loss(net, val_episodes, dt, scales, min_gap))
+        history.append(dict(step=0, train_loss=float("nan"), val_loss=best, elapsed_s=0.0,
+                            skipped=0))
+        log(f"step     0  val {best:7.3f}  (starting weights)")
     for step in range(1, int(cfg_tr["steps"]) + 1):
         net.train()
         loss = episode_loss(net, sampler.sample(int(cfg_tr["batch_episodes"])), dt, scales, min_gap)

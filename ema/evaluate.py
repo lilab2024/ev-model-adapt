@@ -46,8 +46,10 @@ def evaluate_fold(method, fold, rt, ct, traj_fd, runs_by_id, train_run_ids, cfg_
 
 
 def run_evaluation(method_cls, cfg_m, rt, folds, assignment, ct, traj_fd, cfg_e, verbose=True,
-                   on_fold_done=None):
+                   on_fold_done=None, artifact_dir=None):
     """Evaluate a method on the given folds. A new method object is created for every fold.
+    With artifact_dir, a method that has save_artifacts(directory, fold_id) saves its extra
+    outputs of the fold there (e.g. fine-tuned weights) before on_fold_done is called.
     on_fold_done(fold, results, state) is called after each fold (e.g. to save it).
     Returns (results DataFrame, list of per-fold states); empty if folds is empty."""
     runs_by_id = {rid: g.reset_index(drop=True) for rid, g in traj_fd.groupby("run_id", sort=False)}
@@ -60,6 +62,8 @@ def run_evaluation(method_cls, cfg_m, rt, folds, assignment, ct, traj_fd, cfg_e,
         res = evaluate_fold(method, f, rt, ct, traj_fd, runs_by_id, train_ids, cfg_e)
         results.append(res)
         states.append(dict(fold_id=f["fold_id"], level=f["level"], **method.state()))
+        if artifact_dir is not None and hasattr(method, "save_artifacts"):
+            method.save_artifacts(artifact_dir, f["fold_id"])
         if on_fold_done is not None:
             on_fold_done(f, res, states[-1])
         if verbose:

@@ -92,7 +92,8 @@ def main():
             json.dumps(meta, indent=2, default=_json_default), encoding="utf-8")
 
     evaluate.run_evaluation(methods.REGISTRY[args.method], cfg_m, rt, todo,
-                            assignment, ct, traj_fd, cfg_e, on_fold_done=save_fold)
+                            assignment, ct, traj_fd, cfg_e, on_fold_done=save_fold,
+                            artifact_dir=out)
 
     # assemble all requested folds from the saved files
     results = pd.concat([pd.read_csv(fold_dir / f"{f['fold_id']}.csv") for f in folds],

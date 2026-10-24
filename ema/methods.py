@@ -370,5 +370,92 @@ class M4Pretrained:
                     n_new_predictions=self.n_new, n_cached_predictions=self.n_cached)
 
 
+class M4Finetuned(M4Pretrained):
+    """M4-A fine-tuned per fold (D019, D020, step 7c-2): the pretrained network is trained
+    further on the fold's training tasks. Training episodes: task-balanced, context and
+    60 s targets from different training runs of a task. Fixed validation episodes:
+    context from training runs, targets from validation runs of the same task; early
+    stopping on them, with the starting (pretrained) weights kept unless fine-tuning
+    improves the validation loss. Contexts are cut into pieces of at most context_piece_s,
+    as at test time. Seeds derive from the fold's training-task list."""
+
+    name = "m4a_finetuned"
+
+    def __init__(self, cfg_models=None, cfg_eval=None, cfg_m4=None, cfg_pre=None, log=print):
+        super().__init__(cfg_models, cfg_eval, cfg_m4, cfg_pre)
+        self._cache = {}                 # predictions depend on this fold's weights
+        self.log, self.history, self.info = log, [], {}
+
+    def fit(self, traj_fd, rt, train_run_ids):
+        import time
+
+        import torch
+
+        from ema import train_m4
+        ft = self.cfg_m4["finetuning"]
+        dt = self.cfg_eval["simulation"]["dt_s"]
+        piece_len = int(round(float(self.cfg_m4["context_piece_s"]) / dt))
+        self.train_run_ids = sorted(set(train_run_ids))
+        tr = rt.loc[self.train_run_ids]
+        tasks = sorted(tr["task"].unique())
+        train_runs = {t: sorted(tr.index[tr["task"] == t]) for t in tasks}
+        val_runs = {}
+        for t in tasks:
+            cfgs = protocol.validation_configs(rt, t, self.cfg_eval)
+            val_runs[t] = sorted(rt.index[(rt["task"] == t) & rt["config_id"].isin(cfgs)])
+        val_ids = sorted(r for v in val_runs.values() for r in v)
+        if set(val_ids) & set(self.train_run_ids):
+            raise RuntimeError("validation runs overlap with training runs")
+        fold_seed = int(np.random.SeedSequence(_seed(ft["seed"], *tasks)).generate_state(1)[0])
+        cfg_tr = dict(context_s=list(ft["context_s"]), target_s=float(ft["target_s"]),
+                      targets_per_episode=int(ft["targets_per_episode"]),
+                      batch_episodes=int(ft["batch_episodes"]), steps=int(ft["max_steps"]),
+                      lr=float(ft["lr"]), grad_clip=float(ft["grad_clip"]),
+                      val_every=int(ft["val_every"]), patience=int(ft["patience"]),
+                      seed=fold_seed)
+        arrays = train_m4.run_arrays(traj_fd, self.train_run_ids + val_ids)
+        sampler = train_m4.EpisodeSampler(arrays, train_runs, cfg_tr, dt, fold_seed,
+                                          piece_len=piece_len)
+        items = train_m4.validation_episodes(arrays, train_runs, val_runs, ft["context_s"],
+                                             ft["val_episodes_per_task_and_length"], cfg_tr,
+                                             dt, fold_seed + 1, piece_len=piece_len)
+        if not items:
+            raise RuntimeError("no validation episodes (no training task has validation runs)")
+        device = train_m4.resolve_device(ft.get("device", "cpu"))
+        self.net = self.net.to(device)
+        t0 = time.time()
+        self.history = train_m4.train(self.net, sampler, [e for _, _, e in items], cfg_tr, dt,
+                                      self.cfg_pre["network"]["scales"], log=self.log,
+                                      min_gap=self.cfg["idm"]["min_gap_m"], eval_at_start=True)
+        self.net = self.net.to(self.cfg_m4.get("eval_device", "cpu")).eval()
+        best = min(self.history, key=lambda h: h["val_loss"])
+        self.info = dict(n_val_runs=len(val_ids), n_val_episodes=len(items),
+                         n_train_tasks_sampled=len(sampler.tasks), fold_seed=fold_seed,
+                         val_loss_start=self.history[0]["val_loss"], val_loss_best=best["val_loss"],
+                         best_step=int(best["step"]), steps_run=int(self.history[-1]["step"]),
+                         n_skipped_steps=int(self.history[-1]["skipped"]),
+                         finetune_s=round(time.time() - t0, 1), device=str(device),
+                         torch_threads=torch.get_num_threads())
+        self._cache = {}
+
+    def state(self):
+        return dict(super().state(), n_train_runs=len(self.train_run_ids), **self.info)
+
+    def save_artifacts(self, directory, fold_id):
+        """Fine-tuned weights (nets/<fold>.pt) and training history (histories/<fold>.csv)."""
+        import pandas as pd
+        import torch
+
+        from ema import train_m4
+        directory = Path(directory)
+        (directory / "nets").mkdir(parents=True, exist_ok=True)
+        (directory / "histories").mkdir(parents=True, exist_ok=True)
+        state = {k: v.detach().cpu() for k, v in self.net.state_dict().items()}
+        train_m4._atomic_write(directory / "nets" / f"{fold_id}.pt",
+                               lambda p: torch.save(state, p))
+        train_m4._atomic_write(directory / "histories" / f"{fold_id}.csv",
+                               lambda p: pd.DataFrame(self.history).to_csv(p, index=False))
+
+
 REGISTRY = {m.name: m for m in (NoAdaptation, NoAdaptationSim, ContextRecalibration,
-                                PopulationPrior, M4Pretrained)}
+                                PopulationPrior, M4Pretrained, M4Finetuned)}
