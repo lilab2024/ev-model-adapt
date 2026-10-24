@@ -32,9 +32,10 @@ def git_state():
 
 
 def config_md5():
-    """md5 over the config files that determine the results."""
+    """md5 over the config files that determine the results (m4.yaml holds the md5 of the
+    M4 network weights, which is checked when they are loaded)."""
     h = hashlib.md5()
-    for name in ["data.yaml", "evaluation.yaml", "models.yaml"]:
+    for name in ["data.yaml", "evaluation.yaml", "models.yaml", "pretraining.yaml", "m4.yaml"]:
         h.update((config.CONFIG_DIR / name).read_bytes())
     return h.hexdigest()
 

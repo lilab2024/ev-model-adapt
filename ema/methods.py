@@ -6,7 +6,9 @@
     controller = method.controller(context)  # controller for one held-out task and context
     method.state()                           # dict saved with the results (e.g. parameters)
 """
+import hashlib
 import json
+from pathlib import Path
 
 import numpy as np
 
@@ -281,5 +283,92 @@ class PopulationPrior:
         return st
 
 
+def load_pretrained_net(cfg_m4, cfg_pre, cfg_models, device="cpu"):
+    """The pretrained M4 network (D019). The weights file must match the md5 in
+    config/m4.yaml, and the parameter bounds stored with the weights must equal the
+    bounds in config/models.yaml. Returns (network in eval mode, md5)."""
+    import torch
+
+    from ema import nets
+    path = Path(cfg_m4["pretrained"]["weights"])
+    if not path.is_absolute():
+        path = config.REPO_ROOT / path
+    md5 = hashlib.md5(path.read_bytes()).hexdigest()
+    if md5 != cfg_m4["pretrained"]["md5"]:
+        raise ValueError(f"{path}: md5 {md5} does not match config/m4.yaml "
+                         f"({cfg_m4['pretrained']['md5']})")
+    net = nets.AdaptNet(cfg_pre["network"], cfg_models["idm"]["params"])
+    state = torch.load(path, map_location="cpu")
+    for k in ("log_lo", "log_hi"):
+        if not torch.allclose(state[k], getattr(net, k)):
+            raise ValueError(f"{path}: parameter bounds of the saved network differ from "
+                             "config/models.yaml")
+    net.load_state_dict(state)
+    return net.to(device).eval(), md5
+
+
+class M4Pretrained:
+    """M4-A without fine-tuning (D019, step 7c-1): the network pretrained on synthetic
+    vehicles turns the context into IDM parameters; no real training data are used.
+    The context is cut into pieces of at most context_piece_s (config/m4.yaml); the
+    encoder averages the pieces. A prediction depends only on the context and the
+    weights, so it is cached and reused across folds and levels."""
+
+    name = "m4a_pretrained"
+    uses_context = True
+    _cache = {}
+
+    def __init__(self, cfg_models=None, cfg_eval=None, cfg_m4=None, cfg_pre=None):
+        self.cfg = cfg_models or config.load_yaml("models.yaml")
+        self.cfg_eval = cfg_eval or config.load_yaml("evaluation.yaml")
+        self.cfg_m4 = cfg_m4 or config.load_yaml("m4.yaml")
+        self.cfg_pre = cfg_pre or config.load_yaml("pretraining.yaml")
+        self.net, self.weights_md5 = load_pretrained_net(
+            self.cfg_m4, self.cfg_pre, self.cfg, self.cfg_m4.get("eval_device", "cpu"))
+        self.n_new, self.n_cached, self.train_run_ids = 0, 0, []
+
+    def fit(self, traj_fd, rt, train_run_ids):
+        self.train_run_ids = []          # by design, no real training data are used
+
+    def context_pieces(self, segments):
+        """Context DataFrames cut into pieces of at most context_piece_s."""
+        dt = self.cfg_eval["simulation"]["dt_s"]
+        return sim_calibrate.cut_into_segments(
+            segments, int(round(float(self.cfg_m4["context_piece_s"]) / dt)))
+
+    def _key(self, context):
+        cfg_part = json.dumps(dict(idm=self.cfg["idm"], network=self.cfg_pre["network"],
+                                   piece_s=self.cfg_m4["context_piece_s"],
+                                   simulation=self.cfg_eval["simulation"],
+                                   context=self.cfg_eval.get("context")), sort_keys=True)
+        return (self.weights_md5, context["task"], int(context["draw"]),
+                float(context["length_s"]), cfg_part)
+
+    def _predict(self, context, count=True):
+        from ema import train_m4
+        key = self._key(context)
+        if key in self._cache:
+            self.n_cached += int(count)
+            return self._cache[key]
+        pieces = self.context_pieces(context["segments"])
+        params = train_m4.predict_params(self.net, pieces, self.cfg_eval["simulation"]["dt_s"],
+                                         self.cfg_pre["network"]["scales"])
+        self._cache[key] = dict(params=params, n_pieces=len(pieces))
+        self.n_new += 1
+        return self._cache[key]
+
+    def controller(self, context):
+        return idm.IDMController(self._predict(context)["params"], self.cfg["idm"]["min_gap_m"])
+
+    def context_info(self, context):
+        pred = self._predict(context, count=False)
+        return dict(ctx_n_pieces=pred["n_pieces"],
+                    **{f"ctx_idm_{k}": v for k, v in pred["params"].items()})
+
+    def state(self):
+        return dict(method=self.name, n_train_runs=0, weights_md5=self.weights_md5,
+                    n_new_predictions=self.n_new, n_cached_predictions=self.n_cached)
+
+
 REGISTRY = {m.name: m for m in (NoAdaptation, NoAdaptationSim, ContextRecalibration,
-                                PopulationPrior)}
+                                PopulationPrior, M4Pretrained)}

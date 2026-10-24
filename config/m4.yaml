@@ -1,0 +1,25 @@
+# M4 (D017, D019): evaluation and per-fold fine-tuning of the context network.
+# The network architecture is set in config/pretraining.yaml (network).
+
+pretrained:
+  weights: results/m4_pretrain_r3/net.pt      # relative to the repository root (F023)
+  md5: f906e523788fb0a9ecaacde7184f992a        # checked before every use
+
+context_piece_s: 60.0     # a context is cut into pieces of at most this length (the longest
+                          # piece seen in pretraining; same as segment_s of M1/M2); the
+                          # encoder averages the pieces weighted by their length
+eval_device: cpu          # parameter prediction at test time (CPU: deterministic)
+
+finetuning:               # step 7c-2, method m4a_finetuned (D019)
+  lr: 1.0e-4
+  batch_episodes: 32
+  targets_per_episode: 2
+  target_s: 60.0
+  context_s: [10, 30, 60, 120, 300]
+  max_steps: 1500
+  val_every: 50
+  patience: 10
+  val_episodes_per_task_and_length: 2
+  grad_clip: 1.0
+  device: cuda
+  seed: 42
