@@ -32,11 +32,15 @@ sim_calibration:
 
 # M2: population prior (D016). Prior = mean and spread of log IDM parameters over the
 # training tasks of a fold (each fitted on its own training runs). The context fit adds
-# lambda * mean(z^2) to the spacing cost (z = standardized log-parameter deviation).
+# lambda * (reference_context_s / context length) * mean(z^2) to the spacing cost
+# (z = standardized log-parameter deviation): the more context, the weaker the prior.
 population_prior:
-  lambdas_m: [0.3, 1.0, 3.0]   # candidate weights (m); chosen per fold by pseudo-tests
+  lambdas_m: [0.3, 1.0, 3.0, 10.0]  # candidate weights (m) at the reference length;
+                                    # chosen per fold by pseudo-tests
+  reference_context_s: 60      # context length at which the weight equals lambda
+  default_lambda_m: 1.0        # used when lambda cannot be chosen by pseudo-tests
   pseudo_tasks: 4              # training tasks used as pseudo-test tasks
   pseudo_context_s: [10, 60]   # context lengths of the pseudo-tests
   min_log_std: 0.05            # floor of the prior standard deviation (log scale)
-  min_tasks_for_selection: 3   # fewer training tasks: use the middle lambda, no pseudo-test
+  min_tasks_for_selection: 3   # fewer training tasks: default lambda, no pseudo-test
   seed: 42

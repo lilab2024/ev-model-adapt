@@ -26,6 +26,7 @@ CFG_M = {
                         "optimizer": {"popsize": 8, "maxiter": 15, "tol": 1e-6, "polish": True},
                         "seed": 0},
     "population_prior": {"lambdas_m": [0.3, 3.0], "pseudo_tasks": 2, "pseudo_context_s": [10],
+                         "reference_context_s": 60, "default_lambda_m": 1.0,
                          "min_log_std": 0.05, "min_tasks_for_selection": 3, "seed": 0},
 }
 
@@ -87,6 +88,15 @@ def test_strong_prior_pulls_the_fit_to_the_prior_mean():
         assert params[k] == pytest.approx(target[k], rel=0.02)
 
 
+def test_prior_weight_shrinks_with_context_length():
+    m = methods.PopulationPrior(CFG_M, CFG_E)
+    prior = {"free": ["T"], "mu": np.zeros(1), "sd": np.ones(1), "lam": 2.0}
+    piece = pd.DataFrame({"s": np.ones(101), "v_f": 1.0, "v_l": 1.0})     # 10 s at 0.1 s
+    eff10 = m._effective_prior([piece], prior)["lam"]
+    eff60 = m._effective_prior([piece] * 6, prior)["lam"]
+    assert eff10 == pytest.approx(2.0 * 6) and eff60 == pytest.approx(2.0)
+
+
 def test_m2_uses_only_training_tasks_and_chooses_lambda_from_the_grid():
     methods.PopulationPrior._task_fits.clear()
     rt, folds, asg, ct, traj_fd = setup()
@@ -97,6 +107,8 @@ def test_m2_uses_only_training_tasks_and_chooses_lambda_from_the_grid():
     assert s["prior_lambda"] in CFG_M["population_prior"]["lambdas_m"]
     assert s["n_train_tasks"] == len(f["train"])
     assert set(s["pseudo_tasks"].split("; ")) <= set(f["train"])
-    assert {"ctx_lambda", "ctx_idm_T"} <= set(res.columns)
+    assert {"ctx_lambda", "ctx_lambda_eff", "ctx_idm_T"} <= set(res.columns)
+    eff = res.groupby("length_s")["ctx_lambda_eff"].first()
+    assert eff[10.0] == pytest.approx(4 * eff[40.0])
     assert set(res["length_s"]) == {10.0, 40.0}
     assert not res["collided"].any()

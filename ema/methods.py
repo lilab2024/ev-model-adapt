@@ -190,14 +190,23 @@ class PopulationPrior:
             self.n_new_task_fits += 1
         return self._task_fits[key]
 
+    def _effective_prior(self, pieces, prior):
+        """Prior weight scaled by reference_context_s / context length (more data, weaker prior)."""
+        dt = self._sim()["dt_s"]
+        length = sum(len(p) - 1 for p in pieces) * dt
+        scale = float(self.cfg["population_prior"]["reference_context_s"]) / max(length, dt)
+        return {**prior, "lam": prior["lam"] * scale}
+
     def _map_fit(self, pieces, prior):
+        """Context fit with the length-scaled prior. Returns (params, cost, effective lambda)."""
         sim = self._sim()
         seg_len = int(round(self.cfg["sim_calibration"]["segment_s"] / sim["dt_s"]))
         seg = sim_calibrate.pack_segments(sim_calibrate.cut_into_segments(pieces, seg_len),
                                           sim["dt_s"])
+        eff = self._effective_prior(pieces, prior)
         params, cost, _ = sim_calibrate.calibrate_idm_sim(seg, self.cfg, sim["dt_s"],
-                                                          sim["collision_gap_m"], prior)
-        return params, cost
+                                                          sim["collision_gap_m"], eff)
+        return params, cost, eff["lam"]
 
     def fit(self, traj_fd, rt, train_run_ids):
         pp = self.cfg["population_prior"]
@@ -214,7 +223,7 @@ class PopulationPrior:
                                             lam, pp["min_log_std"])
 
         if len(tasks) < int(pp["min_tasks_for_selection"]):
-            self.lam = float(np.median(grid))
+            self.lam = float(pp["default_lambda_m"])
         else:
             rng = np.random.default_rng(_seed(pp["seed"], *tasks))
             self.pseudo_tasks = sorted(rng.choice(tasks, size=min(int(pp["pseudo_tasks"]),
@@ -234,7 +243,7 @@ class PopulationPrior:
                     ctx = sample_context([runs_by_id[r] for r in by_task[j]], float(length),
                                          ctx_rng, sim["dt_s"])
                     for lam in grid:
-                        params, _ = self._map_fit(ctx, prior_from(others, lam))
+                        params, _, _ = self._map_fit(ctx, prior_from(others, lam))
                         ctrl = idm.IDMController(params, self.cfg["idm"]["min_gap_m"])
                         errs = []
                         for r in val_ids:
@@ -244,7 +253,7 @@ class PopulationPrior:
                         sums[lam].append(float(np.mean(errs)))
             self.lambda_scores = {lam: float(np.mean(v)) for lam, v in sums.items() if v}
             self.lam = (min(self.lambda_scores, key=self.lambda_scores.get)
-                        if self.lambda_scores else float(np.median(grid)))
+                        if self.lambda_scores else float(pp["default_lambda_m"]))
         self.prior = prior_from(tasks, self.lam)
 
     def _fit(self, context):
@@ -257,8 +266,8 @@ class PopulationPrior:
         return idm.IDMController(self._fit(context)[0], self.cfg["idm"]["min_gap_m"])
 
     def context_info(self, context):
-        params, cost = self._fit(context)
-        return dict(ctx_cost=cost, ctx_lambda=self.lam,
+        params, cost, lam_eff = self._fit(context)
+        return dict(ctx_cost=cost, ctx_lambda=self.lam, ctx_lambda_eff=lam_eff,
                     **{f"ctx_idm_{k}": v for k, v in params.items()})
 
     def state(self):
