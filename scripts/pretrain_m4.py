@@ -1,8 +1,9 @@
 """Pretrain the M4 network on synthetic IDM vehicles. Results go to results/m4_pretrain/.
 
 Usage (from the repository root):
-    python scripts/pretrain_m4.py
+    python scripts/pretrain_m4.py [--resume results/m4_pretrain/net.pt] [--out m4_pretrain_r2]
 """
+import argparse
 import sys
 from pathlib import Path
 
@@ -15,10 +16,16 @@ from ema import config, pretrain
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--resume", default=None, help="start from these saved weights")
+    ap.add_argument("--out", default="m4_pretrain", help="folder name under results/")
+    args = ap.parse_args()
     dt = config.load_yaml("evaluation.yaml")["simulation"]["dt_s"]
-    out = config.REPO_ROOT / "results" / "m4_pretrain"
-    print(f"torch {torch.__version__}, {torch.get_num_threads()} threads", flush=True)
-    summary = pretrain.run(out, dt=dt, log=lambda m: print(m, flush=True))
+    out = config.REPO_ROOT / "results" / args.out
+    resume = config.REPO_ROOT / args.resume if args.resume else None
+    gpu = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "none"
+    print(f"torch {torch.__version__}, {torch.get_num_threads()} threads, GPU: {gpu}", flush=True)
+    summary = pretrain.run(out, dt=dt, log=lambda m: print(m, flush=True), resume_from=resume)
     info = (out / "run_info.json").read_text(encoding="utf-8")
     print()
     print(f"Saved to {out}")

@@ -42,11 +42,12 @@ training:                       # pretraining on synthetic vehicles
   target_s: 60.0
   targets_per_episode: 2
   batch_episodes: 32
-  steps: 3000
+  steps: 15000
   lr: 1.0e-3
   grad_clip: 1.0
   val_share: 0.1                # synthetic vehicles held out for early stopping
   val_episodes: 256
   val_every: 100
   patience: 10                  # evaluations without improvement before stopping
+  device: cuda                  # cuda (GPU) or cpu; cuda fails clearly if no GPU is present
   seed: 42

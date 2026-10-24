@@ -6,6 +6,7 @@ parameters; the loss is the closed-loop spacing RMSE of the targets, simulated w
 differentiable rollout of ema.torch_sim (same rules as the evaluation).
 """
 import copy
+import time
 
 import numpy as np
 import torch
@@ -62,7 +63,19 @@ class EpisodeSampler:
         return [self.one(t, float(L)) for t, L in zip(tasks, lengths)]
 
 
-def pack_targets(episodes, dt, dtype=torch.float32):
+def device_of(net):
+    return next(net.parameters()).device
+
+
+def resolve_device(name):
+    """torch.device for 'cuda' or 'cpu'; a clear error if a GPU is requested but absent."""
+    if str(name).startswith("cuda") and not torch.cuda.is_available():
+        raise RuntimeError("device: cuda requested, but no GPU is available "
+                           "(Colab: Runtime > Change runtime type > GPU)")
+    return torch.device(name)
+
+
+def pack_targets(episodes, dt, dtype=torch.float32, device="cpu"):
     """Targets of a list of episodes as a torch segment dict (+ episode index)."""
     tg = [(i, t) for i, (_, targets) in enumerate(episodes) for t in targets]
     lengths = np.array([len(t["s"]) for _, t in tg])
@@ -75,28 +88,30 @@ def pack_targets(episodes, dt, dtype=torch.float32):
         v_lead[j, n:], s_obs[j, n:], lead_pos[j, n:] = t["v_l"][-1], t["s"][-1], lp[-1]
     seg = dict(v_lead=v_lead, s_obs=s_obs, lead_pos=lead_pos, length=lengths,
                s0=s_obs[:, 0].copy(), v0=np.array([t["v_f"][0] for _, t in tg]))
-    return torch_sim.to_torch(seg, dtype=dtype), torch.tensor([i for i, _ in tg])
+    return (torch_sim.to_torch(seg, dtype=dtype, device=device),
+            torch.tensor([i for i, _ in tg], device=device))
 
 
-def context_tensors(episodes, dt, scales):
+def context_tensors(episodes, dt, scales, device="cpu"):
     feats = [[nets.piece_features(p["s"], p["v_f"], p["v_l"], dt, scales) for p in ctx]
              for ctx, _ in episodes]
-    return nets.collate_contexts(feats)
+    return nets.collate_contexts(feats, device)
 
 
 def targets_rmse(p, episodes, dt, min_gap=0.1, dtype=torch.float32):
     """Per-episode mean closed-loop spacing RMSE of the targets for IDM parameters p
-    (dict of tensors of shape (n_episodes,))."""
-    seg, tgt_ep = pack_targets(episodes, dt, dtype=dtype)
+    (dict of tensors of shape (n_episodes,), all on one device)."""
+    device = next(iter(p.values())).device
+    seg, tgt_ep = pack_targets(episodes, dt, dtype=dtype, device=device)
     out = torch_sim.rollout({k: v[tgt_ep] for k, v in p.items()}, seg, dt, min_gap=min_gap)
     rmse = torch_sim.spacing_rmse(out["s"], seg)
-    per_ep = torch.zeros(len(episodes), dtype=rmse.dtype).index_add(0, tgt_ep, rmse)
+    per_ep = torch.zeros(len(episodes), dtype=rmse.dtype, device=device).index_add(0, tgt_ep, rmse)
     return per_ep / torch.bincount(tgt_ep, minlength=len(episodes)).clamp(min=1)
 
 
 def episode_loss(net, episodes, dt, scales, min_gap=0.1):
     """Mean over episodes of the mean target spacing RMSE (closed loop)."""
-    x, lengths, ep = context_tensors(episodes, dt, scales)
+    x, lengths, ep = context_tensors(episodes, dt, scales, device_of(net))
     p = net(x, lengths, ep, len(episodes))
     return targets_rmse(p, episodes, dt, min_gap, dtype=x.dtype).mean()
 
@@ -108,6 +123,7 @@ def train(net, sampler, val_episodes, cfg_tr, dt, scales, log=print, min_gap=0.1
     torch.manual_seed(int(cfg_tr["seed"]))
     opt = torch.optim.Adam(net.parameters(), lr=float(cfg_tr["lr"]))
     best, best_state, bad, history = float("inf"), copy.deepcopy(net.state_dict()), 0, []
+    t_start = time.time()
     for step in range(1, int(cfg_tr["steps"]) + 1):
         net.train()
         loss = episode_loss(net, sampler.sample(int(cfg_tr["batch_episodes"])), dt, scales, min_gap)
@@ -120,8 +136,10 @@ def train(net, sampler, val_episodes, cfg_tr, dt, scales, log=print, min_gap=0.1
             with torch.no_grad():
                 vl = float(episode_loss(net, val_episodes, dt, scales, min_gap))
             tl = float(loss.detach())
-            history.append(dict(step=step, train_loss=tl, val_loss=vl))
-            log(f"step {step:5d}  train {tl:7.3f}  val {vl:7.3f}")
+            elapsed = time.time() - t_start
+            history.append(dict(step=step, train_loss=tl, val_loss=vl, elapsed_s=elapsed))
+            log(f"step {step:5d}  train {tl:7.3f}  val {vl:7.3f}  "
+                f"({elapsed / step:.2f} s/step, {elapsed / 60:.1f} min)")
             if vl < best - 1e-4:
                 best, best_state, bad = vl, copy.deepcopy(net.state_dict()), 0
             else:
@@ -137,7 +155,7 @@ def predict_params(net, pieces, dt, scales):
     dicts with s, v_f, v_l."""
     feats = [nets.piece_features(np.asarray(p["s"]), np.asarray(p["v_f"]), np.asarray(p["v_l"]),
                                  dt, scales) for p in pieces]
-    x, lengths, ep = nets.collate_contexts([feats])
+    x, lengths, ep = nets.collate_contexts([feats], device_of(net))
     net.eval()
     with torch.no_grad():
         p = net(x, lengths, ep, 1)

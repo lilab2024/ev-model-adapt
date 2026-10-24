@@ -29,7 +29,7 @@ def test_targets_rmse_with_true_parameters_is_small_on_noise_free_data():
 def test_run_writes_all_outputs(tmp_path):
     cfg_pre = {**CFG_P, "network": CFG_NET,
                "training": {**CFG_TR, "steps": 10, "val_every": 5, "val_share": 0.2,
-                            "val_episodes": 8}}
+                            "val_episodes": 8, "device": "cpu"}}
     summary = pretrain.run(tmp_path, cfg_pre, CFG_M, DT, log=lambda *a: None)
     for f in ["net.pt", "history.csv", "diagnostics.csv", "diagnostics_episodes.csv",
               "run_info.json"]:
@@ -39,3 +39,26 @@ def test_run_writes_all_outputs(tmp_path):
     assert set(summary["length_s"]) == set(float(x) for x in CFG_TR["context_s"])
     assert {"rmse_pred", "rmse_true", "rmse_pop", "spearman_T"} <= set(summary.columns)
     assert (summary["rmse_true"] < summary["rmse_pop"]).all()
+    assert info["device"] == "cpu" and info["resumed_from"] is None
+
+
+def test_resume_starts_from_the_saved_weights(tmp_path):
+    cfg_pre = {**CFG_P, "network": CFG_NET,
+               "training": {**CFG_TR, "steps": 5, "val_every": 5, "val_share": 0.2,
+                            "val_episodes": 8, "device": "cpu"}}
+    pretrain.run(tmp_path / "a", cfg_pre, CFG_M, DT, log=lambda *a: None)
+    saved = torch.load(tmp_path / "a" / "net.pt")
+    zero = {**cfg_pre, "training": {**cfg_pre["training"], "steps": 0}}
+    pretrain.run(tmp_path / "b", zero, CFG_M, DT, log=lambda *a: None,
+                 resume_from=tmp_path / "a" / "net.pt")
+    again = torch.load(tmp_path / "b" / "net.pt")
+    assert all(torch.equal(saved[k], again[k]) for k in saved)
+    info = json.loads((tmp_path / "b" / "run_info.json").read_text())
+    assert info["resumed_from"].endswith("net.pt")
+
+
+def test_missing_gpu_gives_a_clear_error():
+    if torch.cuda.is_available():
+        pytest.skip("a GPU is present")
+    with pytest.raises(RuntimeError, match="no GPU"):
+        train_m4.resolve_device("cuda")

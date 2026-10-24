@@ -28,16 +28,16 @@ def piece_features(s, v_f, v_l, dt, scales):
                      a / scales["a_fd"]], axis=1).astype(np.float32)
 
 
-def collate_contexts(contexts):
+def collate_contexts(contexts, device="cpu"):
     """contexts: list (episodes) of lists of feature arrays. Returns padded x (P, L, 4),
-    lengths (P,), episode index (P,) as tensors."""
+    lengths (P,), episode index (P,) as tensors (x and episode on `device`)."""
     pieces = [(i, f) for i, ctx in enumerate(contexts) for f in ctx]
     lengths = torch.tensor([len(f) for _, f in pieces], dtype=torch.long)
     x = torch.zeros(len(pieces), int(lengths.max()), len(FEATURES))
     for j, (_, f) in enumerate(pieces):
         x[j, :len(f)] = torch.from_numpy(f)
     episode = torch.tensor([i for i, _ in pieces], dtype=torch.long)
-    return x, lengths, episode
+    return x.to(device), lengths, episode.to(device)
 
 
 class AdaptNet(nn.Module):
@@ -58,8 +58,10 @@ class AdaptNet(nn.Module):
         _, h = self.gru(packed)
         h = h[-1]
         w = lengths.to(h.dtype)
-        num = torch.zeros(n_episodes, h.shape[1], dtype=h.dtype).index_add(0, episode, h * w[:, None])
-        den = torch.zeros(n_episodes, dtype=h.dtype).index_add(0, episode, w)
+        w = w.to(h.device)
+        num = torch.zeros(n_episodes, h.shape[1], dtype=h.dtype, device=h.device).index_add(
+            0, episode, h * w[:, None])
+        den = torch.zeros(n_episodes, dtype=h.dtype, device=h.device).index_add(0, episode, w)
         return self.to_z(num / den[:, None])
 
     def params_from_z(self, z):

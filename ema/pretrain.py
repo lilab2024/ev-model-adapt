@@ -36,8 +36,8 @@ def fixed_episodes(arrays, task_runs, tasks, lengths, cfg_tr, dt, seed):
     return [(t, float(L), sampler.one(t, float(L))) for t in sampler.tasks for L in lengths]
 
 
-def _as_tensors(param_rows, names):
-    return {k: torch.tensor([float(r[k]) for r in param_rows]) for k in names}
+def _as_tensors(param_rows, names, device="cpu"):
+    return {k: torch.tensor([float(r[k]) for r in param_rows], device=device) for k in names}
 
 
 def diagnostics(net, items, params_true, pop, dt, scales, min_gap=0.1):
@@ -45,16 +45,18 @@ def diagnostics(net, items, params_true, pop, dt, scales, min_gap=0.1):
     parameters and Spearman correlations of predicted vs true parameters."""
     names = list(params_true.columns)
     episodes = [e for _, _, e in items]
-    x, lengths, ep = train_m4.context_tensors(episodes, dt, scales)
+    device = train_m4.device_of(net)
+    x, lengths, ep = train_m4.context_tensors(episodes, dt, scales, device)
     net.eval()
     with torch.no_grad():
         p_pred = net(x, lengths, ep, len(episodes))
         truth = [params_true.loc[t] for t, _, _ in items]
-        p_true = _as_tensors(truth, names)
-        p_pop = _as_tensors([pop] * len(items), names)
-        r_pred = train_m4.targets_rmse(p_pred, episodes, dt, min_gap).numpy()
-        r_true = train_m4.targets_rmse(p_true, episodes, dt, min_gap).numpy()
-        r_pop = train_m4.targets_rmse(p_pop, episodes, dt, min_gap).numpy()
+        p_true = _as_tensors(truth, names, device)
+        p_pop = _as_tensors([pop] * len(items), names, device)
+        r_pred = train_m4.targets_rmse(p_pred, episodes, dt, min_gap).cpu().numpy()
+        r_true = train_m4.targets_rmse(p_true, episodes, dt, min_gap).cpu().numpy()
+        r_pop = train_m4.targets_rmse(p_pop, episodes, dt, min_gap).cpu().numpy()
+        p_pred = {k: v.cpu() for k, v in p_pred.items()}
     df = pd.DataFrame({"length_s": [L for _, L, _ in items], "rmse_pred": r_pred,
                        "rmse_true": r_true, "rmse_pop": r_pop})
     for k in names:
@@ -84,9 +86,11 @@ def provenance():
     return dict(git_commit=head, git_dirty=dirty, config_md5=h.hexdigest())
 
 
-def run(out_dir, cfg_pre=None, cfg_models=None, dt=0.1, log=print, n_vehicles=None):
-    """Generate the synthetic set, pretrain, write net.pt, history.csv, diagnostics.csv,
-    diagnostics_episodes.csv and run_info.json to out_dir. Returns the diagnostics table."""
+def run(out_dir, cfg_pre=None, cfg_models=None, dt=0.1, log=print, n_vehicles=None,
+        resume_from=None):
+    """Generate the synthetic set, pretrain (optionally starting from saved weights),
+    write net.pt, history.csv, diagnostics.csv, diagnostics_episodes.csv and
+    run_info.json to out_dir. Returns the diagnostics table."""
     cfg_pre = cfg_pre or config.load_yaml("pretraining.yaml")
     cfg_models = cfg_models or config.load_yaml("models.yaml")
     tr, nw = cfg_pre["training"], cfg_pre["network"]
@@ -98,8 +102,14 @@ def run(out_dir, cfg_pre=None, cfg_models=None, dt=0.1, log=print, n_vehicles=No
     log(f"synthetic: {len(task_runs)} vehicles ({len(train_tasks)} train, {len(val_tasks)} val), "
         f"{len(runs)} runs")
 
+    device = train_m4.resolve_device(tr.get("device", "cpu"))
     torch.manual_seed(int(tr["seed"]))
     net = nets.AdaptNet(nw, cfg_models["idm"]["params"])
+    if resume_from is not None:
+        net.load_state_dict(torch.load(resume_from, map_location="cpu"))
+        log(f"starting from saved weights: {resume_from}")
+    net = net.to(device)
+    log(f"device: {device}")
     sampler = train_m4.EpisodeSampler(arrays, {t: task_runs[t] for t in train_tasks}, tr, dt,
                                       int(tr["seed"]))
     val_sampler = train_m4.EpisodeSampler(arrays, {t: task_runs[t] for t in val_tasks}, tr, dt,
@@ -114,11 +124,13 @@ def run(out_dir, cfg_pre=None, cfg_models=None, dt=0.1, log=print, n_vehicles=No
                                        cfg_models["idm"]["min_gap_m"])
 
     out_dir.mkdir(parents=True, exist_ok=True)
-    torch.save(net.state_dict(), out_dir / "net.pt")
+    torch.save({k: v.cpu() for k, v in net.state_dict().items()}, out_dir / "net.pt")
     pd.DataFrame(history).to_csv(out_dir / "history.csv", index=False)
     summary.to_csv(out_dir / "diagnostics.csv", index=False)
     per_episode.to_csv(out_dir / "diagnostics_episodes.csv", index=False)
-    info = dict(**provenance(), n_vehicles=len(task_runs), n_train=len(train_tasks),
+    info = dict(**provenance(), device=str(device),
+                resumed_from=str(resume_from) if resume_from is not None else None,
+                n_vehicles=len(task_runs), n_train=len(train_tasks),
                 n_val=len(val_tasks), steps_run=history[-1]["step"] if history else 0,
                 best_val_loss=min(h["val_loss"] for h in history) if history else None,
                 population_params=pop, started=t0.isoformat(timespec="seconds"),
