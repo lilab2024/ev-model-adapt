@@ -100,8 +100,8 @@ def test_fold_reuse_hash_covers_the_m4_config(tmp_path, monkeypatch):
     monkeypatch.setattr(config, "CONFIG_DIR", tmp_path)
     before = script.config_md5()
     for name in ["pretraining.yaml", "m4.yaml"]:
-        original = (tmp_path / name).read_text()
-        (tmp_path / name).write_text(original + "# changed")
+        original = (tmp_path / name).read_bytes()        # bytes: text mode would write CRLF on Windows
+        (tmp_path / name).write_bytes(original + b"# changed")
         assert script.config_md5() != before
-        (tmp_path / name).write_text(original)
+        (tmp_path / name).write_bytes(original)
     assert script.config_md5() == before
