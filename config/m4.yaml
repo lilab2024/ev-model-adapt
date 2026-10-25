@@ -28,3 +28,12 @@ cap_trial:                # validation-only trial for the step cap (F026, option
   folds: [L2_new_vehicle_01, L2_new_vehicle_09]
   max_steps: 4000
   early_stopping: false   # run every step, to see the whole validation curve
+
+lr_trial:                 # learning-rate trial (F028, option 2; rule fixed in F028, decides D022)
+  folds: [L2_new_vehicle_01, L2_new_vehicle_09]
+  lr: 3.0e-4
+  max_steps: 3000
+  early_stopping: false
+  reference: cap_trial    # compared with results/m4_cap_trial (lr 1e-4, 4,000 steps)
+  reference_commit: d386879
+  tol: 0.01
