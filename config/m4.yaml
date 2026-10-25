@@ -23,3 +23,8 @@ finetuning:               # step 7c-2, method m4a_finetuned (D019)
   grad_clip: 1.0
   device: cuda            # D021: local RTX 4090 (D020 used CPU); GPU runs are not bit-exact
   seed: 42
+
+cap_trial:                # validation-only trial for the step cap (F026, option C; rule in D022)
+  folds: [L2_new_vehicle_01, L2_new_vehicle_09]
+  max_steps: 4000
+  early_stopping: false   # run every step, to see the whole validation curve
