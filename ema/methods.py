@@ -435,6 +435,9 @@ class M4Finetuned(M4Pretrained):
                          best_step=int(best["step"]), steps_run=int(self.history[-1]["step"]),
                          n_skipped_steps=int(self.history[-1]["skipped"]),
                          finetune_s=round(time.time() - t0, 1), device=str(device),
+                         gpu_name=(torch.cuda.get_device_name(device) if device.type == "cuda"
+                                   else "none"),
+                         torch_version=torch.__version__,
                          torch_threads=torch.get_num_threads())
         self._cache = {}
 

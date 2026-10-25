@@ -91,7 +91,8 @@ def test_m4_finetuned_trains_per_fold_saves_artifacts_and_is_reproducible(tmp_pa
     for s, f in zip(st, folds):
         assert s["method"] == "m4a_finetuned" and s["n_train_runs"] > 0 and s["n_val_runs"] > 0
         assert s["val_loss_best"] <= s["val_loss_start"] and s["steps_run"] <= FT["max_steps"]
-        assert s["device"] == "cpu"
+        assert s["device"] == "cpu" and s["gpu_name"] == "none"
+        assert s["torch_version"] == torch.__version__
         train_ids = set(asg[(asg["fold_id"] == f["fold_id"]) & (asg["role"] == "train")]["run_id"])
         val_ids = set(asg[(asg["fold_id"] == f["fold_id"]) & (asg["role"] == "val")]["run_id"])
         assert s["n_train_runs"] == len(train_ids) and s["n_val_runs"] == len(val_ids)
