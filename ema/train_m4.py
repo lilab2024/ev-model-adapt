@@ -264,6 +264,38 @@ def train(net, sampler, val_episodes, cfg_tr, dt, scales, log=print, min_gap=0.1
     return history
 
 
+def train_fixed(net, sampler, cfg_tr, dt, scales, log=print, min_gap=0.1):
+    """Exactly cfg_tr["steps"] updates as in train() (same seeding, optimiser, clipping and
+    skipping of non-finite steps), without validation or selection; the final weights are
+    kept. With the same sampler, the weights after k steps equal those of train() after k
+    steps. History rows (train loss) every val_every steps and at the last step."""
+    torch.manual_seed(int(cfg_tr["seed"]))
+    opt = torch.optim.Adam(net.parameters(), lr=float(cfg_tr["lr"]))
+    history, skipped, t_start = [], 0, time.time()
+    steps = int(cfg_tr["steps"])
+    for step in range(1, steps + 1):
+        net.train()
+        loss = episode_loss(net, sampler.sample(int(cfg_tr["batch_episodes"])), dt, scales, min_gap)
+        opt.zero_grad()
+        if torch.isfinite(loss):
+            loss.backward()
+            norm = torch.nn.utils.clip_grad_norm_(net.parameters(), float(cfg_tr["grad_clip"]))
+            if torch.isfinite(norm):
+                opt.step()
+            else:
+                skipped += 1
+        else:
+            skipped += 1
+        if step % int(cfg_tr["val_every"]) == 0 or step == steps:
+            elapsed = time.time() - t_start
+            history.append(dict(step=step, train_loss=float(loss.detach()), elapsed_s=elapsed,
+                                skipped=skipped))
+            log(f"stage 2 step {step:5d}/{steps}  train {float(loss.detach()):7.3f}  "
+                f"skipped {skipped}  ({elapsed / step:.2f} s/step)")
+    net.eval()
+    return history
+
+
 def predict_params(net, pieces, dt, scales):
     """IDM parameters (dict of floats) for one context given as a list of DataFrames or
     dicts with s, v_f, v_l."""

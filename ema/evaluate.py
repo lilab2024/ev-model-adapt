@@ -59,6 +59,8 @@ def run_evaluation(method_cls, cfg_m, rt, folds, assignment, ct, traj_fd, cfg_e,
         a = assignment[assignment["fold_id"] == f["fold_id"]]
         train_ids = a.loc[a["role"] == "train", "run_id"].tolist()
         method = method_cls(cfg_m, cfg_e)
+        if hasattr(method, "set_fold"):                  # methods that need the fold definition
+            method.set_fold(f)
         res = evaluate_fold(method, f, rt, ct, traj_fd, runs_by_id, train_ids, cfg_e)
         results.append(res)
         states.append(dict(fold_id=f["fold_id"], level=f["level"], **method.state()))

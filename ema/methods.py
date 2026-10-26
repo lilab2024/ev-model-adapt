@@ -460,5 +460,135 @@ class M4Finetuned(M4Pretrained):
                                lambda p: pd.DataFrame(self.history).to_csv(p, index=False))
 
 
+class M4FinetunedLOVO(M4Finetuned):
+    """POST HOC variant of m4a_finetuned (D024; designed after seeing the test results of
+    F030). Only the choice of the number of fine-tuning steps differs: stage 1 fine-tunes
+    on the training vehicles except one held-out vehicle (preferably of the test vehicle's
+    powertrain) with early stopping on validation episodes of that vehicle only, giving the
+    best step S; stage 2 fine-tunes again from the pretrained network on all training
+    vehicles for exactly S steps (same seeds and sampler as m4a_finetuned, so its weights
+    are those of m4a_finetuned after S steps, up to GPU rounding). Only for the new-vehicle
+    levels; with fewer than 2 training vehicles the original validation is used."""
+
+    name = "m4a_finetuned_lovo"
+    LEVELS = ("L2_new_vehicle", "L2_no_ice", "L3_cross_powertrain")
+
+    def set_fold(self, fold):
+        self.fold = fold
+
+    def fit(self, traj_fd, rt, train_run_ids):
+        import copy
+        import time
+
+        import torch
+
+        from ema import train_m4
+        fold = getattr(self, "fold", None)
+        if fold is None or fold["level"] not in self.LEVELS:
+            raise ValueError("m4a_finetuned_lovo runs only at the levels " + ", ".join(self.LEVELS))
+        ft = self.cfg_m4["finetuning"]
+        dt = self.cfg_eval["simulation"]["dt_s"]
+        piece_len = int(round(float(self.cfg_m4["context_piece_s"]) / dt))
+        ids = sorted(set(train_run_ids))
+        tr = rt.loc[ids]
+        tasks = sorted(tr["task"].unique())
+        vehicle = {t: str(rt.loc[rt["task"] == t, "vehicle"].iloc[0]) for t in tasks}
+        powertrain = {t: str(rt.loc[rt["task"] == t, "powertrain"].iloc[0]) for t in tasks}
+        vehicles = sorted(set(vehicle.values()))
+        if len(vehicles) < 2:                            # no hold-out possible: original method
+            super().fit(traj_fd, rt, train_run_ids)
+            self.info.update(lovo_used=False, heldout_vehicle="none", heldout_same_powertrain=False)
+            self.history2 = []
+            return
+        test_pt = str(rt.loc[rt["task"] == fold["test"][0], "powertrain"].iloc[0])
+        fold_seed = int(np.random.SeedSequence(_seed(ft["seed"], *tasks)).generate_state(1)[0])
+        train_runs = {t: sorted(tr.index[tr["task"] == t]) for t in tasks}
+        val_runs = {}
+        for t in tasks:
+            cfgs = protocol.validation_configs(rt, t, self.cfg_eval)
+            val_runs[t] = sorted(rt.index[(rt["task"] == t) & rt["config_id"].isin(cfgs)])
+        val_ids = sorted(r for v in val_runs.values() for r in v)
+        if set(val_ids) & set(ids):
+            raise RuntimeError("validation runs overlap with training runs")
+        cfg_tr = dict(context_s=list(ft["context_s"]), target_s=float(ft["target_s"]),
+                      targets_per_episode=int(ft["targets_per_episode"]),
+                      batch_episodes=int(ft["batch_episodes"]), steps=int(ft["max_steps"]),
+                      lr=float(ft["lr"]), grad_clip=float(ft["grad_clip"]),
+                      val_every=int(ft["val_every"]), patience=int(ft["patience"]),
+                      seed=fold_seed)
+        arrays = train_m4.run_arrays(traj_fd, ids + val_ids)
+
+        # held-out vehicle: same powertrain as the test vehicle if possible, random with the
+        # fold seed; the first candidate (in that random order) with validation episodes
+        same = sorted(v for v in vehicles if any(powertrain[t] == test_pt
+                                                 for t in tasks if vehicle[t] == v))
+        candidates = same if same else vehicles
+        order = [candidates[i] for i in np.random.default_rng(fold_seed + 2).permutation(len(candidates))]
+        held, items = None, []
+        for v in order:
+            held_tasks = [t for t in tasks if vehicle[t] == v]
+            items = train_m4.validation_episodes(
+                arrays, {t: train_runs[t] for t in held_tasks}, {t: val_runs[t] for t in held_tasks},
+                ft["context_s"], ft["val_episodes_per_task_and_length"], cfg_tr, dt, fold_seed + 1,
+                piece_len=piece_len)
+            if items:
+                held = v
+                break
+        if held is None:                                 # no usable hold-out: original method
+            super().fit(traj_fd, rt, train_run_ids)
+            self.info.update(lovo_used=False, heldout_vehicle="none", heldout_same_powertrain=False)
+            self.history2 = []
+            return
+        stage1_runs = {t: r for t, r in train_runs.items() if vehicle[t] != held}
+        device = train_m4.resolve_device(ft.get("device", "cpu"))
+        scales, min_gap = self.cfg_pre["network"]["scales"], self.cfg["idm"]["min_gap_m"]
+        t0 = time.time()
+
+        # stage 1: choose S on the held-out vehicle
+        net1 = copy.deepcopy(self.net).to(device)
+        sampler1 = train_m4.EpisodeSampler(arrays, stage1_runs, cfg_tr, dt, fold_seed,
+                                           piece_len=piece_len)
+        self.log(f"stage 1: held-out vehicle {held} ({'same' if same else 'other'} powertrain)")
+        self.history = train_m4.train(net1, sampler1, [e for _, _, e in items], cfg_tr, dt, scales,
+                                      log=self.log, min_gap=min_gap, eval_at_start=True)
+        best = min(self.history, key=lambda h: h["val_loss"])
+        s_best = int(best["step"])
+        del net1
+
+        # stage 2: all training vehicles, exactly S steps from the pretrained network
+        self.net = self.net.to(device)
+        sampler2 = train_m4.EpisodeSampler(arrays, train_runs, cfg_tr, dt, fold_seed,
+                                           piece_len=piece_len)
+        self.history2 = train_m4.train_fixed(self.net, sampler2, dict(cfg_tr, steps=s_best), dt,
+                                             scales, log=self.log, min_gap=min_gap)
+        self.net = self.net.to(self.cfg_m4.get("eval_device", "cpu")).eval()
+        self.train_run_ids = ids
+        self.info = dict(lovo_used=True, heldout_vehicle=held, heldout_same_powertrain=bool(same),
+                         heldout_tasks=[t for t in tasks if vehicle[t] == held],
+                         n_val_runs=sum(len(val_runs[t]) for t in tasks if vehicle[t] == held),
+                         n_val_episodes=len(items), n_train_tasks_stage1=len(sampler1.tasks),
+                         n_train_tasks_sampled=len(sampler2.tasks), fold_seed=fold_seed,
+                         val_loss_start=self.history[0]["val_loss"], val_loss_best=best["val_loss"],
+                         best_step=s_best, steps_run=int(self.history[-1]["step"]),
+                         stage2_steps=s_best,
+                         n_skipped_steps=int(self.history[-1]["skipped"])
+                         + int(self.history2[-1]["skipped"] if self.history2 else 0),
+                         finetune_s=round(time.time() - t0, 1), device=str(device),
+                         gpu_name=(torch.cuda.get_device_name(device) if device.type == "cuda"
+                                   else "none"),
+                         torch_version=torch.__version__, torch_threads=torch.get_num_threads())
+        self._cache = {}
+
+    def save_artifacts(self, directory, fold_id):
+        """As m4a_finetuned (stage-2 weights; histories/<fold>.csv is the stage-1 curve), plus
+        histories/<fold>_stage2.csv."""
+        import pandas as pd
+
+        from ema import train_m4
+        super().save_artifacts(directory, fold_id)
+        train_m4._atomic_write(Path(directory) / "histories" / f"{fold_id}_stage2.csv",
+                               lambda p: pd.DataFrame(self.history2).to_csv(p, index=False))
+
+
 REGISTRY = {m.name: m for m in (NoAdaptation, NoAdaptationSim, ContextRecalibration,
-                                PopulationPrior, M4Pretrained, M4Finetuned)}
+                                PopulationPrior, M4Pretrained, M4Finetuned, M4FinetunedLOVO)}
