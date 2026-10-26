@@ -6,6 +6,10 @@ Usage (from the repository root):
 Every fold is saved to results/<method>/folds/ as soon as it is finished. A new call
 reuses saved folds only if they were produced by the same git commit (without
 uncommitted changes) and the same config files; --fresh recomputes all folds.
+
+Parallel runs: start n processes with --shard k/n --no-summary (k = 0..n-1); each runs
+only its share of the folds and writes no summary. A final call without these options
+then reuses all saved folds and writes the summary.
 """
 import argparse
 import datetime
@@ -49,7 +53,11 @@ def main():
     ap.add_argument("--method", required=True, choices=sorted(methods.REGISTRY))
     ap.add_argument("--levels", nargs="*", default=None)
     ap.add_argument("--fresh", action="store_true", help="ignore saved folds")
+    ap.add_argument("--shard", default=None, help="k/n: run only every n-th fold, from k")
+    ap.add_argument("--no-summary", action="store_true", help="save folds only (for --shard)")
     args = ap.parse_args()
+    if args.shard and not args.no_summary:
+        ap.error("--shard needs --no-summary (the summary is written by a final call)")
 
     t_start = time.time()
     cfg_e = config.load_yaml("evaluation.yaml")
@@ -70,18 +78,20 @@ def main():
     if dirty:
         print("WARNING: uncommitted changes; these folds will not be reused later")
 
+    mine = evaluate.shard(folds, args.shard) if args.shard else folds
     done = set()
     if not args.fresh:
-        for f in folds:
+        for f in mine:
             meta_path = fold_dir / f"{f['fold_id']}.json"
             if meta_path.exists() and (fold_dir / f"{f['fold_id']}.csv").exists():
                 meta = json.loads(meta_path.read_text(encoding="utf-8"))
                 if (meta["git_commit"] == head and not meta["git_dirty"]
                         and meta["config_md5"] == cfg_hash):
                     done.add(f["fold_id"])
-    todo = [f for f in folds if f["fold_id"] not in done]
-    print(f"Method {args.method}: {len(folds)} folds ({len(done)} reused, {len(todo)} to run), "
-          f"{len(rt)} runs, {rt['task'].nunique()} tasks")
+    todo = [f for f in mine if f["fold_id"] not in done]
+    print(f"Method {args.method}: {len(mine)} folds{f' (shard {args.shard})' if args.shard else ''} "
+          f"({len(done)} reused, {len(todo)} to run), "
+          f"{len(rt)} runs, {rt['task'].nunique()} tasks", flush=True)
 
     def save_fold(fold, res, state):
         res.to_csv(fold_dir / f"{fold['fold_id']}.csv", index=False)
@@ -94,6 +104,10 @@ def main():
     evaluate.run_evaluation(methods.REGISTRY[args.method], cfg_m, rt, todo,
                             assignment, ct, traj_fd, cfg_e, on_fold_done=save_fold,
                             artifact_dir=out)
+    if args.no_summary:
+        print(f"folds saved to {fold_dir} (git {head[:7]}{' DIRTY' if dirty else ''}); "
+              "no summary written", flush=True)
+        return
 
     # assemble all requested folds from the saved files
     results = pd.concat([pd.read_csv(fold_dir / f"{f['fold_id']}.csv") for f in folds],

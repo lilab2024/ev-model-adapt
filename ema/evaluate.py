@@ -99,3 +99,15 @@ def summarize(results, rt):
         per_task_parts.append(per_task)
         per_level_parts.append(per_level)
     return pd.concat(per_task_parts).reset_index(), pd.concat(per_level_parts).reset_index()
+
+
+def shard(folds, spec):
+    """Folds of worker k out of n ("k/n"): every n-th fold of the list, starting at k. The
+    shards of k = 0..n-1 are disjoint and together contain every fold once."""
+    try:
+        k, n = (int(x) for x in str(spec).split("/"))
+    except ValueError:
+        raise ValueError(f"shard must look like k/n, got {spec!r}") from None
+    if n < 1 or not 0 <= k < n:
+        raise ValueError(f"shard {spec!r}: need n >= 1 and 0 <= k < n")
+    return [f for i, f in enumerate(folds) if i % n == k]

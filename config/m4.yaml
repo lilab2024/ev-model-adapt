@@ -10,13 +10,13 @@ context_piece_s: 60.0     # a context is cut into pieces of at most this length 
                           # encoder averages the pieces weighted by their length
 eval_device: cpu          # parameter prediction at test time (CPU: deterministic)
 
-finetuning:               # step 7c-2, method m4a_finetuned (D019)
-  lr: 1.0e-4
+finetuning:               # step 7c-2, method m4a_finetuned (D019; lr and max_steps from D022)
+  lr: 3.0e-4              # D022 (was 1e-4)
   batch_episodes: 32
   targets_per_episode: 2
   target_s: 60.0
   context_s: [10, 30, 60, 120, 300]
-  max_steps: 1500
+  max_steps: 3000         # D022 (was 1500)
   val_every: 50
   patience: 10
   val_episodes_per_task_and_length: 2
@@ -26,6 +26,7 @@ finetuning:               # step 7c-2, method m4a_finetuned (D019)
 
 cap_trial:                # validation-only trial for the step cap (F026, option C; rule in D022)
   folds: [L2_new_vehicle_01, L2_new_vehicle_09]
+  lr: 1.0e-4              # the lr this trial used (then the finetuning lr; stated since D022)
   max_steps: 4000
   early_stopping: false   # run every step, to see the whole validation curve
 

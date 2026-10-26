@@ -44,7 +44,8 @@ def main():
         ref_ct = cfg_m4[ct["reference"]]
         ref_dir = config.REPO_ROOT / "results" / f"m4_{ct['reference']}"
         references = [cap_trial.check_reference(ref_dir / fid, ct["reference_commit"],
-                                                cfg_m4["finetuning"]["lr"], ref_ct["max_steps"])
+                                                ref_ct.get("lr", cfg_m4["finetuning"]["lr"]),
+                                                ref_ct["max_steps"])
                       for fid in ct["folds"]]
         print(f"reference: {ref_dir} (git {ct['reference_commit']}, checked)", flush=True)
 
