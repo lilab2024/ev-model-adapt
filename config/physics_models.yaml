@@ -1,0 +1,12 @@
+# Alternative physics models for the floor comparison (D028); config/models.yaml unchanged.
+ovrv:                          # a = k1 (s - eta - tau v) + k2 (v_lead - v), clipped
+  params:
+    k1: [0.001, 1.0]           # 1/s^2
+    k2: [0.01, 2.0]            # 1/s
+    eta: [0.5, 15.0]           # m, standstill gap
+    tau: [0.3, 4.0]            # s, time gap
+  accel_limits: [-8.0, 4.0]    # m/s^2
+idm_lag:                       # IDM parameters and bounds from models.yaml, plus:
+  tau_a: [0.05, 2.0]           # s, first-order actuation lag
+rule:
+  min_improvement_m: 0.3       # D028: cross-config floor gain needed for EV and ICE

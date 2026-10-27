@@ -50,3 +50,28 @@ def idm_floor(task, traj_fd, rt, runs_by_id, cfg_models, cfg_eval):
                              collided=bool(m["collided"]), diverged=bool(m["diverged"]),
                              **{f"idm_{k}": float(v) for k, v in params.items()}))
     return rows
+
+
+def model_floor(task, model, traj_fd, rt, runs_by_id, cfg_models, cfg_phys, cfg_eval):
+    """As idm_floor for any model of ema.physics_models (D028): rows per validation run and
+    floor; the segments are those of idm_floor (same seeds), so all models see the same data."""
+    from ema import physics_models
+    train, val = task_split(rt, task, cfg_eval)
+    if not train or not val:
+        return []
+    sim = cfg_eval["simulation"]
+    dt = sim["dt_s"]
+    rows = []
+    for floor, ids in (("in_sample", val), ("cross_config", train)):
+        seg = sim_calibrate.make_segments(traj_fd, rt, ids, cfg_models, dt)
+        params, cost = physics_models.calibrate(model, seg, cfg_models, cfg_phys, dt,
+                                                sim["collision_gap_m"])
+        for r in val:
+            ctrl = physics_models.controller(model, params, cfg_models, cfg_phys, dt)
+            _, m = simulate.simulate_run(ctrl, runs_by_id[r], cfg_eval)
+            rows.append(dict(task=task, model=model, run_id=r, floor=floor,
+                             n_train_runs=len(train), n_val_runs=len(val), fit_cost=cost,
+                             spacing_rmse=float(m["spacing_rmse"]),
+                             collided=bool(m["collided"]), diverged=bool(m["diverged"]),
+                             params="; ".join(f"{k}={v:.4g}" for k, v in params.items())))
+    return rows
