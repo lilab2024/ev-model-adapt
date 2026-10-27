@@ -590,5 +590,34 @@ class M4FinetunedLOVO(M4Finetuned):
                                lambda p: pd.DataFrame(self.history2).to_csv(p, index=False))
 
 
+class PopulationPriorSamePowertrain(PopulationPrior):
+    """M2b (planned in the research plan before the M4 results; details in D025): M2 with
+    the prior built only from training tasks of the test vehicle's powertrain; everything
+    else (task fits, pseudo-tests for lambda, context fit) as in M2. Defined for L1 and L2.
+    At L2_no_ice it would equal M2 (all training vehicles are EVs); at L3 there is no
+    training vehicle of the test powertrain."""
+
+    name = "population_prior_same_powertrain"
+    LEVELS = ("L1_new_setting", "L2_new_vehicle")
+
+    def set_fold(self, fold):
+        self.fold = fold
+
+    def fit(self, traj_fd, rt, train_run_ids):
+        fold = getattr(self, "fold", None)
+        if fold is None or fold["level"] not in self.LEVELS:
+            raise ValueError("population_prior_same_powertrain runs only at the levels "
+                             + ", ".join(self.LEVELS))
+        self.powertrain = str(rt.loc[rt["task"] == fold["test"][0], "powertrain"].iloc[0])
+        keep = [r for r in train_run_ids if str(rt.loc[r, "powertrain"]) == self.powertrain]
+        if not keep:
+            raise ValueError(f"no training runs of powertrain {self.powertrain}")
+        super().fit(traj_fd, rt, keep)
+
+    def state(self):
+        return dict(super().state(), method=self.name, prior_powertrain=self.powertrain)
+
+
 REGISTRY = {m.name: m for m in (NoAdaptation, NoAdaptationSim, ContextRecalibration,
-                                PopulationPrior, M4Pretrained, M4Finetuned, M4FinetunedLOVO)}
+                                PopulationPrior, M4Pretrained, M4Finetuned, M4FinetunedLOVO,
+                                PopulationPriorSamePowertrain)}
