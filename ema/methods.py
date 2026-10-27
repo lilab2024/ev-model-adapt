@@ -618,6 +618,129 @@ class PopulationPriorSamePowertrain(PopulationPrior):
         return dict(super().state(), method=self.name, prior_powertrain=self.powertrain)
 
 
+class M2bResidual(PopulationPriorSamePowertrain):
+    """m2b_residual (D027, POST HOC): IDM parameters exactly as M2b (same task fits,
+    lambda, prior and context fits), plus a bounded learned acceleration correction
+    (ema.residual) trained on the training vehicles of the test powertrain, each window
+    with its task's own fit. The number of steps S comes from stage 1 (one held-out
+    vehicle of the test powertrain, early stopping on its validation runs); stage 2 trains
+    a new network from the same initialisation on all of them for exactly S steps. With
+    fewer than 2 such vehicles, stage 1 validates on the validation runs of all of them.
+    With S = 0 the method equals M2b."""
+
+    name = "m2b_residual"
+
+    def __init__(self, cfg_models=None, cfg_eval=None, cfg_res=None, log=print):
+        super().__init__(cfg_models, cfg_eval)
+        self.cfg_res = cfg_res or config.load_yaml("residual.yaml")
+        self.log, self.weights, self.history, self.history2, self.res_info = log, None, [], [], {}
+
+    def fit(self, traj_fd, rt, train_run_ids):
+        import time
+
+        import torch
+
+        from ema import residual, train_m4
+        super().fit(traj_fd, rt, train_run_ids)          # M2b: powertrain, task fits, prior
+        cr, tr_cfg = self.cfg_res, self.cfg_res["training"]
+        dt = self.cfg_eval["simulation"]["dt_s"]
+        min_gap = self.cfg["idm"]["min_gap_m"]
+        scales = residual.scale_vector(cr)
+        tasks = sorted(self.task_params)
+        ids = set(self.train_run_ids)
+        train_runs = {t: sorted(r for r in rt.index[rt["task"] == t] if r in ids) for t in tasks}
+        val_runs = {}
+        for t in tasks:
+            cfgs = protocol.validation_configs(rt, t, self.cfg_eval)
+            val_runs[t] = sorted(rt.index[(rt["task"] == t) & rt["config_id"].isin(cfgs)])
+        if set(r for v in val_runs.values() for r in v) & ids:
+            raise RuntimeError("validation runs overlap with training runs")
+        vehicle = {t: str(rt.loc[rt["task"] == t, "vehicle"].iloc[0]) for t in tasks}
+        vehicles = sorted(set(vehicle.values()))
+        fold_seed = int(np.random.SeedSequence(_seed(tr_cfg["seed"], *tasks)).generate_state(1)[0])
+        arrays = train_m4.run_arrays(traj_fd, sorted(ids | {r for v in val_runs.values() for r in v}))
+        n_win = int(round(float(tr_cfg["window_s"]) / dt)) + 1
+
+        def val_items(val_tasks, seed):
+            rng, items = np.random.default_rng(seed), []
+            for t in val_tasks:
+                for _ in range(int(tr_cfg["val_windows_per_task"]) if val_runs[t] else 0):
+                    a = arrays[val_runs[t][int(rng.integers(len(val_runs[t])))]]
+                    start = int(rng.integers(0, max(len(a["s"]) - n_win, 0) + 1))
+                    items.append((t, {c: a[c][start:start + n_win] for c in ("s", "v_f", "v_l")}))
+            return items
+
+        held = None
+        if len(vehicles) >= 2:
+            order = [vehicles[i] for i in np.random.default_rng(fold_seed + 2).permutation(len(vehicles))]
+            for v in order:
+                if any(val_runs[t] for t in tasks if vehicle[t] == v):
+                    held = v
+                    break
+        stage1_tasks = [t for t in tasks if vehicle[t] != held]
+        val_tasks = [t for t in tasks if vehicle[t] == held] if held else tasks
+        device = train_m4.resolve_device(tr_cfg.get("device", "cpu"))
+        net_cfg = cr["network"]
+        t0 = time.time()
+
+        torch.manual_seed(fold_seed)
+        net1 = residual.ResidualNet(net_cfg["hidden"], net_cfg["a_max"]).to(device)
+        sampler1 = residual.WindowSampler(arrays, {t: train_runs[t] for t in stage1_tasks},
+                                          tr_cfg["window_s"], dt, fold_seed)
+        items = val_items(val_tasks, fold_seed + 1)
+        if not items:
+            raise RuntimeError("no validation windows for the residual")
+        self.log(f"residual stage 1: held-out vehicle {held}, {len(stage1_tasks)} training tasks")
+        self.history = residual.train(net1, sampler1, items, self.task_params, tr_cfg, dt, scales,
+                                      int(tr_cfg["max_steps"]), True, self.log, min_gap)
+        best = min(self.history, key=lambda h: h["val_loss"])
+        s_best = int(best["step"])
+        del net1
+
+        torch.manual_seed(fold_seed)
+        net = residual.ResidualNet(net_cfg["hidden"], net_cfg["a_max"]).to(device)
+        sampler2 = residual.WindowSampler(arrays, train_runs, tr_cfg["window_s"], dt, fold_seed)
+        self.history2 = residual.train(net, sampler2, [], self.task_params, tr_cfg, dt, scales,
+                                       s_best, False, self.log, min_gap)
+        self.net_state = {k: v.detach().cpu() for k, v in net.state_dict().items()}
+        self.weights = residual.numpy_weights(net.cpu())
+        self.res_info = dict(res_heldout_vehicle=held or "none", res_stage1_tasks=len(stage1_tasks),
+                             res_val_windows=len(items), res_val_loss_start=self.history[0]["val_loss"],
+                             res_val_loss_best=best["val_loss"], res_best_step=s_best,
+                             res_steps_run=int(self.history[-1]["step"]), res_stage2_steps=s_best,
+                             res_fold_seed=fold_seed, res_train_s=round(time.time() - t0, 1),
+                             res_device=str(device),
+                             res_gpu=(torch.cuda.get_device_name(device) if device.type == "cuda"
+                                      else "none"))
+
+    def controller(self, context):
+        from ema import residual
+        params = self._fit(context)[0]
+        return residual.ResidualIDMController(params, self.weights, self.cfg_res["network"]["a_max"],
+                                              residual.scale_vector(self.cfg_res),
+                                              self.cfg_eval["simulation"]["dt_s"],
+                                              self.cfg["idm"]["min_gap_m"])
+
+    def state(self):
+        return dict(super().state(), method=self.name, **self.res_info)
+
+    def save_artifacts(self, directory, fold_id):
+        """Correction weights (nets/<fold>.pt) and the stage-1 and stage-2 histories."""
+        import pandas as pd
+        import torch
+
+        from ema import train_m4
+        directory = Path(directory)
+        (directory / "nets").mkdir(parents=True, exist_ok=True)
+        (directory / "histories").mkdir(parents=True, exist_ok=True)
+        train_m4._atomic_write(directory / "nets" / f"{fold_id}.pt",
+                               lambda p: torch.save(self.net_state, p))
+        train_m4._atomic_write(directory / "histories" / f"{fold_id}.csv",
+                               lambda p: pd.DataFrame(self.history).to_csv(p, index=False))
+        train_m4._atomic_write(directory / "histories" / f"{fold_id}_stage2.csv",
+                               lambda p: pd.DataFrame(self.history2).to_csv(p, index=False))
+
+
 REGISTRY = {m.name: m for m in (NoAdaptation, NoAdaptationSim, ContextRecalibration,
                                 PopulationPrior, M4Pretrained, M4Finetuned, M4FinetunedLOVO,
-                                PopulationPriorSamePowertrain)}
+                                PopulationPriorSamePowertrain, M2bResidual)}

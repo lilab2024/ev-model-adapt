@@ -1,0 +1,23 @@
+# m2b_residual (D027): IDM with M2b parameters plus a bounded learned acceleration correction.
+network:
+  hidden: [64, 64]
+  a_max: 0.5                   # m/s^2, bound of the correction (0.5 tanh)
+scales:                        # features are divided by these
+  gap: 30.0                    # m
+  v: 30.0                      # m/s
+  dv: 5.0                      # m/s, leader minus follower speed
+  a_idm: 2.0                   # m/s^2
+  a_lead: 2.0                  # m/s^2
+  a_prev: 2.0                  # m/s^2
+training:
+  window_s: 60.0
+  batch_windows: 64
+  penalty: 1.0                 # weight of the mean squared correction in the loss
+  lr: 1.0e-3
+  grad_clip: 1.0
+  val_every: 50
+  patience: 10
+  max_steps: 3000
+  val_windows_per_task: 16
+  device: cuda                 # D021: local RTX 4090
+  seed: 42
