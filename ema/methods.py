@@ -836,6 +836,32 @@ class FeaturesGBM:
                     **{f"train_r2_{k}": v for k, v in self.info.get("train_r2", {}).items()})
 
 
+class M4ScratchLOVO(M4FinetunedLOVO):
+    """m4a_scratch_lovo (D031, POST HOC): the no-pretraining ablation of m4a_finetuned_lovo.
+    Everything is identical except the starting network, a randomly initialised network of
+    the same architecture (seeded from the fold's training-task list) instead of the
+    pretrained weights; the training settings are deliberately the same."""
+
+    name = "m4a_scratch_lovo"
+
+    def _initial_net(self, seed):
+        import torch
+
+        from ema import nets
+        torch.manual_seed(seed)
+        return nets.AdaptNet(self.cfg_pre["network"], self.cfg["idm"]["params"])
+
+    def fit(self, traj_fd, rt, train_run_ids):
+        tasks = sorted(rt.loc[sorted(set(train_run_ids)), "task"].unique())
+        seed = int(np.random.SeedSequence(
+            _seed(self.cfg_m4["finetuning"]["seed"], "scratch", *tasks)).generate_state(1)[0])
+        self.net = self._initial_net(seed).to(self.cfg_m4.get("eval_device", "cpu")).eval()
+        self.weights_md5 = "none (random initialisation)"
+        super().fit(traj_fd, rt, train_run_ids)
+        self.info.update(init="random", init_seed=seed)
+
+
 REGISTRY = {m.name: m for m in (NoAdaptation, NoAdaptationSim, ContextRecalibration,
                                 PopulationPrior, M4Pretrained, M4Finetuned, M4FinetunedLOVO,
-                                PopulationPriorSamePowertrain, M2bResidual, FeaturesGBM)}
+                                PopulationPriorSamePowertrain, M2bResidual, FeaturesGBM,
+                                M4ScratchLOVO)}
