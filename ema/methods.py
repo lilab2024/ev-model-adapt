@@ -741,6 +741,101 @@ class M2bResidual(PopulationPriorSamePowertrain):
                                lambda p: pd.DataFrame(self.history2).to_csv(p, index=False))
 
 
+class FeaturesGBM:
+    """features_gbm (D030, POST HOC): hand-crafted context features (ema.context_features)
+    and one gradient-boosting regressor per free IDM parameter (log scale), trained per
+    fold on random contexts of all training tasks with each task's own fit (M2's task fit)
+    as target; the prediction (clipped to the bounds) drives the IDM in closed loop."""
+
+    name = "features_gbm"
+    uses_context = True
+
+    def __init__(self, cfg_models=None, cfg_eval=None, cfg_fg=None):
+        self.cfg = cfg_models or config.load_yaml("models.yaml")
+        self.cfg_eval = cfg_eval or config.load_yaml("evaluation.yaml")
+        self.cfg_fg = cfg_fg or config.load_yaml("features_gbm.yaml")
+        self.free, self.bounds, self.fixed = calibrate.split_spec(self.cfg["idm"]["params"])
+        self.models, self.train_run_ids, self.info, self._cache = {}, [], {}, {}
+
+    def _features(self, pieces, powertrain):
+        from ema import context_features
+        f = self.cfg_fg["features"]
+        return context_features.context_features(pieces, self.cfg_eval["simulation"]["dt_s"],
+                                                 powertrain == "EV", f["tg_min_speed"],
+                                                 f["stop_speed"])
+
+    def fit(self, traj_fd, rt, train_run_ids):
+        from sklearn.ensemble import GradientBoostingRegressor
+
+        from ema import train_m4
+        fg = self.cfg_fg
+        dt = self.cfg_eval["simulation"]["dt_s"]
+        self.train_run_ids = sorted(set(train_run_ids))
+        tr = rt.loc[self.train_run_ids]
+        tasks = sorted(tr["task"].unique())
+        runs = {t: sorted(tr.index[tr["task"] == t]) for t in tasks}
+        helper = PopulationPrior(self.cfg, self.cfg_eval)
+        task_params = {t: helper._task_fit(traj_fd, rt, t, runs[t]) for t in tasks}
+        seed = int(np.random.SeedSequence(_seed(fg["seed"], *tasks)).generate_state(1)[0])
+        rng = np.random.default_rng(seed)
+        arrays = train_m4.run_arrays(traj_fd, self.train_run_ids)
+        X, Y = [], []
+        for t in tasks:
+            pt = str(rt.loc[runs[t][0], "powertrain"])
+            for length in fg["context_s"]:
+                for _ in range(int(fg["contexts_per_task_length"])):
+                    order = [runs[t][i] for i in rng.permutation(len(runs[t]))]
+                    need, pieces = int(round(float(length) / dt)) + 1, []
+                    for i, rid in enumerate(order):
+                        a = arrays[rid]
+                        n = len(a["s"])
+                        start = int(rng.integers(0, max(n - need, 0) + 1)) if i == 0 else 0
+                        stop = min(n, start + need)
+                        if stop - start >= 2:
+                            pieces.append({k: v[start:stop] for k, v in a.items()})
+                            need -= stop - start - 1
+                        if need <= 1:
+                            break
+                    X.append(self._features(pieces, pt))
+                    Y.append([np.log(task_params[t][k]) for k in self.free])
+        X, Y = np.array(X), np.array(Y)
+        g = fg["gbm"]
+        self.models = {}
+        for i, k in enumerate(self.free):
+            m = GradientBoostingRegressor(n_estimators=int(g["n_estimators"]),
+                                          max_depth=int(g["max_depth"]),
+                                          learning_rate=float(g["learning_rate"]),
+                                          subsample=float(g["subsample"]),
+                                          random_state=seed + i)
+            self.models[k] = m.fit(X, Y[:, i])
+        self.info = dict(n_train_tasks=len(tasks), n_samples=len(X), fold_seed=seed,
+                         train_r2={k: float(self.models[k].score(X, Y[:, i]))
+                                   for i, k in enumerate(self.free)})
+        self._cache = {}
+
+    def _predict(self, context):
+        key = (context["task"], int(context["draw"]), float(context["length_s"]))
+        if key not in self._cache:
+            pt = context["task"].split(" | ")[0]
+            x = self._features(context["segments"], pt)[None, :]
+            params = dict(self.fixed)
+            for (lo, hi), k in zip(self.bounds, self.free):
+                params[k] = float(np.clip(np.exp(self.models[k].predict(x)[0]), lo, hi))
+            self._cache[key] = params
+        return self._cache[key]
+
+    def controller(self, context):
+        return idm.IDMController(self._predict(context), self.cfg["idm"]["min_gap_m"])
+
+    def context_info(self, context):
+        return {f"ctx_idm_{k}": v for k, v in self._predict(context).items()}
+
+    def state(self):
+        return dict(method=self.name, n_train_runs=len(self.train_run_ids), **{
+            k: v for k, v in self.info.items() if k != "train_r2"},
+                    **{f"train_r2_{k}": v for k, v in self.info.get("train_r2", {}).items()})
+
+
 REGISTRY = {m.name: m for m in (NoAdaptation, NoAdaptationSim, ContextRecalibration,
                                 PopulationPrior, M4Pretrained, M4Finetuned, M4FinetunedLOVO,
-                                PopulationPriorSamePowertrain, M2bResidual)}
+                                PopulationPriorSamePowertrain, M2bResidual, FeaturesGBM)}

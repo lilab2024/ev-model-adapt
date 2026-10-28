@@ -1,0 +1,12 @@
+# features_gbm (D030, POST HOC): hand-crafted context features + gradient boosting -> IDM parameters.
+features:
+  tg_min_speed: 5.0            # m/s, time gap gap/v only above this speed
+  stop_speed: 0.5              # m/s, below this the follower counts as stopped
+context_s: [10, 30, 60, 120, 300]
+contexts_per_task_length: 40   # random training contexts per task and context length
+gbm:                           # scikit-learn GradientBoostingRegressor, fixed (not tuned)
+  n_estimators: 300
+  max_depth: 3
+  learning_rate: 0.05
+  subsample: 0.8
+seed: 42

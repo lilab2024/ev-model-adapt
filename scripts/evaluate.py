@@ -40,7 +40,7 @@ def config_md5():
     M4 network weights, which is checked when they are loaded)."""
     h = hashlib.md5()
     for name in ["data.yaml", "evaluation.yaml", "models.yaml", "pretraining.yaml", "m4.yaml",
-                 "residual.yaml"]:
+                 "residual.yaml", "features_gbm.yaml"]:
         h.update((config.CONFIG_DIR / name).read_bytes())
     return h.hexdigest()
 
