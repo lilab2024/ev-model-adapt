@@ -81,7 +81,7 @@ def provenance():
     dirty = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True,
                            cwd=root).stdout.strip() != ""
     h = hashlib.md5()
-    for name in ["evaluation.yaml", "models.yaml", "pretraining.yaml"]:
+    for name in ["evaluation.yaml", "models.yaml", "pretraining.yaml", "transformer.yaml"]:
         h.update((config.CONFIG_DIR / name).read_bytes())
     return dict(git_commit=head, git_dirty=dirty, config_md5=h.hexdigest())
 
@@ -132,7 +132,7 @@ def run(out_dir, cfg_pre=None, cfg_models=None, dt=0.1, log=print, n_vehicles=No
     pd.DataFrame(history).to_csv(out_dir / "history.csv", index=False)
     summary.to_csv(out_dir / "diagnostics.csv", index=False)
     per_episode.to_csv(out_dir / "diagnostics_episodes.csv", index=False)
-    info = dict(**provenance(), device=str(device), lr=float(tr["lr"]),
+    info = dict(**provenance(), network=nw, device=str(device), lr=float(tr["lr"]),
                 n_skipped_steps=history[-1]["skipped"] if history else 0,
                 resumed_from=str(resume_from) if resume_from is not None else None,
                 n_vehicles=len(task_runs), n_train=len(train_tasks),

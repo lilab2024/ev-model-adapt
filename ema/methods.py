@@ -861,7 +861,22 @@ class M4ScratchLOVO(M4FinetunedLOVO):
         self.info.update(init="random", init_seed=seed)
 
 
+class M4TransformerLOVO(M4FinetunedLOVO):
+    """m4a_transformer_lovo (D032, POST HOC): m4a_finetuned_lovo with the Transformer
+    encoder of config/transformer.yaml, starting from its own pretrained weights (path and
+    md5 in transformer.yaml); everything else is identical."""
+
+    name = "m4a_transformer_lovo"
+
+    def __init__(self, cfg_models=None, cfg_eval=None, cfg_m4=None, cfg_pre=None, log=print,
+                 cfg_tf=None):
+        cfg_tf = cfg_tf or config.load_yaml("transformer.yaml")
+        cfg_pre = {**(cfg_pre or config.load_yaml("pretraining.yaml")), "network": cfg_tf["network"]}
+        cfg_m4 = {**(cfg_m4 or config.load_yaml("m4.yaml")), "pretrained": cfg_tf["pretrained"]}
+        super().__init__(cfg_models, cfg_eval, cfg_m4, cfg_pre, log)
+
+
 REGISTRY = {m.name: m for m in (NoAdaptation, NoAdaptationSim, ContextRecalibration,
                                 PopulationPrior, M4Pretrained, M4Finetuned, M4FinetunedLOVO,
                                 PopulationPriorSamePowertrain, M2bResidual, FeaturesGBM,
-                                M4ScratchLOVO)}
+                                M4ScratchLOVO, M4TransformerLOVO)}

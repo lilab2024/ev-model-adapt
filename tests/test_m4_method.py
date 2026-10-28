@@ -96,7 +96,7 @@ def test_fold_reuse_hash_covers_the_m4_config(tmp_path, monkeypatch):
     script = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(script)
     for name in ["data.yaml", "evaluation.yaml", "models.yaml", "pretraining.yaml", "m4.yaml",
-                 "residual.yaml", "features_gbm.yaml"]:
+                 "residual.yaml", "features_gbm.yaml", "transformer.yaml"]:
         (tmp_path / name).write_bytes((config.CONFIG_DIR / name).read_bytes())
     monkeypatch.setattr(config, "CONFIG_DIR", tmp_path)
     before = script.config_md5()

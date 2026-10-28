@@ -1,4 +1,4 @@
-"""M4 network (D017): a GRU context encoder and an IDM parameter head.
+"""M4 network (D017): a GRU (or, D032, Transformer) context encoder and an IDM parameter head.
 
 The encoder reads every context piece (10 Hz: gap, speed, relative speed, acceleration,
 scaled), takes the final hidden state of each piece and averages the pieces of an
@@ -40,23 +40,63 @@ def collate_contexts(contexts, device="cpu"):
     return x.to(device), lengths, episode.to(device)
 
 
+def positional_encoding(length, d_model, device=None, dtype=torch.float32):
+    """Sinusoidal position encoding (length, d_model) of the samples of a piece."""
+    pos = torch.arange(length, device=device, dtype=dtype)[:, None]
+    i = torch.arange(0, d_model, 2, device=device, dtype=dtype)
+    angle = pos / torch.pow(torch.tensor(10000.0, device=device, dtype=dtype), i / d_model)
+    pe = torch.zeros(length, d_model, device=device, dtype=dtype)
+    pe[:, 0::2] = torch.sin(angle)
+    pe[:, 1::2] = torch.cos(angle[:, : d_model // 2])
+    return pe
+
+
 class AdaptNet(nn.Module):
-    """Context -> latent z -> IDM parameters (dict of tensors of shape (n_episodes,))."""
+    """Context -> latent z -> IDM parameters (dict of tensors of shape (n_episodes,)).
+
+    encoder "gru" (default): final hidden state of each piece. encoder "transformer"
+    (D032): linear input layer, sinusoidal positions, a Transformer encoder (no dropout)
+    and the mean over the valid samples of each piece (padding is masked). Either way the
+    pieces of an episode are averaged weighted by their length."""
 
     def __init__(self, cfg_net, param_spec):
         super().__init__()
         self.free, bounds, self.fixed = calibrate.split_spec(param_spec)
         self.register_buffer("log_lo", torch.log(torch.tensor([b[0] for b in bounds])))
         self.register_buffer("log_hi", torch.log(torch.tensor([b[1] for b in bounds])))
-        h, zd, hh = int(cfg_net["hidden"]), int(cfg_net["z_dim"]), int(cfg_net["head_hidden"])
-        self.gru = nn.GRU(len(FEATURES), h, batch_first=True)
-        self.to_z = nn.Linear(h, zd)
+        zd, hh = int(cfg_net["z_dim"]), int(cfg_net["head_hidden"])
+        self.encoder = cfg_net.get("encoder", "gru")
+        if self.encoder == "transformer":
+            d = int(cfg_net["d_model"])
+            self.inp = nn.Linear(len(FEATURES), d)
+            layer = nn.TransformerEncoderLayer(d, int(cfg_net["heads"]), int(cfg_net["ff"]),
+                                               dropout=0.0, batch_first=True)
+            self.tf = nn.TransformerEncoder(layer, int(cfg_net["layers"]), enable_nested_tensor=False)
+            self.to_z = nn.Linear(d, zd)
+        elif self.encoder == "gru":
+            h = int(cfg_net["hidden"])
+            self.gru = nn.GRU(len(FEATURES), h, batch_first=True)
+            self.to_z = nn.Linear(h, zd)
+        else:
+            raise ValueError(f"unknown encoder {self.encoder}")
         self.head = nn.Sequential(nn.Linear(zd, hh), nn.Tanh(), nn.Linear(hh, len(self.free)))
 
-    def encode(self, x, lengths, episode, n_episodes):
+    def _piece_states(self, x, lengths):
+        """One vector per piece."""
+        if self.encoder == "transformer":
+            L = x.shape[1]
+            valid = torch.arange(L, device=x.device)[None, :] < lengths.to(x.device)[:, None]
+            hs = self.tf(self.inp(x) + positional_encoding(L, self.inp.out_features, x.device,
+                                                           x.dtype)[None],
+                         src_key_padding_mask=~valid)
+            hs = hs * valid[:, :, None].to(hs.dtype)
+            return hs.sum(dim=1) / valid.sum(dim=1, keepdim=True).to(hs.dtype)
         packed = pack_padded_sequence(x, lengths.cpu(), batch_first=True, enforce_sorted=False)
         _, h = self.gru(packed)
-        h = h[-1]
+        return h[-1]
+
+    def encode(self, x, lengths, episode, n_episodes):
+        h = self._piece_states(x, lengths)
         w = lengths.to(h.dtype)
         w = w.to(h.device)
         num = torch.zeros(n_episodes, h.shape[1], dtype=h.dtype, device=h.device).index_add(

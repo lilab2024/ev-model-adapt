@@ -1,0 +1,14 @@
+# Transformer encoder for M4 (D032): the network of pretraining.yaml with a Transformer
+# encoder instead of the GRU; synthetic data and pretraining settings from pretraining.yaml.
+network:
+  scales: {s: 50.0, v_f: 30.0, dv: 5.0, a_fd: 2.0}   # as pretraining.yaml
+  encoder: transformer
+  d_model: 32
+  layers: 2
+  heads: 4
+  ff: 64
+  z_dim: 8                      # as pretraining.yaml
+  head_hidden: 64               # as pretraining.yaml
+pretrained:
+  weights: results/m4_pretrain_transformer/net.pt
+  md5: none                     # set after the pretraining run (D032 step 3)
