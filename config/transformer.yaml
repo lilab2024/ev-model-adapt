@@ -11,4 +11,4 @@ network:
   head_hidden: 64               # as pretraining.yaml
 pretrained:
   weights: results/m4_pretrain_transformer/net.pt
-  md5: none                     # set after the pretraining run (D032 step 3)
+  md5: 02e6a1cd52eea5a40a2cafb09ccf4a92   # results/m4_pretrain_transformer/net.pt (F038)
