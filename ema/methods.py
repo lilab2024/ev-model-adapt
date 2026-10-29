@@ -283,7 +283,7 @@ class PopulationPrior:
         return st
 
 
-def load_pretrained_net(cfg_m4, cfg_pre, cfg_models, device="cpu"):
+def load_pretrained_net(cfg_m4, cfg_pre, cfg_models, device="cpu", make_net=None):
     """The pretrained M4 network (D019). The weights file must match the md5 in
     config/m4.yaml, and the parameter bounds stored with the weights must equal the
     bounds in config/models.yaml. Returns (network in eval mode, md5)."""
@@ -297,10 +297,12 @@ def load_pretrained_net(cfg_m4, cfg_pre, cfg_models, device="cpu"):
     if md5 != cfg_m4["pretrained"]["md5"]:
         raise ValueError(f"{path}: md5 {md5} does not match config/m4.yaml "
                          f"({cfg_m4['pretrained']['md5']})")
-    net = nets.AdaptNet(cfg_pre["network"], cfg_models["idm"]["params"])
+    net = make_net() if make_net is not None else nets.AdaptNet(cfg_pre["network"],
+                                                               cfg_models["idm"]["params"])
     state = torch.load(path, map_location="cpu")
-    for k in ("log_lo", "log_hi"):
-        if not torch.allclose(state[k], getattr(net, k)):
+    own = net.state_dict()
+    for k in [k for k in own if k.endswith("log_lo") or k.endswith("log_hi")]:
+        if k not in state or not torch.allclose(state[k], own[k]):
             raise ValueError(f"{path}: parameter bounds of the saved network differ from "
                              "config/models.yaml")
     net.load_state_dict(state)
@@ -323,9 +325,12 @@ class M4Pretrained:
         self.cfg_eval = cfg_eval or config.load_yaml("evaluation.yaml")
         self.cfg_m4 = cfg_m4 or config.load_yaml("m4.yaml")
         self.cfg_pre = cfg_pre or config.load_yaml("pretraining.yaml")
-        self.net, self.weights_md5 = load_pretrained_net(
-            self.cfg_m4, self.cfg_pre, self.cfg, self.cfg_m4.get("eval_device", "cpu"))
+        self.net, self.weights_md5 = self._load_net()
         self.n_new, self.n_cached, self.train_run_ids = 0, 0, []
+
+    def _load_net(self):
+        return load_pretrained_net(self.cfg_m4, self.cfg_pre, self.cfg,
+                                   self.cfg_m4.get("eval_device", "cpu"))
 
     def fit(self, traj_fd, rt, train_run_ids):
         self.train_run_ids = []          # by design, no real training data are used
@@ -876,7 +881,52 @@ class M4TransformerLOVO(M4FinetunedLOVO):
         super().__init__(cfg_models, cfg_eval, cfg_m4, cfg_pre, log)
 
 
+class M4DirectLOVO(M4FinetunedLOVO):
+    """m4c_direct_lovo (D033, POST HOC): M4-C. The pretrained DirectNet of config/direct.yaml
+    (GRU encoder + policy that outputs the acceleration, no IDM) fine-tuned exactly as
+    m4a_finetuned_lovo; at test time the encoder turns the context into z and the policy
+    drives the closed loop (ema.direct.DirectController)."""
+
+    name = "m4c_direct_lovo"
+
+    def __init__(self, cfg_models=None, cfg_eval=None, cfg_m4=None, cfg_pre=None, log=print,
+                 cfg_direct=None):
+        self.cfg_direct = cfg_direct or config.load_yaml("direct.yaml")
+        cfg_m4 = {**(cfg_m4 or config.load_yaml("m4.yaml")), "pretrained": self.cfg_direct["pretrained"]}
+        super().__init__(cfg_models, cfg_eval, cfg_m4, cfg_pre, log)
+
+    def _load_net(self):
+        from ema import direct
+        return load_pretrained_net(
+            self.cfg_m4, self.cfg_pre, self.cfg, self.cfg_m4.get("eval_device", "cpu"),
+            make_net=lambda: direct.DirectNet(self.cfg_pre["network"], self.cfg["idm"]["params"],
+                                              self.cfg_direct["policy"]))
+
+    def _predict(self, context, count=True):
+        from ema import direct
+        key = self._key(context)
+        if key in self._cache:
+            self.n_cached += int(count)
+            return self._cache[key]
+        pieces = self.context_pieces(context["segments"])
+        z = direct.encode_context(self.net, pieces, self.cfg_eval["simulation"]["dt_s"],
+                                  self.cfg_pre["network"]["scales"])
+        self._cache[key] = dict(z=z, n_pieces=len(pieces))
+        self.n_new += 1
+        return self._cache[key]
+
+    def controller(self, context):
+        from ema import direct
+        pol = self.cfg_direct["policy"]
+        return direct.DirectController(direct.numpy_weights(self.net.policy), self._predict(context)["z"],
+                                       pol["accel_limits"], direct.scale_vector(pol),
+                                       self.cfg_eval["simulation"]["dt_s"])
+
+    def context_info(self, context):
+        return dict(ctx_n_pieces=self._predict(context, count=False)["n_pieces"])
+
+
 REGISTRY = {m.name: m for m in (NoAdaptation, NoAdaptationSim, ContextRecalibration,
                                 PopulationPrior, M4Pretrained, M4Finetuned, M4FinetunedLOVO,
                                 PopulationPriorSamePowertrain, M2bResidual, FeaturesGBM,
-                                M4ScratchLOVO, M4TransformerLOVO)}
+                                M4ScratchLOVO, M4TransformerLOVO, M4DirectLOVO)}

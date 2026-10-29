@@ -49,18 +49,22 @@ def diagnostics(net, items, params_true, pop, dt, scales, min_gap=0.1):
     x, lengths, ep = train_m4.context_tensors(episodes, dt, scales, device)
     net.eval()
     with torch.no_grad():
-        p_pred = net(x, lengths, ep, len(episodes))
+        if hasattr(net, "episode_rmse"):              # M4-C (D033): no parameters to compare
+            p_pred = None
+            r_pred = net.episode_rmse(episodes, dt, scales, min_gap).cpu().numpy()
+        else:
+            p_pred = net(x, lengths, ep, len(episodes))
+            r_pred = train_m4.targets_rmse(p_pred, episodes, dt, min_gap).cpu().numpy()
+            p_pred = {k: v.cpu() for k, v in p_pred.items()}
         truth = [params_true.loc[t] for t, _, _ in items]
         p_true = _as_tensors(truth, names, device)
         p_pop = _as_tensors([pop] * len(items), names, device)
-        r_pred = train_m4.targets_rmse(p_pred, episodes, dt, min_gap).cpu().numpy()
         r_true = train_m4.targets_rmse(p_true, episodes, dt, min_gap).cpu().numpy()
         r_pop = train_m4.targets_rmse(p_pop, episodes, dt, min_gap).cpu().numpy()
-        p_pred = {k: v.cpu() for k, v in p_pred.items()}
     df = pd.DataFrame({"length_s": [L for _, L, _ in items], "rmse_pred": r_pred,
                        "rmse_true": r_true, "rmse_pop": r_pop})
     for k in names:
-        if params_true[k].nunique() > 1:
+        if p_pred is not None and params_true[k].nunique() > 1:
             df[f"pred_{k}"] = p_pred[k].numpy()
             df[f"true_{k}"] = [float(r[k]) for r in truth]
     rows = []
@@ -81,16 +85,19 @@ def provenance():
     dirty = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True,
                            cwd=root).stdout.strip() != ""
     h = hashlib.md5()
-    for name in ["evaluation.yaml", "models.yaml", "pretraining.yaml", "transformer.yaml"]:
+    for name in ["evaluation.yaml", "models.yaml", "pretraining.yaml", "transformer.yaml",
+                 "direct.yaml"]:
         h.update((config.CONFIG_DIR / name).read_bytes())
     return dict(git_commit=head, git_dirty=dirty, config_md5=h.hexdigest())
 
 
 def run(out_dir, cfg_pre=None, cfg_models=None, dt=0.1, log=print, n_vehicles=None,
-        resume_from=None):
+        resume_from=None, make_net=None, extra_info=None):
     """Generate the synthetic set, pretrain (optionally starting from saved weights),
     write net.pt, history.csv, diagnostics.csv, diagnostics_episodes.csv and
-    run_info.json to out_dir. Returns the diagnostics table."""
+    run_info.json to out_dir. make_net (called after seeding) builds another network, e.g.
+    the M4-C DirectNet (D033); extra_info is added to run_info.json. Returns the
+    diagnostics table."""
     cfg_pre = cfg_pre or config.load_yaml("pretraining.yaml")
     cfg_models = cfg_models or config.load_yaml("models.yaml")
     tr, nw = cfg_pre["training"], cfg_pre["network"]
@@ -104,7 +111,7 @@ def run(out_dir, cfg_pre=None, cfg_models=None, dt=0.1, log=print, n_vehicles=No
 
     device = train_m4.resolve_device(tr.get("device", "cpu"))
     torch.manual_seed(int(tr["seed"]))
-    net = nets.AdaptNet(nw, cfg_models["idm"]["params"])
+    net = make_net() if make_net is not None else nets.AdaptNet(nw, cfg_models["idm"]["params"])
     if resume_from is not None:
         net.load_state_dict(torch.load(resume_from, map_location="cpu"))
         log(f"starting from saved weights: {resume_from}")
@@ -139,6 +146,7 @@ def run(out_dir, cfg_pre=None, cfg_models=None, dt=0.1, log=print, n_vehicles=No
                 n_val=len(val_tasks), steps_run=history[-1]["step"] if history else 0,
                 best_val_loss=min(h["val_loss"] for h in history) if history else None,
                 population_params=pop, started=t0.isoformat(timespec="seconds"),
-                finished=datetime.datetime.now().isoformat(timespec="seconds"))
+                finished=datetime.datetime.now().isoformat(timespec="seconds"),
+                **(extra_info or {}))
     (out_dir / "run_info.json").write_text(json.dumps(info, indent=2), encoding="utf-8")
     return summary

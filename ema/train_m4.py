@@ -176,7 +176,10 @@ def targets_rmse(p, episodes, dt, min_gap=0.1, dtype=torch.float32):
 
 
 def episode_loss(net, episodes, dt, scales, min_gap=0.1):
-    """Mean over episodes of the mean target spacing RMSE (closed loop)."""
+    """Mean over episodes of the mean target spacing RMSE (closed loop). A network with its
+    own episode_loss (M4-C, ema.direct, D033) computes it itself."""
+    if hasattr(net, "episode_loss"):
+        return net.episode_loss(episodes, dt, scales, min_gap)
     x, lengths, ep = context_tensors(episodes, dt, scales, device_of(net))
     p = net(x, lengths, ep, len(episodes))
     return targets_rmse(p, episodes, dt, min_gap, dtype=x.dtype).mean()

@@ -1,0 +1,13 @@
+# M4-C (D033): the GRU context encoder of pretraining.yaml (started from r3) and a policy
+# network that outputs the acceleration directly; synthetic data and pretraining settings
+# from pretraining.yaml.
+policy:
+  hidden: [64, 64]
+  accel_limits: [-8.0, 4.0]      # m/s^2
+  scales: {gap: 30.0, v: 30.0, dv: 5.0, a_lead: 2.0, a_prev: 2.0}
+init_encoder:                    # starting weights of the encoder in the pretraining run
+  weights: results/m4_pretrain_r3/net.pt
+  md5: f906e523788fb0a9ecaacde7184f992a
+pretrained:
+  weights: results/m4_pretrain_direct/net.pt
+  md5: none                      # set after the pretraining run (D033)

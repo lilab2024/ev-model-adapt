@@ -22,18 +22,28 @@ def main():
     ap.add_argument("--network", default=None,
                     help="config file whose 'network' replaces that of pretraining.yaml "
                          "(e.g. transformer.yaml, D032)")
+    ap.add_argument("--direct", action="store_true",
+                    help="pretrain the M4-C network of direct.yaml (D033)")
     args = ap.parse_args()
     cfg_pre = config.load_yaml("pretraining.yaml")
     if args.network:
         cfg_pre = {**cfg_pre, "network": config.load_yaml(args.network)["network"]}
     print("network:", cfg_pre["network"], flush=True)
+    make_net, extra = None, None
+    if args.direct:
+        from ema import direct
+        cfg_d = config.load_yaml("direct.yaml")
+        spec = config.load_yaml("models.yaml")["idm"]["params"]
+        make_net = lambda: direct.make_pretraining_net(cfg_pre["network"], spec, cfg_d)
+        extra = dict(model="m4c_direct", policy=cfg_d["policy"], init_encoder=cfg_d["init_encoder"])
+        print("M4-C policy:", cfg_d["policy"], "| encoder from", cfg_d["init_encoder"], flush=True)
     dt = config.load_yaml("evaluation.yaml")["simulation"]["dt_s"]
     out = config.REPO_ROOT / "results" / args.out
     resume = config.REPO_ROOT / args.resume if args.resume else None
     gpu = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "none"
     print(f"torch {torch.__version__}, {torch.get_num_threads()} threads, GPU: {gpu}", flush=True)
     summary = pretrain.run(out, cfg_pre=cfg_pre, dt=dt, log=lambda m: print(m, flush=True),
-                           resume_from=resume)
+                           resume_from=resume, make_net=make_net, extra_info=extra)
     info = (out / "run_info.json").read_text(encoding="utf-8")
     print()
     print(f"Saved to {out}")
