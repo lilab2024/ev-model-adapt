@@ -10,4 +10,4 @@ init_encoder:                    # starting weights of the encoder in the pretra
   md5: f906e523788fb0a9ecaacde7184f992a
 pretrained:
   weights: results/m4_pretrain_direct/net.pt
-  md5: none                      # set after the pretraining run (D033)
+  md5: 2930041f8093f1ef1aac7bf8e11c974e   # results/m4_pretrain_direct/net.pt (F040)
