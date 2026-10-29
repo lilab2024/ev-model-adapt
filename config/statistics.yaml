@@ -1,0 +1,28 @@
+# Statistical comparison (D035); computed only on the final re-run.
+n_boot: 10000
+ci: 0.95
+seed: 42
+min_vehicles_for_intervals: 9   # subsets with fewer vehicles are only described
+lengths: [10, 30, 60, 120, 300]
+methods:                        # short name: results folder
+  M0: no_adaptation_sim
+  M1: context_recalibration
+  M2: population_prior
+  M2b: population_prior_same_powertrain
+  M2b_residual: m2b_residual
+  GBM: features_gbm
+  M4A_zero: m4a_pretrained
+  M4A_ft: m4a_finetuned
+  M4A_lovo: m4a_finetuned_lovo
+  M4A_scratch: m4a_scratch_lovo
+  M4A_transformer: m4a_transformer_lovo
+  M4C: m4c_direct_lovo
+confirmatory:                   # Q1, pre-specified: p-values with Holm over all of them
+  level: L2_new_vehicle
+  pairs: [[M2, M0], [M2, M1], [M4A_ft, M0], [M4A_ft, M2]]
+exploratory:                    # intervals only
+  levels: [L2_new_vehicle, L1_new_setting]
+  pairs: [[M2, M0], [M2, M1], [M4A_ft, M0], [M4A_ft, M2], [M2b, M2], [M4A_lovo, M4A_ft],
+          [GBM, M4A_lovo], [M4A_scratch, M4A_lovo], [M4A_transformer, M4A_lovo],
+          [M4C, M4A_lovo], [M2b_residual, M2b]]
+descriptive_levels: [L2_new_vehicle, L1_new_setting, L2_no_ice, L3_cross_powertrain]
