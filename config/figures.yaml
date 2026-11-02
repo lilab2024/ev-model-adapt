@@ -1,7 +1,7 @@
 # Figures and tables of the paper (D034; rules D037; designs D040, D041, D043; workflow D044).
 style:
-  single_width_in: 3.5          # IEEE single column
-  double_width_in: 7.16         # IEEE double column
+  single_width_in: 3.48         # IEEEtran column 252 pt = 3.487 in (D058: was 3.5, 0.94 pt overfull)
+  double_width_in: 7.13         # IEEEtran text 516 pt = 7.140 in (D058: was 7.16)
   font_family: serif
   font_serif: [Times New Roman, Times, Nimbus Roman, Liberation Serif, DejaVu Serif]
   font_size: 8
@@ -51,7 +51,7 @@ splits:                         # name: [method, versus]; the legend title names
   fig_ablation_pretraining: [M4A_scratch, M4A_lovo]
 table_lengths: [10, 60, 300]    # tab_all_methods
 table_levels: [L1_new_setting, L2_new_vehicle, L2_no_ice, L3_cross_powertrain]
-pretrained:                     # tab_pretrain_diagnostics: reader label (D049), results folder, config with the weights md5
+pretrained:                     # tab_pretrain_diagnostics: reader label (D049), results folder, config (weights md5 no longer printed, D058)
   "Network (GRU encoder)": {dir: m4_pretrain_r3, config: m4.yaml}
   "Transformer network": {dir: m4_pretrain_transformer, config: transformer.yaml}
   "Direct-acceleration network": {dir: m4_pretrain_direct, config: direct.yaml}
@@ -86,17 +86,22 @@ label_offsets:                  # points (dx, dy); set by eye on the real figure
     L2_new_vehicle_07: [-5, 0]    # VehD
     L2_new_vehicle_08: [-5, 2]    # VehE
     L2_new_vehicle_09: [5, 2]     # VehF
-captions:                       # LaTeX table captions and notes (D045: reader names, no internal codes)
-  tab_data: "Data: vehicles, gap settings, runs, configurations, hours and stop runs used in the evaluation."
-  tab_q1: "Pre-specified comparisons for a new vehicle, unit vehicle (9): mean difference of the spacing RMSE (first minus second method), 95\\% bootstrap interval, number of vehicles on which the first method is better, and Holm-corrected $p$-value over the 20 tests (0.0040 is the smallest attainable value)."
-  tab_idm_params: "IDM parameters of each task (closed-loop fit on its training runs)."
-  tab_physics_floors: "Error floors of three car-following models (training and validation runs only): task-averaged spacing RMSE of the in-sample and the cross-configuration fit."
-  tab_pretrain_diagnostics: "Pretrained networks on the synthetic validation set: closed-loop spacing RMSE with the predicted parameters (direct-acceleration network: its own policy), with the true parameters and with the population parameters."
-  tab_compute: "Training cost of the learned methods per fold ($S$: selected number of training steps)."
-  tab_compute_note: "Times measured with 4 processes sharing the GPU; one fold of the fine-tuned network (L2 EV only, Polestar 2) was run alone after an interruption. CPU methods (no per-fold times recorded): whole runs with 8 processes, context-only calibration 0.5 h, population and powertrain prior 0.7 h each."
-  tab_collisions: "Collisions of the direct-acceleration network by level and run type; a simulation is one run with one context draw and length."
-  tab_all_methods: "All methods: vehicle-level mean spacing RMSE (m) after 10, 60 and 300 s of observed driving, per level; best value per column in bold. Status: pre, pre-specified; plan, planned before the network results; post, designed after seeing test results (post hoc). Coll.: collided simulations."
-  tab_gbm_importance: "Features + boosting, new vehicle: importance of each feature of the observed driving for the prediction of each IDM parameter."
+captions:                       # LaTeX table captions, short (D058); explanations in table_notes
+  tab_data: "Data used in the evaluation"
+  tab_q1: "Pre-specified comparisons for a new vehicle"
+  tab_idm_params: "IDM parameters of each task (fit on its training runs)"
+  tab_physics_floors: "Error floors of three car-following models"
+  tab_pretrain_diagnostics: "Pretrained networks on synthetic validation vehicles"
+  tab_compute: "Training cost of the learned methods per fold"
+  tab_collisions: "Collisions of the direct-acceleration network"
+  tab_all_methods: "Mean spacing RMSE (m) of all methods at the four levels"
+  tab_gbm_importance: "Feature importance of Features + boosting for a new vehicle"
+table_notes:                    # D058: appended to the note of a table; reader names only, no internal codes
+  tab_data: "Stop runs: runs in which the leader brakes to a standstill."
+  tab_q1: "Mean difference of the spacing RMSE (m), first minus second method, over the 9 test vehicles; 95\\% paired bootstrap interval; number of vehicles on which the first method is better; Holm-adjusted $p$-value over the 20 tests (smallest attainable value 0.0040)."
+  tab_physics_floors: "In-sample: fitted and scored on the validation runs of a task; cross-configuration: fitted on its training runs and scored on its validation runs."
+  tab_compute: "$S$: selected number of training steps. Times measured with 4 processes sharing the GPU; one fold of the fine-tuned network (New EV, EV-only training; Polestar 2) was run alone after an interruption. CPU methods (no per-fold times recorded): whole runs with 8 processes, context-only calibration 0.5 h, population and powertrain prior 0.7 h each."
+  tab_all_methods: "Mean over the test vehicles of the spacing RMSE (m) after 10, 60 and 300 s of observed driving; bold: best value per column. Status: pre, pre-specified; plan, planned before the network results; post, designed after seeing test results (post hoc). Coll.: collided simulations. A dash: not run at this level."
 gbm:                            # tab_gbm_importance (D050, D052)
   use_floor_targets: true       # task fits from diagnostic C; checked by reproduction, else refit
   rtol: 1.0e-9                  # D051: allowed relative difference of the reproduced predictions

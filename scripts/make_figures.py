@@ -94,6 +94,9 @@ def main(argv=None):
         print(f"figure {name}", flush=True)
 
     def tab_out(name, df, label, **kw):
+        extra = cfg.get("table_notes", {}).get(name)              # D058: reader-facing explanations
+        if extra:
+            kw["note"] = kw["note"] + " " + extra if kw.get("note") else extra
         F.save_table(df, tab_dir, name, cfg["captions"][name], label, **kw)
         made.append(name)
         print(f"table  {name} ({len(df)} rows)", flush=True)
@@ -150,17 +153,17 @@ def main(argv=None):
         for label, p in cfg["pretrained"].items():
             diags[label] = pd.read_csv(res / p["dir"] / "diagnostics.csv")
             info = json.loads((res / p["dir"] / "run_info.json").read_text(encoding="utf-8"))
-            md5 = config.load_yaml(p["config"])["pretrained"]["md5"]
-            notes.append(f"{label}: {info.get('steps_run')} steps, best validation loss "
-                         f"{info.get('best_val_loss'):.2f}, weights md5 {md5[:8]}, git {str(info.get('git_commit'))[:7]}")
+            notes.append(f"{label}: {info.get('steps_run')} training steps, best validation loss "
+                         f"{info.get('best_val_loss'):.2f}")          # D058: no weights md5 or git commit
         t, latex = F.pretrain_diagnostics_table(diags)
         n_ep = sorted(set(t["episodes"]))
         tab_out("tab_pretrain_diagnostics", t, "tab:pretrain",
-                note=f"Each value: {', '.join(map(str, n_ep))} synthetic episodes. " + "; ".join(notes) + ".", **latex)
+                note=f"Each value: {', '.join(map(str, n_ep))} synthetic validation episodes. " + "; ".join(notes) + ".",
+                **latex)
     if "tab_compute" in wanted:
         t, devices, latex, folds = F.compute_table({m: states[m] for m in g["compute"]}, cfg)
         tab_out("tab_compute", t, "tab:compute", float_fmt="{:.0f}",
-                note=folds + f" GPU: {', '.join(devices)}. " + cfg["captions"]["tab_compute_note"], **latex)
+                note=folds + f" GPU: {', '.join(devices)}.", **latex)
     if "tab_collisions" in wanted:
         t, others, stop_veh, latex = F.collisions_table(coll, cfg)
         note = (f"All other methods: {others} collided simulations. Stop runs (EV runs braking to "

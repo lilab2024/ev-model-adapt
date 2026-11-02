@@ -340,10 +340,27 @@ def test_make_figures_draft_run(results, tmp_path):
             assert (out / "tables" / f"{n}.csv").exists() and (out / "tables" / f"{n}.tex").exists()
     tex = (out / "tables" / "tab_collisions.tex").read_text()
     assert "IONIQ 5" in tex and chr(13) not in tex
+    for n in ("tab_pretrain_diagnostics", "tab_compute", "tab_all_methods", "tab_q1"):   # D058
+        t = (out / "tables" / f"{n}.tex").read_text()
+        assert "md5" not in t and "git " not in t and "L2 EV" not in t, n
+    assert "New EV, EV-only training; Polestar 2" in (out / "tables" / "tab_compute.tex").read_text()
+    assert "post hoc" in (out / "tables" / "tab_all_methods.tex").read_text()
     with pytest.raises(SystemExit):                                     # a final run needs real results
         make_figures.main(["--results", str(results), "--only", "tab_q1"])
     with pytest.raises(SystemExit):
         make_figures.main(["--results", str(results), "--draft", str(out), "--only", "fig_unknown"])
+
+
+def test_captions_short_and_notes_reader_facing():
+    """D058: short table captions; captions and notes free of internal codes."""
+    import re
+    assert set(CFG["table_notes"]) <= set(CFG["captions"])
+    assert all(len(c) <= 80 for c in CFG["captions"].values())
+    code = re.compile(r"(^|[^A-Za-z])(L1|L2|L3|M[0-4][A-Za-z]?)($|[^A-Za-z0-9])")
+    for t in list(CFG["captions"].values()) + list(CFG["table_notes"].values()):
+        assert "md5" not in t and "git" not in t and not code.search(t), t
+    assert 3.4 < CFG["style"]["single_width_in"] <= 252 / 72.27
+    assert 7.0 < CFG["style"]["double_width_in"] <= 516 / 72.27
 
 
 # ---------------------------------------------------------------- group 2 outputs (D050, D052)
