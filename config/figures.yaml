@@ -1,0 +1,154 @@
+# Figures and tables of the paper (D034; rules D037; designs D040, D041, D043; workflow D044).
+style:
+  single_width_in: 3.5          # IEEE single column
+  double_width_in: 7.16         # IEEE double column
+  font_family: serif
+  font_serif: [Times New Roman, Times, Nimbus Roman, Liberation Serif, DejaVu Serif]
+  font_size: 8
+  dpi_png: 300
+x_label: "observed driving (s)"  # D046: the context length, in words a reader understands; log axis
+heights_in:                     # final heights (D037 (2)), legends below the axes included (D046)
+  q1_l2: 3.2
+  ai_methods: 3.3
+  split: 3.1
+  method_vehicle: 2.6
+  idm_params: 3.0
+  selected_steps: 3.4
+  physics_floors: 2.6
+  l3_vehicles: 3.3
+  collision_example: 2.8
+  traj_example: 2.6
+  levels_schematic: 3.0
+  methods_schematic: 2.4
+  residual_map: 3.4
+methods:                        # short name: label shown to readers (D045), style, design status
+  M0: {label: "No adaptation", color: "#7f7f7f", ls: ":", marker: "x", design: pre}
+  M1: {label: "Context-only calibration", color: "#8c564b", ls: "--", marker: "v", design: pre}
+  M2: {label: "Population prior", color: "#1f77b4", ls: "-", marker: "o", design: pre}
+  M2b: {label: "Powertrain prior", color: "#17becf", ls: "-", marker: "s", design: planned}
+  M2b_residual: {label: "Powertrain prior + residual", color: "#2ca02c", ls: "-.", marker: "D", design: post}
+  GBM: {label: "Features + boosting", color: "#bcbd22", ls: "--", marker: "P", design: post}
+  M4A_zero: {label: "Network, zero-shot", color: "#ff9896", ls: ":", marker: "^", open: true, design: pre}
+  M4A_ft: {label: "Network, fine-tuned", color: "#d62728", ls: "-", marker: "^", design: pre}
+  M4A_lovo: {label: "Network, held-out vehicle", color: "#ff7f0e", ls: "-", marker: "<", design: post}
+  M4A_scratch: {label: "Network, no pretraining", color: "#c49c94", ls: "--", marker: ">", design: post}
+  M4A_transformer: {label: "Transformer network", color: "#9467bd", ls: "-.", marker: "*", design: post}
+  M4C: {label: "Direct-acceleration network", color: "#e377c2", ls: "-", marker: "h", design: post}
+example_length_s: 60            # context length of fig_method_vehicle
+groups:
+  q1: [M0, M1, M2, M4A_zero, M4A_ft]                           # fig_q1_l2
+  ai: [GBM, M4A_lovo, M4A_scratch, M4A_transformer, M4C]       # fig_ai_methods (reference M2b)
+  ai_reference: M2b
+  heatmap: [M0, M1, M2, M2b, M2b_residual, GBM, M4A_zero, M4A_ft, M4A_lovo, M4A_scratch,
+            M4A_transformer, M4C]
+  l3: [M0, M1, M2, M4A_zero, M4A_ft, M4A_lovo, M4A_scratch, M4A_transformer, M4C, GBM]
+  all: [M0, M1, M2, M2b, M2b_residual, GBM, M4A_zero, M4A_ft, M4A_lovo, M4A_scratch,
+        M4A_transformer, M4C]
+  compute: [M4A_ft, M4A_lovo, M4A_scratch, M4A_transformer, M4C, M2b_residual]
+splits:                         # name: [method, versus]; the legend title names the difference (D045)
+  fig_split_prior: [M2b, M2]
+  fig_split_validation: [M4A_lovo, M4A_ft]
+  fig_ablation_pretraining: [M4A_scratch, M4A_lovo]
+table_lengths: [10, 60, 300]    # tab_all_methods
+table_levels: [L1_new_setting, L2_new_vehicle, L2_no_ice, L3_cross_powertrain]
+pretrained:                     # tab_pretrain_diagnostics: reader label (D049), results folder, config with the weights md5
+  "Network (GRU encoder)": {dir: m4_pretrain_r3, config: m4.yaml}
+  "Transformer network": {dir: m4_pretrain_transformer, config: transformer.yaml}
+  "Direct-acceleration network": {dir: m4_pretrain_direct, config: direct.yaml}
+physics_model_order: [idm, ovrv, idm_lag]
+physics_model_labels: {idm: IDM, ovrv: OVRV, idm_lag: IDM with lag}
+powertrains:                    # EV warm and filled, ICE cool and open markers
+  EV: {color: "#d62728", ls: "-", marker: "o", palette: ["#d62728", "#ff7f0e", "#8c564b"],
+       vehicle_markers: ["o", "s", "^"]}
+  ICE: {color: "#1f77b4", ls: "--", marker: "s",
+        palette: ["#1f77b4", "#17becf", "#2ca02c", "#9467bd", "#393b79", "#637939"],
+        vehicle_markers: ["o", "s", "^", "v", "D", "P"]}
+gap_order: [min, Short, Medium, Long, XLong, max]
+level_markers: {L2_new_vehicle: "o", L2_no_ice: "^", L3_cross_powertrain: "s"}
+level_labels:                   # reader names of the levels (D047), in figures and tables
+  L1_new_setting: "New gap setting"
+  L2_new_vehicle: "New vehicle"
+  L2_no_ice: "New EV, EV-only training"
+  L3_cross_powertrain: "New EV, ICE-only training"
+label_offsets:                  # points (dx, dy); set by eye on the real figures (D047)
+  idm_params: {}
+  selected_steps:
+    L2_new_vehicle_01: [-5, -3]   # IONIQ 5, left of the cluster at 50 steps
+    L2_no_ice_02: [0, 6]          # Model 3, above the cluster
+    L2_new_vehicle_03: [5, -3]    # Polestar 2, right of the cluster
+    L2_new_vehicle_02: [5, 3]
+    L2_no_ice_03: [5, 0]
+    L2_no_ice_01: [5, 3]
+    L3_cross_powertrain_01: [5, 3]
+    L2_new_vehicle_04: [5, -6]    # VehA
+    L2_new_vehicle_05: [4, -8]    # VehB (right below, clear of 'all EVs' and VehA, D049)
+    L2_new_vehicle_06: [-5, 0]    # VehC
+    L2_new_vehicle_07: [-5, 0]    # VehD
+    L2_new_vehicle_08: [-5, 2]    # VehE
+    L2_new_vehicle_09: [5, 2]     # VehF
+captions:                       # LaTeX table captions and notes (D045: reader names, no internal codes)
+  tab_data: "Data: vehicles, gap settings, runs, configurations, hours and stop runs used in the evaluation."
+  tab_q1: "Pre-specified comparisons for a new vehicle, unit vehicle (9): mean difference of the spacing RMSE (first minus second method), 95\\% bootstrap interval, number of vehicles on which the first method is better, and Holm-corrected $p$-value over the 20 tests (0.0040 is the smallest attainable value)."
+  tab_idm_params: "IDM parameters of each task (closed-loop fit on its training runs)."
+  tab_physics_floors: "Error floors of three car-following models (training and validation runs only): task-averaged spacing RMSE of the in-sample and the cross-configuration fit."
+  tab_pretrain_diagnostics: "Pretrained networks on the synthetic validation set: closed-loop spacing RMSE with the predicted parameters (direct-acceleration network: its own policy), with the true parameters and with the population parameters."
+  tab_compute: "Training cost of the learned methods per fold ($S$: selected number of training steps)."
+  tab_compute_note: "Times measured with 4 processes sharing the GPU; one fold of the fine-tuned network (L2 EV only, Polestar 2) was run alone after an interruption. CPU methods (no per-fold times recorded): whole runs with 8 processes, context-only calibration 0.5 h, population and powertrain prior 0.7 h each."
+  tab_collisions: "Collisions of the direct-acceleration network by level and run type; a simulation is one run with one context draw and length."
+  tab_all_methods: "All methods: vehicle-level mean spacing RMSE (m) after 10, 60 and 300 s of observed driving, per level; best value per column in bold. Status: pre, pre-specified; plan, planned before the network results; post, designed after seeing test results (post hoc). Coll.: collided simulations."
+  tab_gbm_importance: "Features + boosting, new vehicle: importance of each feature of the observed driving for the prediction of each IDM parameter."
+gbm:                            # tab_gbm_importance (D050, D052)
+  use_floor_targets: true       # task fits from diagnostic C; checked by reproduction, else refit
+  rtol: 1.0e-9                  # D051: allowed relative difference of the reproduced predictions
+gbm_feature_labels:             # reader names of the context features (ema.context_features)
+  gap_intercept: "gap at zero speed"
+  gap_slope: "gap per unit speed"
+  tg_mean: "time gap, mean"
+  tg_median: "time gap, median"
+  tg_q10: "time gap, 10th percentile"
+  tg_q90: "time gap, 90th percentile"
+  acc_std: "acceleration, s.d."
+  acc_q05: "acceleration, 5th percentile"
+  acc_q95: "acceleration, 95th percentile"
+  acc_min: "acceleration, minimum"
+  k_gap: "gain on gap error"
+  k_dv: "gain on speed difference"
+  v_mean: "speed, mean"
+  v_range: "speed, range"
+  dv_mean: "speed difference, mean"
+  stop_share: "share of time stopped"
+  length_s: "observed length"
+  is_ev: "EV indicator"
+gbm_feature_blocks:             # D052: row blocks of tab_gbm_importance (every feature exactly once)
+  - [Gap, [gap_intercept, gap_slope]]
+  - [Time gap, [tg_mean, tg_median, tg_q10, tg_q90]]
+  - [Acceleration, [acc_std, acc_q05, acc_q95, acc_min]]
+  - [Feedback gains, [k_gap, k_dv]]
+  - [Speed, [v_mean, v_range, dv_mean]]
+  - [Context, [stop_share, length_s]]
+  - [Powertrain, [is_ev]]
+traj_example:                   # fig_traj_example (D043, D055): rules use the leader and the settings only
+  profile: dip                  # the only profile of both data sets (F003)
+  lookback_s: 30.0              # onset of braking: last time before the leader minimum with speed >=
+  tol_ms: 0.5                   #   (highest speed of the lookback_s before the minimum) - tol_ms
+  pre_s: 5.0                    # plotted from -pre_s to the end of the EV run
+schematics:                     # fig_levels_schematic, fig_methods_schematic (D056)
+  level_order: [L1_new_setting, L2_new_vehicle, L2_no_ice, L3_cross_powertrain]
+  steps_title: "Inside each test task (5 random draws)"
+  steps: ["observed driving,|10–300 s, from half|of its configurations", "method adapted to|the observed driving",
+          "closed-loop simulation|on the runs of|the other half"]
+  methods_arrow: "less physics, more learning"
+  method_groups:
+    - {title: "IDM; parameters fixed, fitted or from a prior", methods: [M0, M1, M2, M2b], per_line: 2}
+    - {title: "IDM; parameters predicted by a learned model", methods: [GBM, M4A_zero, M4A_ft, M4A_lovo,
+       M4A_scratch, M4A_transformer], per_line: 2}
+    - {title: "IDM plus a bounded learned correction", methods: [M2b_residual], per_line: 2}
+    - {title: "Learned policy, no IDM", methods: [M4C], per_line: 2}
+residual_map:                   # fig_residual_map (D041 (2), D050)
+  percentiles: [1, 99]          # axis ranges from the ICE data
+  n_gap: 121
+  n_dv: 101
+  speed_band_ms: 2.0            # states within this band around the median ICE speed form the contour
+  mass: 0.9                     # share of those states inside the dashed contour
+  density_bins: [30, 24]        # D051: coarse histogram of those states ...
+  density_smooth: 1.2           # ... Gaussian-smoothed (sigma in bins) before drawing the contour
