@@ -1,0 +1,12 @@
+Method no_adaptation_sim: 29 folds (29 reused, 0 to run), 332 runs, 18 tasks
+
+Saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\no_adaptation_sim (git c3e6d75), 1.6 s
+              level  length_s  n_tasks  spacing_rmse  spacing_rmse_median_draws  speed_rmse  collision_rate       subset
+     L1_new_setting       NaN       16        11.893                     12.190       0.750             0.0     all_runs
+     L2_new_vehicle       NaN       18        11.728                     11.811       0.758             0.0     all_runs
+          L2_no_ice       NaN        6         6.922                      6.957       0.501             0.0     all_runs
+L3_cross_powertrain       NaN        6        14.940                     14.272       0.969             0.0     all_runs
+     L1_new_setting       NaN       16        11.728                     12.045       0.744             0.0 no_stop_runs
+     L2_new_vehicle       NaN       18        11.073                     11.250       0.746             0.0 no_stop_runs
+          L2_no_ice       NaN        6         6.962                      7.004       0.459             0.0 no_stop_runs
+L3_cross_powertrain       NaN        6         9.785                      9.564       0.783             0.0 no_stop_runs

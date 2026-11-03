@@ -1,0 +1,22 @@
+{
+  "fold_id": "L1_new_setting_04",
+  "git_commit": "cd9d175b30ba1c0247e3ff34198c8e070df1d28d",
+  "git_dirty": false,
+  "config_md5": "4ca9cfa1279ee42ccc0008ae5d0dec77",
+  "state": {
+    "fold_id": "L1_new_setting_04",
+    "level": "L1_new_setting",
+    "method": "no_adaptation_sim",
+    "train_cost": 6.898948598500617,
+    "n_evaluations": 3927,
+    "n_segments": 340,
+    "n_train_runs": 214,
+    "idm_delta": 4.0,
+    "idm_v0": 39.82603347978391,
+    "idm_T": 1.5651160412544154,
+    "idm_s0": 0.5,
+    "idm_a": 0.7944237223245576,
+    "idm_b": 0.020003839549265653
+  },
+  "finished": "2026-10-23T19:12:05"
+}

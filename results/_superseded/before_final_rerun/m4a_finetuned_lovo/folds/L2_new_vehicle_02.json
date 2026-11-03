@@ -1,0 +1,38 @@
+{
+  "fold_id": "L2_new_vehicle_02",
+  "git_commit": "a2f2b2489c4999ef6937355990a9de7bf794c8a9",
+  "git_dirty": false,
+  "config_md5": "3f71e3098231b71359b37e51aff50c73",
+  "state": {
+    "fold_id": "L2_new_vehicle_02",
+    "level": "L2_new_vehicle",
+    "method": "m4a_finetuned_lovo",
+    "n_train_runs": 255,
+    "weights_md5": "f906e523788fb0a9ecaacde7184f992a",
+    "n_new_predictions": 23,
+    "n_cached_predictions": 0,
+    "lovo_used": true,
+    "heldout_vehicle": "Polestar 2",
+    "heldout_same_powertrain": true,
+    "heldout_tasks": [
+      "EV | Polestar 2 | Short"
+    ],
+    "n_val_runs": 3,
+    "n_val_episodes": 10,
+    "n_train_tasks_stage1": 16,
+    "n_train_tasks_sampled": 17,
+    "fold_seed": 655827214,
+    "val_loss_start": 2.6457316875457764,
+    "val_loss_best": 2.4594497680664062,
+    "best_step": 650,
+    "steps_run": 1150,
+    "stage2_steps": 650,
+    "n_skipped_steps": 0,
+    "finetune_s": 3251.9,
+    "device": "cuda",
+    "gpu_name": "NVIDIA GeForce RTX 4090",
+    "torch_version": "2.11.0+cu126",
+    "torch_threads": 2
+  },
+  "finished": "2026-10-26T16:15:59"
+}

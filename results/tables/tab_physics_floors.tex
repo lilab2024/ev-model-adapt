@@ -1,0 +1,23 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Error floors of three car-following models}
+\label{tab:physics_floors}
+\begin{tabular}{llrrrrr}
+\toprule
+ &  & \multicolumn{2}{c}{In-sample (m)} & \multicolumn{2}{c}{Cross-config. (m)} &  \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}
+Model & \begin{tabular}[b]{@{}c@{}}Power-\\train\end{tabular} & Mean & Median & Mean & Median & \begin{tabular}[b]{@{}c@{}}Collided\\runs\end{tabular} \\
+\midrule
+IDM & EV & 1.76 & 1.61 & 2.79 & 1.83 & 0 \\
+IDM & ICE & 1.79 & 1.88 & 2.73 & 2.68 & 0 \\
+OVRV & EV & 2.11 & 1.90 & 3.51 & 2.01 & 2 \\
+OVRV & ICE & 1.71 & 1.40 & 2.65 & 2.35 & 0 \\
+IDM with lag & EV & 1.69 & 1.48 & 2.81 & 1.88 & 0 \\
+IDM with lag & ICE & 1.73 & 1.76 & 3.90 & 2.64 & 0 \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\parbox{\linewidth}{\footnotesize Tasks per model: EV 6; ICE 12. In-sample: fitted and scored on the validation runs of a task; cross-configuration: fitted on its training runs and scored on its validation runs.}
+\end{table}

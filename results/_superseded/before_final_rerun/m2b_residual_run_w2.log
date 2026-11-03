@@ -1,0 +1,212 @@
+Method m2b_residual: 6 folds (shard 2/4) (0 reused, 6 to run), 332 runs, 18 tasks
+residual stage 1: held-out vehicle Model 3, 4 training tasks
+step     0  train     nan  val   7.201 (rmse  7.201, r2 0.0000)  skipped 0
+step    50  train   1.614  val   7.354 (rmse  7.353, r2 0.0013)  skipped 0
+step   100  train   1.610  val   7.034 (rmse  7.033, r2 0.0012)  skipped 0
+step   150  train   1.732  val   7.698 (rmse  7.696, r2 0.0019)  skipped 0
+step   200  train   1.638  val   7.305 (rmse  7.302, r2 0.0027)  skipped 0
+step   250  train   1.504  val  10.022 (rmse 10.017, r2 0.0049)  skipped 0
+step   300  train   1.685  val   8.502 (rmse  8.497, r2 0.0050)  skipped 0
+step   350  train   1.529  val   8.363 (rmse  8.358, r2 0.0055)  skipped 0
+step   400  train   1.768  val   8.038 (rmse  8.031, r2 0.0067)  skipped 0
+step   450  train   1.581  val   7.706 (rmse  7.698, r2 0.0083)  skipped 0
+step   500  train   1.472  val   7.515 (rmse  7.507, r2 0.0082)  skipped 0
+step   550  train   1.658  val   7.920 (rmse  7.912, r2 0.0087)  skipped 0
+step   600  train   1.660  val   7.324 (rmse  7.316, r2 0.0076)  skipped 0
+stage 2 step    50/100  train   2.072  skipped 0
+stage 2 step   100/100  train   2.019  skipped 0
+  L1_new_setting_03          815 simulations,   0 collided, 2121.7 s
+residual stage 1: held-out vehicle VehC, 9 training tasks
+step     0  train     nan  val   2.709 (rmse  2.709, r2 0.0000)  skipped 0
+step    50  train   1.398  val   3.169 (rmse  3.169, r2 0.0003)  skipped 0
+step   100  train   1.699  val   3.294 (rmse  3.293, r2 0.0011)  skipped 0
+step   150  train   1.947  val   3.188 (rmse  3.186, r2 0.0019)  skipped 0
+step   200  train   1.601  val   3.509 (rmse  3.507, r2 0.0023)  skipped 0
+step   250  train   1.792  val   2.824 (rmse  2.821, r2 0.0031)  skipped 0
+step   300  train   1.586  val   2.997 (rmse  2.993, r2 0.0036)  skipped 0
+step   350  train   1.693  val   3.005 (rmse  3.001, r2 0.0040)  skipped 0
+step   400  train   1.683  val   3.314 (rmse  3.307, r2 0.0064)  skipped 0
+step   450  train   1.581  val   2.581 (rmse  2.575, r2 0.0065)  skipped 0
+step   500  train   1.470  val   2.899 (rmse  2.891, r2 0.0079)  skipped 0
+step   550  train   1.441  val   2.286 (rmse  2.278, r2 0.0088)  skipped 0
+step   600  train   1.700  val   2.378 (rmse  2.369, r2 0.0094)  skipped 0
+step   650  train   1.316  val   2.464 (rmse  2.454, r2 0.0099)  skipped 0
+step   700  train   1.463  val   2.635 (rmse  2.625, r2 0.0099)  skipped 0
+step   750  train   1.501  val   2.339 (rmse  2.330, r2 0.0090)  skipped 0
+step   800  train   1.327  val   2.587 (rmse  2.577, r2 0.0098)  skipped 0
+step   850  train   1.603  val   2.495 (rmse  2.484, r2 0.0107)  skipped 0
+step   900  train   1.496  val   2.425 (rmse  2.415, r2 0.0099)  skipped 0
+step   950  train   1.873  val   2.446 (rmse  2.435, r2 0.0106)  skipped 0
+step  1000  train   1.381  val   2.566 (rmse  2.554, r2 0.0112)  skipped 0
+step  1050  train   1.596  val   2.410 (rmse  2.400, r2 0.0104)  skipped 0
+stage 2 step    50/550  train   1.799  skipped 0
+stage 2 step   100/550  train   1.954  skipped 0
+stage 2 step   150/550  train   2.001  skipped 0
+stage 2 step   200/550  train   1.888  skipped 0
+stage 2 step   250/550  train   2.044  skipped 0
+stage 2 step   300/550  train   1.754  skipped 0
+stage 2 step   350/550  train   1.725  skipped 0
+stage 2 step   400/550  train   1.719  skipped 0
+stage 2 step   450/550  train   1.651  skipped 0
+stage 2 step   500/550  train   1.910  skipped 0
+stage 2 step   550/550  train   1.698  skipped 0
+  L1_new_setting_07           50 simulations,   0 collided, 4487.7 s
+residual stage 1: held-out vehicle VehB, 9 training tasks
+step     0  train     nan  val   3.486 (rmse  3.486, r2 0.0000)  skipped 0
+step    50  train   1.629  val   3.371 (rmse  3.371, r2 0.0001)  skipped 0
+step   100  train   1.812  val   3.243 (rmse  3.243, r2 0.0003)  skipped 0
+step   150  train   1.433  val   3.216 (rmse  3.216, r2 0.0003)  skipped 0
+step   200  train   1.727  val   3.220 (rmse  3.219, r2 0.0009)  skipped 0
+step   250  train   1.824  val   3.522 (rmse  3.520, r2 0.0019)  skipped 0
+step   300  train   1.724  val   2.883 (rmse  2.880, r2 0.0021)  skipped 0
+step   350  train   1.554  val   2.730 (rmse  2.727, r2 0.0030)  skipped 0
+step   400  train   1.499  val   3.416 (rmse  3.413, r2 0.0033)  skipped 0
+step   450  train   1.628  val   2.959 (rmse  2.955, r2 0.0041)  skipped 0
+step   500  train   1.718  val   2.451 (rmse  2.446, r2 0.0045)  skipped 0
+step   550  train   1.807  val   2.467 (rmse  2.459, r2 0.0075)  skipped 0
+step   600  train   1.491  val   2.504 (rmse  2.498, r2 0.0057)  skipped 0
+step   650  train   1.866  val   2.692 (rmse  2.686, r2 0.0059)  skipped 0
+step   700  train   1.226  val   2.506 (rmse  2.499, r2 0.0068)  skipped 0
+step   750  train   1.328  val   2.499 (rmse  2.492, r2 0.0066)  skipped 0
+step   800  train   1.673  val   2.430 (rmse  2.423, r2 0.0066)  skipped 0
+step   850  train   1.822  val   2.570 (rmse  2.563, r2 0.0070)  skipped 0
+step   900  train   1.677  val   2.451 (rmse  2.444, r2 0.0072)  skipped 0
+step   950  train   1.470  val   2.468 (rmse  2.460, r2 0.0085)  skipped 0
+step  1000  train   1.690  val   2.518 (rmse  2.510, r2 0.0079)  skipped 0
+step  1050  train   1.686  val   2.585 (rmse  2.578, r2 0.0067)  skipped 0
+step  1100  train   1.460  val   2.496 (rmse  2.489, r2 0.0070)  skipped 0
+step  1150  train   1.779  val   2.476 (rmse  2.469, r2 0.0069)  skipped 0
+step  1200  train   1.552  val   2.433 (rmse  2.424, r2 0.0082)  skipped 0
+step  1250  train   1.883  val   2.478 (rmse  2.469, r2 0.0088)  skipped 0
+step  1300  train   1.609  val   2.511 (rmse  2.503, r2 0.0076)  skipped 0
+stage 2 step    50/800  train   1.946  skipped 0
+stage 2 step   100/800  train   1.986  skipped 0
+stage 2 step   150/800  train   1.648  skipped 0
+stage 2 step   200/800  train   1.900  skipped 0
+stage 2 step   250/800  train   1.685  skipped 0
+stage 2 step   300/800  train   2.201  skipped 0
+stage 2 step   350/800  train   1.954  skipped 0
+stage 2 step   400/800  train   1.901  skipped 0
+stage 2 step   450/800  train   1.962  skipped 0
+stage 2 step   500/800  train   2.116  skipped 0
+stage 2 step   550/800  train   1.883  skipped 0
+stage 2 step   600/800  train   1.825  skipped 0
+stage 2 step   650/800  train   1.970  skipped 0
+stage 2 step   700/800  train   1.686  skipped 0
+stage 2 step   750/800  train   1.869  skipped 0
+stage 2 step   800/800  train   1.935  skipped 0
+  L1_new_setting_11           50 simulations,   0 collided, 5611.8 s
+residual stage 1: held-out vehicle VehD, 9 training tasks
+step     0  train     nan  val   2.197 (rmse  2.197, r2 0.0000)  skipped 0
+step    50  train   2.206  val   2.091 (rmse  2.091, r2 0.0001)  skipped 0
+step   100  train   2.142  val   2.162 (rmse  2.162, r2 0.0001)  skipped 0
+step   150  train   2.186  val   2.157 (rmse  2.157, r2 0.0001)  skipped 0
+step   200  train   2.055  val   2.035 (rmse  2.034, r2 0.0002)  skipped 0
+step   250  train   1.916  val   2.117 (rmse  2.117, r2 0.0002)  skipped 0
+step   300  train   1.889  val   2.039 (rmse  2.038, r2 0.0006)  skipped 0
+step   350  train   1.847  val   2.150 (rmse  2.149, r2 0.0004)  skipped 0
+step   400  train   2.092  val   2.087 (rmse  2.086, r2 0.0009)  skipped 0
+step   450  train   2.118  val   2.039 (rmse  2.039, r2 0.0007)  skipped 0
+step   500  train   2.155  val   2.132 (rmse  2.131, r2 0.0016)  skipped 0
+step   550  train   1.918  val   1.844 (rmse  1.841, r2 0.0020)  skipped 0
+step   600  train   1.799  val   1.966 (rmse  1.964, r2 0.0020)  skipped 0
+step   650  train   1.779  val   1.854 (rmse  1.852, r2 0.0022)  skipped 0
+step   700  train   2.086  val   1.901 (rmse  1.899, r2 0.0019)  skipped 0
+step   750  train   1.909  val   1.948 (rmse  1.946, r2 0.0027)  skipped 0
+step   800  train   1.856  val   1.920 (rmse  1.918, r2 0.0021)  skipped 0
+step   850  train   2.179  val   1.761 (rmse  1.759, r2 0.0027)  skipped 0
+step   900  train   1.977  val   1.954 (rmse  1.952, r2 0.0021)  skipped 0
+step   950  train   1.888  val   1.887 (rmse  1.885, r2 0.0021)  skipped 0
+step  1000  train   1.661  val   2.067 (rmse  2.065, r2 0.0019)  skipped 0
+step  1050  train   2.079  val   1.920 (rmse  1.918, r2 0.0022)  skipped 0
+step  1100  train   1.742  val   2.018 (rmse  2.015, r2 0.0023)  skipped 0
+step  1150  train   1.740  val   1.871 (rmse  1.868, r2 0.0025)  skipped 0
+step  1200  train   1.901  val   2.119 (rmse  2.117, r2 0.0022)  skipped 0
+step  1250  train   2.056  val   1.859 (rmse  1.857, r2 0.0026)  skipped 0
+step  1300  train   1.823  val   1.750 (rmse  1.748, r2 0.0026)  skipped 0
+step  1350  train   1.761  val   1.829 (rmse  1.826, r2 0.0025)  skipped 0
+step  1400  train   1.876  val   1.924 (rmse  1.921, r2 0.0024)  skipped 0
+step  1450  train   1.737  val   1.793 (rmse  1.791, r2 0.0026)  skipped 0
+step  1500  train   1.789  val   1.897 (rmse  1.895, r2 0.0022)  skipped 0
+step  1550  train   1.839  val   2.022 (rmse  2.020, r2 0.0024)  skipped 0
+step  1600  train   1.643  val   2.002 (rmse  2.000, r2 0.0023)  skipped 0
+step  1650  train   1.871  val   1.848 (rmse  1.846, r2 0.0023)  skipped 0
+step  1700  train   1.645  val   2.001 (rmse  1.999, r2 0.0025)  skipped 0
+step  1750  train   1.837  val   1.785 (rmse  1.782, r2 0.0026)  skipped 0
+step  1800  train   1.846  val   1.773 (rmse  1.770, r2 0.0029)  skipped 0
+stage 2 step    50/1300  train   2.353  skipped 0
+stage 2 step   100/1300  train   2.255  skipped 0
+stage 2 step   150/1300  train   2.136  skipped 0
+stage 2 step   200/1300  train   2.393  skipped 0
+stage 2 step   250/1300  train   1.919  skipped 0
+stage 2 step   300/1300  train   1.718  skipped 0
+stage 2 step   350/1300  train   1.845  skipped 0
+stage 2 step   400/1300  train   2.266  skipped 0
+stage 2 step   450/1300  train   2.219  skipped 0
+stage 2 step   500/1300  train   1.670  skipped 0
+stage 2 step   550/1300  train   1.932  skipped 0
+stage 2 step   600/1300  train   2.039  skipped 0
+stage 2 step   650/1300  train   1.872  skipped 0
+stage 2 step   700/1300  train   1.779  skipped 0
+stage 2 step   750/1300  train   1.885  skipped 0
+stage 2 step   800/1300  train   1.677  skipped 0
+stage 2 step   850/1300  train   1.944  skipped 0
+stage 2 step   900/1300  train   1.864  skipped 0
+stage 2 step   950/1300  train   1.798  skipped 0
+stage 2 step  1000/1300  train   1.628  skipped 0
+stage 2 step  1050/1300  train   1.775  skipped 0
+stage 2 step  1100/1300  train   1.817  skipped 0
+stage 2 step  1150/1300  train   2.000  skipped 0
+stage 2 step  1200/1300  train   1.937  skipped 0
+stage 2 step  1250/1300  train   1.830  skipped 0
+stage 2 step  1300/1300  train   1.709  skipped 0
+  L1_new_setting_15           50 simulations,   0 collided, 8033.7 s
+residual stage 1: held-out vehicle IONIQ 5, 1 training tasks
+step     0  train     nan  val   1.526 (rmse  1.526, r2 0.0000)  skipped 0
+step    50  train   5.077  val   1.679 (rmse  1.672, r2 0.0062)  skipped 0
+step   100  train   3.785  val   1.709 (rmse  1.703, r2 0.0059)  skipped 0
+step   150  train   4.091  val   1.833 (rmse  1.821, r2 0.0117)  skipped 0
+step   200  train   3.955  val   2.476 (rmse  2.445, r2 0.0314)  skipped 0
+step   250  train   4.095  val   2.729 (rmse  2.681, r2 0.0480)  skipped 0
+step   300  train   3.430  val   2.968 (rmse  2.907, r2 0.0619)  skipped 0
+step   350  train   3.955  val   3.568 (rmse  3.489, r2 0.0790)  skipped 0
+step   400  train   3.731  val   3.770 (rmse  3.684, r2 0.0861)  skipped 0
+step   450  train   3.443  val   4.144 (rmse  4.049, r2 0.0945)  skipped 0
+step   500  train   3.575  val   4.096 (rmse  4.004, r2 0.0916)  skipped 0
+  L2_new_vehicle_03          156 simulations,   0 collided, 1496.5 s
+residual stage 1: held-out vehicle VehB, 8 training tasks
+step     0  train     nan  val   2.715 (rmse  2.715, r2 0.0000)  skipped 0
+step    50  train   1.744  val   2.519 (rmse  2.518, r2 0.0002)  skipped 0
+step   100  train   1.847  val   2.453 (rmse  2.452, r2 0.0003)  skipped 0
+step   150  train   1.598  val   2.414 (rmse  2.413, r2 0.0006)  skipped 0
+step   200  train   1.445  val   2.401 (rmse  2.400, r2 0.0007)  skipped 0
+step   250  train   1.497  val   2.409 (rmse  2.408, r2 0.0010)  skipped 0
+step   300  train   1.676  val   2.215 (rmse  2.213, r2 0.0017)  skipped 0
+step   350  train   1.966  val   2.509 (rmse  2.508, r2 0.0012)  skipped 0
+step   400  train   1.890  val   2.578 (rmse  2.576, r2 0.0015)  skipped 0
+step   450  train   1.710  val   2.447 (rmse  2.445, r2 0.0023)  skipped 0
+step   500  train   1.550  val   2.257 (rmse  2.253, r2 0.0035)  skipped 0
+step   550  train   1.728  val   2.203 (rmse  2.199, r2 0.0040)  skipped 0
+step   600  train   1.683  val   2.315 (rmse  2.311, r2 0.0035)  skipped 0
+step   650  train   1.405  val   2.261 (rmse  2.256, r2 0.0045)  skipped 0
+step   700  train   1.654  val   2.300 (rmse  2.295, r2 0.0050)  skipped 0
+step   750  train   1.533  val   2.222 (rmse  2.217, r2 0.0051)  skipped 0
+step   800  train   1.734  val   2.291 (rmse  2.286, r2 0.0051)  skipped 0
+step   850  train   1.406  val   2.345 (rmse  2.339, r2 0.0055)  skipped 0
+step   900  train   1.454  val   2.366 (rmse  2.362, r2 0.0048)  skipped 0
+step   950  train   1.537  val   2.438 (rmse  2.433, r2 0.0050)  skipped 0
+step  1000  train   1.609  val   2.450 (rmse  2.444, r2 0.0054)  skipped 0
+step  1050  train   1.586  val   2.355 (rmse  2.350, r2 0.0050)  skipped 0
+stage 2 step    50/550  train   2.280  skipped 0
+stage 2 step   100/550  train   1.862  skipped 0
+stage 2 step   150/550  train   1.794  skipped 0
+stage 2 step   200/550  train   1.931  skipped 0
+stage 2 step   250/550  train   1.825  skipped 0
+stage 2 step   300/550  train   1.924  skipped 0
+stage 2 step   350/550  train   1.593  skipped 0
+stage 2 step   400/550  train   1.983  skipped 0
+stage 2 step   450/550  train   1.916  skipped 0
+stage 2 step   500/550  train   1.777  skipped 0
+stage 2 step   550/550  train   2.215  skipped 0
+  L2_new_vehicle_07          100 simulations,   0 collided, 4524.3 s
+folds saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\m2b_residual\folds (git e4a5c00); no summary written

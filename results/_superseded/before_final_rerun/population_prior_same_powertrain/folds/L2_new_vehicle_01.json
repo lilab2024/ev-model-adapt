@@ -1,0 +1,28 @@
+{
+  "fold_id": "L2_new_vehicle_01",
+  "git_commit": "8b10b944c54fe0b6f9342dde44076381eda25f2e",
+  "git_dirty": false,
+  "config_md5": "3f71e3098231b71359b37e51aff50c73",
+  "state": {
+    "fold_id": "L2_new_vehicle_01",
+    "level": "L2_new_vehicle",
+    "method": "population_prior_same_powertrain",
+    "n_train_runs": 17,
+    "n_train_tasks": 2,
+    "n_new_task_fits": 0,
+    "prior_lambda": 1.0,
+    "pseudo_tasks": "",
+    "prior_mu_v0": 32.13907347218419,
+    "prior_logsd_v0": 0.05,
+    "prior_mu_T": 0.8654814884740033,
+    "prior_logsd_T": 0.42712465450759257,
+    "prior_mu_s0": 2.049730481970635,
+    "prior_logsd_s0": 1.995250972547777,
+    "prior_mu_a": 1.0577195950242817,
+    "prior_logsd_a": 0.5232707984555848,
+    "prior_mu_b": 4.3625652322970945,
+    "prior_logsd_b": 0.4507087717564127,
+    "prior_powertrain": "EV"
+  },
+  "finished": "2026-10-26T21:47:25"
+}

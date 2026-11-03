@@ -1,0 +1,20 @@
+{
+  "fold_id": "L2_no_ice_03",
+  "git_commit": "cd9d175b30ba1c0247e3ff34198c8e070df1d28d",
+  "git_dirty": false,
+  "config_md5": "4ca9cfa1279ee42ccc0008ae5d0dec77",
+  "state": {
+    "fold_id": "L2_no_ice_03",
+    "level": "L2_no_ice",
+    "method": "no_adaptation",
+    "train_rmse": 0.4522064833097078,
+    "n_train_runs": 220,
+    "idm_delta": 4.0,
+    "idm_v0": 59.999999996744684,
+    "idm_T": 1.0758212930846824,
+    "idm_s0": 2.18328753824373,
+    "idm_a": 0.36026147847003814,
+    "idm_b": 1.4761158687168436
+  },
+  "finished": "2026-10-23T20:48:25"
+}

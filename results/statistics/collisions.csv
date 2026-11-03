@@ -1,0 +1,265 @@
+method,level,vehicle,run_type,n_runs,n_collided,share
+M0,L1_new_setting,IONIQ 5,no_stop,515,0,0.0
+M0,L1_new_setting,IONIQ 5,stop,157,0,0.0
+M0,L1_new_setting,VehA,no_stop,20,0,0.0
+M0,L1_new_setting,VehB,no_stop,20,0,0.0
+M0,L1_new_setting,VehC,no_stop,20,0,0.0
+M0,L1_new_setting,VehD,no_stop,20,0,0.0
+M0,L1_new_setting,VehE,no_stop,20,0,0.0
+M0,L1_new_setting,VehF,no_stop,20,0,0.0
+M0,L2_new_vehicle,IONIQ 5,no_stop,515,0,0.0
+M0,L2_new_vehicle,IONIQ 5,stop,157,0,0.0
+M0,L2_new_vehicle,Model 3,no_stop,28,0,0.0
+M0,L2_new_vehicle,Polestar 2,no_stop,36,0,0.0
+M0,L2_new_vehicle,VehA,no_stop,20,0,0.0
+M0,L2_new_vehicle,VehB,no_stop,20,0,0.0
+M0,L2_new_vehicle,VehC,no_stop,20,0,0.0
+M0,L2_new_vehicle,VehD,no_stop,20,0,0.0
+M0,L2_new_vehicle,VehE,no_stop,20,0,0.0
+M0,L2_new_vehicle,VehF,no_stop,20,0,0.0
+M0,L2_no_ice,IONIQ 5,no_stop,515,0,0.0
+M0,L2_no_ice,IONIQ 5,stop,157,0,0.0
+M0,L2_no_ice,Model 3,no_stop,28,0,0.0
+M0,L2_no_ice,Polestar 2,no_stop,36,0,0.0
+M0,L3_cross_powertrain,IONIQ 5,no_stop,515,0,0.0
+M0,L3_cross_powertrain,IONIQ 5,stop,157,0,0.0
+M0,L3_cross_powertrain,Model 3,no_stop,28,0,0.0
+M0,L3_cross_powertrain,Polestar 2,no_stop,36,0,0.0
+M1,L1_new_setting,IONIQ 5,no_stop,2575,0,0.0
+M1,L1_new_setting,IONIQ 5,stop,785,0,0.0
+M1,L1_new_setting,VehA,no_stop,100,0,0.0
+M1,L1_new_setting,VehB,no_stop,100,0,0.0
+M1,L1_new_setting,VehC,no_stop,100,0,0.0
+M1,L1_new_setting,VehD,no_stop,100,0,0.0
+M1,L1_new_setting,VehE,no_stop,100,0,0.0
+M1,L1_new_setting,VehF,no_stop,100,0,0.0
+M1,L2_new_vehicle,IONIQ 5,no_stop,2575,0,0.0
+M1,L2_new_vehicle,IONIQ 5,stop,785,0,0.0
+M1,L2_new_vehicle,Model 3,no_stop,128,0,0.0
+M1,L2_new_vehicle,Polestar 2,no_stop,156,0,0.0
+M1,L2_new_vehicle,VehA,no_stop,100,0,0.0
+M1,L2_new_vehicle,VehB,no_stop,100,0,0.0
+M1,L2_new_vehicle,VehC,no_stop,100,0,0.0
+M1,L2_new_vehicle,VehD,no_stop,100,0,0.0
+M1,L2_new_vehicle,VehE,no_stop,100,0,0.0
+M1,L2_new_vehicle,VehF,no_stop,100,0,0.0
+M1,L2_no_ice,IONIQ 5,no_stop,2575,0,0.0
+M1,L2_no_ice,IONIQ 5,stop,785,0,0.0
+M1,L2_no_ice,Model 3,no_stop,128,0,0.0
+M1,L2_no_ice,Polestar 2,no_stop,156,0,0.0
+M1,L3_cross_powertrain,IONIQ 5,no_stop,2575,0,0.0
+M1,L3_cross_powertrain,IONIQ 5,stop,785,0,0.0
+M1,L3_cross_powertrain,Model 3,no_stop,128,0,0.0
+M1,L3_cross_powertrain,Polestar 2,no_stop,156,0,0.0
+M2,L1_new_setting,IONIQ 5,no_stop,2575,0,0.0
+M2,L1_new_setting,IONIQ 5,stop,785,0,0.0
+M2,L1_new_setting,VehA,no_stop,100,0,0.0
+M2,L1_new_setting,VehB,no_stop,100,0,0.0
+M2,L1_new_setting,VehC,no_stop,100,0,0.0
+M2,L1_new_setting,VehD,no_stop,100,0,0.0
+M2,L1_new_setting,VehE,no_stop,100,0,0.0
+M2,L1_new_setting,VehF,no_stop,100,0,0.0
+M2,L2_new_vehicle,IONIQ 5,no_stop,2575,0,0.0
+M2,L2_new_vehicle,IONIQ 5,stop,785,0,0.0
+M2,L2_new_vehicle,Model 3,no_stop,128,0,0.0
+M2,L2_new_vehicle,Polestar 2,no_stop,156,0,0.0
+M2,L2_new_vehicle,VehA,no_stop,100,0,0.0
+M2,L2_new_vehicle,VehB,no_stop,100,0,0.0
+M2,L2_new_vehicle,VehC,no_stop,100,0,0.0
+M2,L2_new_vehicle,VehD,no_stop,100,0,0.0
+M2,L2_new_vehicle,VehE,no_stop,100,0,0.0
+M2,L2_new_vehicle,VehF,no_stop,100,0,0.0
+M2,L2_no_ice,IONIQ 5,no_stop,2575,0,0.0
+M2,L2_no_ice,IONIQ 5,stop,785,0,0.0
+M2,L2_no_ice,Model 3,no_stop,128,0,0.0
+M2,L2_no_ice,Polestar 2,no_stop,156,0,0.0
+M2,L3_cross_powertrain,IONIQ 5,no_stop,2575,0,0.0
+M2,L3_cross_powertrain,IONIQ 5,stop,785,0,0.0
+M2,L3_cross_powertrain,Model 3,no_stop,128,0,0.0
+M2,L3_cross_powertrain,Polestar 2,no_stop,156,0,0.0
+M2b,L1_new_setting,IONIQ 5,no_stop,2575,0,0.0
+M2b,L1_new_setting,IONIQ 5,stop,785,0,0.0
+M2b,L1_new_setting,VehA,no_stop,100,0,0.0
+M2b,L1_new_setting,VehB,no_stop,100,0,0.0
+M2b,L1_new_setting,VehC,no_stop,100,0,0.0
+M2b,L1_new_setting,VehD,no_stop,100,0,0.0
+M2b,L1_new_setting,VehE,no_stop,100,0,0.0
+M2b,L1_new_setting,VehF,no_stop,100,0,0.0
+M2b,L2_new_vehicle,IONIQ 5,no_stop,2575,0,0.0
+M2b,L2_new_vehicle,IONIQ 5,stop,785,0,0.0
+M2b,L2_new_vehicle,Model 3,no_stop,128,0,0.0
+M2b,L2_new_vehicle,Polestar 2,no_stop,156,0,0.0
+M2b,L2_new_vehicle,VehA,no_stop,100,0,0.0
+M2b,L2_new_vehicle,VehB,no_stop,100,0,0.0
+M2b,L2_new_vehicle,VehC,no_stop,100,0,0.0
+M2b,L2_new_vehicle,VehD,no_stop,100,0,0.0
+M2b,L2_new_vehicle,VehE,no_stop,100,0,0.0
+M2b,L2_new_vehicle,VehF,no_stop,100,0,0.0
+M2b_residual,L1_new_setting,IONIQ 5,no_stop,2575,0,0.0
+M2b_residual,L1_new_setting,IONIQ 5,stop,785,0,0.0
+M2b_residual,L1_new_setting,VehA,no_stop,100,0,0.0
+M2b_residual,L1_new_setting,VehB,no_stop,100,0,0.0
+M2b_residual,L1_new_setting,VehC,no_stop,100,0,0.0
+M2b_residual,L1_new_setting,VehD,no_stop,100,0,0.0
+M2b_residual,L1_new_setting,VehE,no_stop,100,0,0.0
+M2b_residual,L1_new_setting,VehF,no_stop,100,0,0.0
+M2b_residual,L2_new_vehicle,IONIQ 5,no_stop,2575,0,0.0
+M2b_residual,L2_new_vehicle,IONIQ 5,stop,785,0,0.0
+M2b_residual,L2_new_vehicle,Model 3,no_stop,128,0,0.0
+M2b_residual,L2_new_vehicle,Polestar 2,no_stop,156,0,0.0
+M2b_residual,L2_new_vehicle,VehA,no_stop,100,0,0.0
+M2b_residual,L2_new_vehicle,VehB,no_stop,100,0,0.0
+M2b_residual,L2_new_vehicle,VehC,no_stop,100,0,0.0
+M2b_residual,L2_new_vehicle,VehD,no_stop,100,0,0.0
+M2b_residual,L2_new_vehicle,VehE,no_stop,100,0,0.0
+M2b_residual,L2_new_vehicle,VehF,no_stop,100,0,0.0
+GBM,L1_new_setting,IONIQ 5,no_stop,2575,0,0.0
+GBM,L1_new_setting,IONIQ 5,stop,785,0,0.0
+GBM,L1_new_setting,VehA,no_stop,100,0,0.0
+GBM,L1_new_setting,VehB,no_stop,100,0,0.0
+GBM,L1_new_setting,VehC,no_stop,100,0,0.0
+GBM,L1_new_setting,VehD,no_stop,100,0,0.0
+GBM,L1_new_setting,VehE,no_stop,100,0,0.0
+GBM,L1_new_setting,VehF,no_stop,100,0,0.0
+GBM,L2_new_vehicle,IONIQ 5,no_stop,2575,0,0.0
+GBM,L2_new_vehicle,IONIQ 5,stop,785,0,0.0
+GBM,L2_new_vehicle,Model 3,no_stop,128,0,0.0
+GBM,L2_new_vehicle,Polestar 2,no_stop,156,0,0.0
+GBM,L2_new_vehicle,VehA,no_stop,100,0,0.0
+GBM,L2_new_vehicle,VehB,no_stop,100,0,0.0
+GBM,L2_new_vehicle,VehC,no_stop,100,0,0.0
+GBM,L2_new_vehicle,VehD,no_stop,100,0,0.0
+GBM,L2_new_vehicle,VehE,no_stop,100,0,0.0
+GBM,L2_new_vehicle,VehF,no_stop,100,0,0.0
+GBM,L2_no_ice,IONIQ 5,no_stop,2575,0,0.0
+GBM,L2_no_ice,IONIQ 5,stop,785,0,0.0
+GBM,L2_no_ice,Model 3,no_stop,128,0,0.0
+GBM,L2_no_ice,Polestar 2,no_stop,156,0,0.0
+GBM,L3_cross_powertrain,IONIQ 5,no_stop,2575,0,0.0
+GBM,L3_cross_powertrain,IONIQ 5,stop,785,0,0.0
+GBM,L3_cross_powertrain,Model 3,no_stop,128,0,0.0
+GBM,L3_cross_powertrain,Polestar 2,no_stop,156,0,0.0
+M4A_zero,L1_new_setting,IONIQ 5,no_stop,2575,0,0.0
+M4A_zero,L1_new_setting,IONIQ 5,stop,785,0,0.0
+M4A_zero,L1_new_setting,VehA,no_stop,100,0,0.0
+M4A_zero,L1_new_setting,VehB,no_stop,100,0,0.0
+M4A_zero,L1_new_setting,VehC,no_stop,100,0,0.0
+M4A_zero,L1_new_setting,VehD,no_stop,100,0,0.0
+M4A_zero,L1_new_setting,VehE,no_stop,100,0,0.0
+M4A_zero,L1_new_setting,VehF,no_stop,100,0,0.0
+M4A_zero,L2_new_vehicle,IONIQ 5,no_stop,2575,0,0.0
+M4A_zero,L2_new_vehicle,IONIQ 5,stop,785,0,0.0
+M4A_zero,L2_new_vehicle,Model 3,no_stop,128,0,0.0
+M4A_zero,L2_new_vehicle,Polestar 2,no_stop,156,0,0.0
+M4A_zero,L2_new_vehicle,VehA,no_stop,100,0,0.0
+M4A_zero,L2_new_vehicle,VehB,no_stop,100,0,0.0
+M4A_zero,L2_new_vehicle,VehC,no_stop,100,0,0.0
+M4A_zero,L2_new_vehicle,VehD,no_stop,100,0,0.0
+M4A_zero,L2_new_vehicle,VehE,no_stop,100,0,0.0
+M4A_zero,L2_new_vehicle,VehF,no_stop,100,0,0.0
+M4A_zero,L2_no_ice,IONIQ 5,no_stop,2575,0,0.0
+M4A_zero,L2_no_ice,IONIQ 5,stop,785,0,0.0
+M4A_zero,L2_no_ice,Model 3,no_stop,128,0,0.0
+M4A_zero,L2_no_ice,Polestar 2,no_stop,156,0,0.0
+M4A_zero,L3_cross_powertrain,IONIQ 5,no_stop,2575,0,0.0
+M4A_zero,L3_cross_powertrain,IONIQ 5,stop,785,0,0.0
+M4A_zero,L3_cross_powertrain,Model 3,no_stop,128,0,0.0
+M4A_zero,L3_cross_powertrain,Polestar 2,no_stop,156,0,0.0
+M4A_ft,L1_new_setting,IONIQ 5,no_stop,2575,0,0.0
+M4A_ft,L1_new_setting,IONIQ 5,stop,785,0,0.0
+M4A_ft,L1_new_setting,VehA,no_stop,100,0,0.0
+M4A_ft,L1_new_setting,VehB,no_stop,100,0,0.0
+M4A_ft,L1_new_setting,VehC,no_stop,100,0,0.0
+M4A_ft,L1_new_setting,VehD,no_stop,100,0,0.0
+M4A_ft,L1_new_setting,VehE,no_stop,100,0,0.0
+M4A_ft,L1_new_setting,VehF,no_stop,100,0,0.0
+M4A_ft,L2_new_vehicle,IONIQ 5,no_stop,2575,0,0.0
+M4A_ft,L2_new_vehicle,IONIQ 5,stop,785,0,0.0
+M4A_ft,L2_new_vehicle,Model 3,no_stop,128,0,0.0
+M4A_ft,L2_new_vehicle,Polestar 2,no_stop,156,0,0.0
+M4A_ft,L2_new_vehicle,VehA,no_stop,100,0,0.0
+M4A_ft,L2_new_vehicle,VehB,no_stop,100,0,0.0
+M4A_ft,L2_new_vehicle,VehC,no_stop,100,0,0.0
+M4A_ft,L2_new_vehicle,VehD,no_stop,100,0,0.0
+M4A_ft,L2_new_vehicle,VehE,no_stop,100,0,0.0
+M4A_ft,L2_new_vehicle,VehF,no_stop,100,0,0.0
+M4A_ft,L2_no_ice,IONIQ 5,no_stop,2575,0,0.0
+M4A_ft,L2_no_ice,IONIQ 5,stop,785,0,0.0
+M4A_ft,L2_no_ice,Model 3,no_stop,128,0,0.0
+M4A_ft,L2_no_ice,Polestar 2,no_stop,156,0,0.0
+M4A_ft,L3_cross_powertrain,IONIQ 5,no_stop,2575,0,0.0
+M4A_ft,L3_cross_powertrain,IONIQ 5,stop,785,0,0.0
+M4A_ft,L3_cross_powertrain,Model 3,no_stop,128,0,0.0
+M4A_ft,L3_cross_powertrain,Polestar 2,no_stop,156,0,0.0
+M4A_lovo,L2_new_vehicle,IONIQ 5,no_stop,2575,0,0.0
+M4A_lovo,L2_new_vehicle,IONIQ 5,stop,785,0,0.0
+M4A_lovo,L2_new_vehicle,Model 3,no_stop,128,0,0.0
+M4A_lovo,L2_new_vehicle,Polestar 2,no_stop,156,0,0.0
+M4A_lovo,L2_new_vehicle,VehA,no_stop,100,0,0.0
+M4A_lovo,L2_new_vehicle,VehB,no_stop,100,0,0.0
+M4A_lovo,L2_new_vehicle,VehC,no_stop,100,0,0.0
+M4A_lovo,L2_new_vehicle,VehD,no_stop,100,0,0.0
+M4A_lovo,L2_new_vehicle,VehE,no_stop,100,0,0.0
+M4A_lovo,L2_new_vehicle,VehF,no_stop,100,0,0.0
+M4A_lovo,L2_no_ice,IONIQ 5,no_stop,2575,0,0.0
+M4A_lovo,L2_no_ice,IONIQ 5,stop,785,0,0.0
+M4A_lovo,L2_no_ice,Model 3,no_stop,128,0,0.0
+M4A_lovo,L2_no_ice,Polestar 2,no_stop,156,0,0.0
+M4A_lovo,L3_cross_powertrain,IONIQ 5,no_stop,2575,0,0.0
+M4A_lovo,L3_cross_powertrain,IONIQ 5,stop,785,0,0.0
+M4A_lovo,L3_cross_powertrain,Model 3,no_stop,128,0,0.0
+M4A_lovo,L3_cross_powertrain,Polestar 2,no_stop,156,0,0.0
+M4A_scratch,L2_new_vehicle,IONIQ 5,no_stop,2575,0,0.0
+M4A_scratch,L2_new_vehicle,IONIQ 5,stop,785,0,0.0
+M4A_scratch,L2_new_vehicle,Model 3,no_stop,128,0,0.0
+M4A_scratch,L2_new_vehicle,Polestar 2,no_stop,156,0,0.0
+M4A_scratch,L2_new_vehicle,VehA,no_stop,100,0,0.0
+M4A_scratch,L2_new_vehicle,VehB,no_stop,100,0,0.0
+M4A_scratch,L2_new_vehicle,VehC,no_stop,100,0,0.0
+M4A_scratch,L2_new_vehicle,VehD,no_stop,100,0,0.0
+M4A_scratch,L2_new_vehicle,VehE,no_stop,100,0,0.0
+M4A_scratch,L2_new_vehicle,VehF,no_stop,100,0,0.0
+M4A_scratch,L2_no_ice,IONIQ 5,no_stop,2575,0,0.0
+M4A_scratch,L2_no_ice,IONIQ 5,stop,785,0,0.0
+M4A_scratch,L2_no_ice,Model 3,no_stop,128,0,0.0
+M4A_scratch,L2_no_ice,Polestar 2,no_stop,156,0,0.0
+M4A_scratch,L3_cross_powertrain,IONIQ 5,no_stop,2575,0,0.0
+M4A_scratch,L3_cross_powertrain,IONIQ 5,stop,785,0,0.0
+M4A_scratch,L3_cross_powertrain,Model 3,no_stop,128,0,0.0
+M4A_scratch,L3_cross_powertrain,Polestar 2,no_stop,156,0,0.0
+M4A_transformer,L2_new_vehicle,IONIQ 5,no_stop,2575,0,0.0
+M4A_transformer,L2_new_vehicle,IONIQ 5,stop,785,0,0.0
+M4A_transformer,L2_new_vehicle,Model 3,no_stop,128,0,0.0
+M4A_transformer,L2_new_vehicle,Polestar 2,no_stop,156,0,0.0
+M4A_transformer,L2_new_vehicle,VehA,no_stop,100,0,0.0
+M4A_transformer,L2_new_vehicle,VehB,no_stop,100,0,0.0
+M4A_transformer,L2_new_vehicle,VehC,no_stop,100,0,0.0
+M4A_transformer,L2_new_vehicle,VehD,no_stop,100,0,0.0
+M4A_transformer,L2_new_vehicle,VehE,no_stop,100,0,0.0
+M4A_transformer,L2_new_vehicle,VehF,no_stop,100,0,0.0
+M4A_transformer,L2_no_ice,IONIQ 5,no_stop,2575,0,0.0
+M4A_transformer,L2_no_ice,IONIQ 5,stop,785,0,0.0
+M4A_transformer,L2_no_ice,Model 3,no_stop,128,0,0.0
+M4A_transformer,L2_no_ice,Polestar 2,no_stop,156,0,0.0
+M4A_transformer,L3_cross_powertrain,IONIQ 5,no_stop,2575,0,0.0
+M4A_transformer,L3_cross_powertrain,IONIQ 5,stop,785,0,0.0
+M4A_transformer,L3_cross_powertrain,Model 3,no_stop,128,0,0.0
+M4A_transformer,L3_cross_powertrain,Polestar 2,no_stop,156,0,0.0
+M4C,L2_new_vehicle,IONIQ 5,no_stop,2575,0,0.0
+M4C,L2_new_vehicle,IONIQ 5,stop,785,0,0.0
+M4C,L2_new_vehicle,Model 3,no_stop,128,0,0.0
+M4C,L2_new_vehicle,Polestar 2,no_stop,156,0,0.0
+M4C,L2_new_vehicle,VehA,no_stop,100,0,0.0
+M4C,L2_new_vehicle,VehB,no_stop,100,0,0.0
+M4C,L2_new_vehicle,VehC,no_stop,100,0,0.0
+M4C,L2_new_vehicle,VehD,no_stop,100,0,0.0
+M4C,L2_new_vehicle,VehE,no_stop,100,0,0.0
+M4C,L2_new_vehicle,VehF,no_stop,100,0,0.0
+M4C,L2_no_ice,IONIQ 5,no_stop,2575,0,0.0
+M4C,L2_no_ice,IONIQ 5,stop,785,1,0.0012738853503184713
+M4C,L2_no_ice,Model 3,no_stop,128,0,0.0
+M4C,L2_no_ice,Polestar 2,no_stop,156,0,0.0
+M4C,L3_cross_powertrain,IONIQ 5,no_stop,2575,0,0.0
+M4C,L3_cross_powertrain,IONIQ 5,stop,785,28,0.035668789808917196
+M4C,L3_cross_powertrain,Model 3,no_stop,128,0,0.0
+M4C,L3_cross_powertrain,Polestar 2,no_stop,156,0,0.0

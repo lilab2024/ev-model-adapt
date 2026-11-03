@@ -1,0 +1,1 @@
+m4a_finetuned on Colab CPU (git 91f1f2f, D020): fold L2_new_vehicle_01 finished, fold 02 interrupted (F025). Superseded by D021 (local GPU); not used in the paper.

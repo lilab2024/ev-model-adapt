@@ -1,0 +1,39 @@
+{
+  "git_commit": "22d3724d6b91fbaad8a4c794d470480164c15fa0",
+  "git_dirty": false,
+  "config_md5": "8ef7049ad4629ffa77e3cb23f8162e86",
+  "network": {
+    "scales": {
+      "s": 50.0,
+      "v_f": 30.0,
+      "dv": 5.0,
+      "a_fd": 2.0
+    },
+    "encoder": "transformer",
+    "d_model": 32,
+    "layers": 2,
+    "heads": 4,
+    "ff": 64,
+    "z_dim": 8,
+    "head_hidden": 64
+  },
+  "device": "cuda",
+  "lr": 0.001,
+  "n_skipped_steps": 0,
+  "resumed_from": null,
+  "n_vehicles": 3996,
+  "n_train": 3596,
+  "n_val": 400,
+  "steps_run": 4100,
+  "best_val_loss": 5.433099746704102,
+  "population_params": {
+    "delta": 4.0,
+    "v0": 38.57991543517305,
+    "T": 1.0711617956387638,
+    "s0": 2.8248986846673816,
+    "a": 0.9048589248056299,
+    "b": 0.2559624595356747
+  },
+  "started": "2026-10-28T09:34:22",
+  "finished": "2026-10-28T11:12:28"
+}

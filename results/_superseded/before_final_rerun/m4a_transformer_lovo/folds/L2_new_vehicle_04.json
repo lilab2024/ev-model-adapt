@@ -1,0 +1,39 @@
+{
+  "fold_id": "L2_new_vehicle_04",
+  "git_commit": "a70b1b5318de64d5c2db53ab0d4dc5557f90bf9b",
+  "git_dirty": false,
+  "config_md5": "0c7ebc10f3b10b2348a94dbc3e2f754c",
+  "state": {
+    "fold_id": "L2_new_vehicle_04",
+    "level": "L2_new_vehicle",
+    "method": "m4a_transformer_lovo",
+    "n_train_runs": 258,
+    "weights_md5": "02e6a1cd52eea5a40a2cafb09ccf4a92",
+    "n_new_predictions": 50,
+    "n_cached_predictions": 0,
+    "lovo_used": true,
+    "heldout_vehicle": "VehE",
+    "heldout_same_powertrain": true,
+    "heldout_tasks": [
+      "ICE | VehE | max",
+      "ICE | VehE | min"
+    ],
+    "n_val_runs": 2,
+    "n_val_episodes": 20,
+    "n_train_tasks_stage1": 14,
+    "n_train_tasks_sampled": 16,
+    "fold_seed": 2344479396,
+    "val_loss_start": 5.31092643737793,
+    "val_loss_best": 1.2614511251449585,
+    "best_step": 1000,
+    "steps_run": 1500,
+    "stage2_steps": 1000,
+    "n_skipped_steps": 0,
+    "finetune_s": 4342.0,
+    "device": "cuda",
+    "gpu_name": "NVIDIA GeForce RTX 4090",
+    "torch_version": "2.11.0+cu126",
+    "torch_threads": 2
+  },
+  "finished": "2026-10-28T16:22:48"
+}

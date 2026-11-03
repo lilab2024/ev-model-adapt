@@ -1,0 +1,27 @@
+{
+  "fold_id": "L2_no_ice_01",
+  "git_commit": "7ed3268513821d3092358c77f2a575877a769046",
+  "git_dirty": false,
+  "config_md5": "b1c5f595a3598b27b1eac769e8e6301c",
+  "state": {
+    "fold_id": "L2_no_ice_01",
+    "level": "L2_no_ice",
+    "method": "population_prior",
+    "n_train_runs": 17,
+    "n_train_tasks": 2,
+    "n_new_task_fits": 0,
+    "prior_lambda": 1.0,
+    "pseudo_tasks": "",
+    "prior_mu_v0": 32.138870567511525,
+    "prior_logsd_v0": 0.05,
+    "prior_mu_T": 0.8654540672614336,
+    "prior_logsd_T": 0.42716884085294987,
+    "prior_mu_s0": 2.049813157424305,
+    "prior_logsd_s0": 1.9953080134080077,
+    "prior_mu_a": 1.0577293140756534,
+    "prior_logsd_a": 0.5232812508712487,
+    "prior_mu_b": 4.362603526985331,
+    "prior_logsd_b": 0.4506963578148683
+  },
+  "finished": "2026-10-24T14:44:43"
+}

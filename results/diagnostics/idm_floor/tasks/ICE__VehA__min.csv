@@ -1,0 +1,3 @@
+task,run_id,floor,n_train_runs,n_val_runs,spacing_rmse,speed_rmse,collided,diverged,idm_delta,idm_v0,idm_T,idm_s0,idm_a,idm_b
+ICE | VehA | min,ICE_VehA_osc_min,in_sample,3,1,1.1125458995559288,0.24974256644857656,False,False,4.0,53.363042439168105,0.6981875816710662,15.0,0.8513776704228124,6.0
+ICE | VehA | min,ICE_VehA_osc_min,cross_config,3,1,1.3704457537818024,0.2522131255833989,False,False,4.0,48.01092222050738,0.6923675942241986,15.0,1.2786639797600081,6.0

@@ -1,0 +1,31 @@
+{
+  "fold_id": "L1_new_setting_04",
+  "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+  "git_dirty": false,
+  "config_md5": "eaaea289ab9d8a056379e5c9a22c7126",
+  "state": {
+    "fold_id": "L1_new_setting_04",
+    "level": "L1_new_setting",
+    "method": "population_prior",
+    "n_train_runs": 214,
+    "n_train_tasks": 17,
+    "n_new_task_fits": 17,
+    "prior_lambda": 1.0,
+    "pseudo_tasks": "ICE | VehA | max; ICE | VehA | min; ICE | VehB | max; ICE | VehB | min",
+    "lambda_score_0.3": 5.545226165109099,
+    "lambda_score_1.0": 3.8487367729430013,
+    "lambda_score_3.0": 5.061010099730249,
+    "lambda_score_10.0": 7.817921650329819,
+    "prior_mu_v0": 53.5324280626078,
+    "prior_logsd_v0": 0.21232836500321103,
+    "prior_mu_T": 1.1544824528878332,
+    "prior_logsd_T": 0.43518634355620445,
+    "prior_mu_s0": 7.479155606901933,
+    "prior_logsd_s0": 0.9837805021911796,
+    "prior_mu_a": 0.9695260174469499,
+    "prior_logsd_a": 0.30934595173088164,
+    "prior_mu_b": 5.631791171063846,
+    "prior_logsd_b": 0.16971710395688003
+  },
+  "finished": "2026-10-29T15:13:22"
+}

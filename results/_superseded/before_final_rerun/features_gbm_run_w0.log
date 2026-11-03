@@ -1,0 +1,10 @@
+Method features_gbm: 8 folds (shard 0/4) (0 reused, 8 to run), 332 runs, 18 tasks
+  L1_new_setting_01          885 simulations,   0 collided,  226.1 s
+  L1_new_setting_05           50 simulations,   0 collided,   36.8 s
+  L1_new_setting_09           50 simulations,   0 collided,   24.7 s
+  L1_new_setting_13           50 simulations,   0 collided,   25.0 s
+  L2_new_vehicle_01         3360 simulations,   0 collided,   27.7 s
+  L2_new_vehicle_05          100 simulations,   0 collided,   24.8 s
+  L2_new_vehicle_09          100 simulations,   0 collided,   25.1 s
+  L2_no_ice_03               156 simulations,   0 collided,    8.6 s
+folds saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\features_gbm\folds (git d59e470); no summary written

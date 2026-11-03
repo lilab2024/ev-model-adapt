@@ -1,0 +1,6 @@
+Method no_adaptation_sim: 4 folds (shard 1/8) (0 reused, 4 to run), 332 runs, 18 tasks
+  L1_new_setting_02          169 simulations,   0 collided,   70.7 s
+  L1_new_setting_10           10 simulations,   0 collided,   72.3 s
+  L2_new_vehicle_02           28 simulations,   0 collided,   58.4 s
+  L3_cross_powertrain_01     736 simulations,   0 collided,   38.3 s
+folds saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\no_adaptation_sim\folds (git c3e6d75); no summary written

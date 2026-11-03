@@ -1,0 +1,15 @@
+{
+  "fold_id": "L1_new_setting_10",
+  "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+  "git_dirty": false,
+  "config_md5": "eaaea289ab9d8a056379e5c9a22c7126",
+  "state": {
+    "fold_id": "L1_new_setting_10",
+    "level": "L1_new_setting",
+    "method": "context_recalibration",
+    "n_train_runs": 0,
+    "n_new_fits": 25,
+    "n_cached_fits": 0
+  },
+  "finished": "2026-10-29T14:38:49"
+}

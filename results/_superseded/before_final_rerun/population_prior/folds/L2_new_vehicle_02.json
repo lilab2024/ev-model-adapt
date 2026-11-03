@@ -1,0 +1,31 @@
+{
+  "fold_id": "L2_new_vehicle_02",
+  "git_commit": "7ed3268513821d3092358c77f2a575877a769046",
+  "git_dirty": false,
+  "config_md5": "b1c5f595a3598b27b1eac769e8e6301c",
+  "state": {
+    "fold_id": "L2_new_vehicle_02",
+    "level": "L2_new_vehicle",
+    "method": "population_prior",
+    "n_train_runs": 255,
+    "n_train_tasks": 17,
+    "n_new_task_fits": 4,
+    "prior_lambda": 1.0,
+    "pseudo_tasks": "EV | Polestar 2 | Short; ICE | VehA | max; ICE | VehE | min; ICE | VehF | min",
+    "lambda_score_0.3": 5.558176497300688,
+    "lambda_score_1.0": 4.3204700739942625,
+    "lambda_score_3.0": 4.455811600870547,
+    "lambda_score_10.0": 6.674287605654767,
+    "prior_mu_v0": 55.54344113933376,
+    "prior_logsd_v0": 0.16691946925855447,
+    "prior_mu_T": 1.1925798145061688,
+    "prior_logsd_T": 0.45640550578346367,
+    "prior_mu_s0": 8.051282652658587,
+    "prior_logsd_s0": 0.7978382537985457,
+    "prior_mu_a": 1.010347672970807,
+    "prior_logsd_a": 0.31592404008441005,
+    "prior_mu_b": 5.645349731045557,
+    "prior_logsd_b": 0.16116366333828985
+  },
+  "finished": "2026-10-24T02:13:25"
+}

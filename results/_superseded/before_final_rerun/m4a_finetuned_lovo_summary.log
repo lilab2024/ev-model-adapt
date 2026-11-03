@@ -1,0 +1,34 @@
+Method m4a_finetuned_lovo: 13 folds (13 reused, 0 to run), 332 runs, 18 tasks
+
+Saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\m4a_finetuned_lovo (git a2f2b24), 1.4 s
+              level  length_s  n_tasks  spacing_rmse  spacing_rmse_median_draws  speed_rmse  collision_rate       subset
+     L2_new_vehicle      10.0       18         5.848                      5.530       0.475             0.0     all_runs
+     L2_new_vehicle      30.0       18         5.033                      5.054       0.435             0.0     all_runs
+     L2_new_vehicle      60.0       18         4.430                      4.224       0.407             0.0     all_runs
+     L2_new_vehicle     120.0       18         4.031                      3.890       0.393             0.0     all_runs
+     L2_new_vehicle     300.0       18         3.702                      3.622       0.381             0.0     all_runs
+          L2_no_ice      10.0        6         8.179                      7.601       0.608             0.0     all_runs
+          L2_no_ice      30.0        6         5.672                      5.738       0.487             0.0     all_runs
+          L2_no_ice      60.0        6         4.948                      4.658       0.460             0.0     all_runs
+          L2_no_ice     120.0        6         4.604                      4.349       0.441             0.0     all_runs
+          L2_no_ice     300.0        6         4.043                      3.794       0.430             0.0     all_runs
+L3_cross_powertrain      10.0        6        15.304                     14.373       1.033             0.0     all_runs
+L3_cross_powertrain      30.0        6        13.788                     13.678       0.998             0.0     all_runs
+L3_cross_powertrain      60.0        6        13.803                     13.518       1.025             0.0     all_runs
+L3_cross_powertrain     120.0        6        13.735                     13.562       1.022             0.0     all_runs
+L3_cross_powertrain     300.0        6        14.160                     14.360       1.079             0.0     all_runs
+     L2_new_vehicle      10.0       18         4.716                      4.381       0.426             0.0 no_stop_runs
+     L2_new_vehicle      30.0       18         4.161                      4.126       0.397             0.0 no_stop_runs
+     L2_new_vehicle      60.0       18         3.753                      3.655       0.373             0.0 no_stop_runs
+     L2_new_vehicle     120.0       18         3.508                      3.420       0.365             0.0 no_stop_runs
+     L2_new_vehicle     300.0       18         3.297                      3.252       0.358             0.0 no_stop_runs
+          L2_no_ice      10.0        6         5.696                      5.123       0.489             0.0 no_stop_runs
+          L2_no_ice      30.0        6         4.289                      4.187       0.410             0.0 no_stop_runs
+          L2_no_ice      60.0        6         3.737                      3.686       0.387             0.0 no_stop_runs
+          L2_no_ice     120.0        6         3.604                      3.666       0.374             0.0 no_stop_runs
+          L2_no_ice     300.0        6         3.240                      3.126       0.369             0.0 no_stop_runs
+L3_cross_powertrain      10.0        6        10.477                      9.113       0.805             0.0 no_stop_runs
+L3_cross_powertrain      30.0        6         9.358                      9.234       0.780             0.0 no_stop_runs
+L3_cross_powertrain      60.0        6         9.317                      9.396       0.793             0.0 no_stop_runs
+L3_cross_powertrain     120.0        6         9.286                      9.019       0.790             0.0 no_stop_runs
+L3_cross_powertrain     300.0        6         9.665                      9.823       0.843             0.0 no_stop_runs

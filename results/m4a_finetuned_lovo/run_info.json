@@ -1,0 +1,17 @@
+{
+  "method": "m4a_finetuned_lovo",
+  "levels": [
+    "L2_new_vehicle",
+    "L2_no_ice",
+    "L3_cross_powertrain"
+  ],
+  "n_folds": 13,
+  "n_folds_reused": 13,
+  "n_simulations": 11532,
+  "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+  "git_dirty": false,
+  "config_md5": "eaaea289ab9d8a056379e5c9a22c7126",
+  "data_md5": "8cde7b27a7b0d1cd08cf45bc1c2e6020",
+  "finished": "2026-10-30T06:13:05",
+  "runtime_s": 1.3
+}

@@ -1,0 +1,26 @@
+IDM floor: 18 tasks, git c3e6d75
+  EV | IONIQ 5 | Long: cross_config 1.48 m, in_sample 1.47 m (22 s)
+  EV | IONIQ 5 | Medium: cross_config 1.24 m, in_sample 1.20 m (27 s)
+  EV | IONIQ 5 | Short: cross_config 2.13 m, in_sample 1.90 m (20 s)
+  EV | IONIQ 5 | XLong: cross_config 1.54 m, in_sample 1.52 m (24 s)
+  EV | Model 3 | Short: cross_config 8.16 m, in_sample 2.79 m (23 s)
+  EV | Polestar 2 | Short: cross_config 2.18 m, in_sample 1.70 m (31 s)
+  ICE | VehA | max: cross_config 3.64 m, in_sample 2.36 m (27 s)
+  ICE | VehA | min: cross_config 1.37 m, in_sample 1.11 m (24 s)
+  ICE | VehB | max: cross_config 4.58 m, in_sample 3.72 m (20 s)
+  ICE | VehB | min: cross_config 2.77 m, in_sample 1.90 m (23 s)
+  ICE | VehC | max: cross_config 2.59 m, in_sample 2.23 m (22 s)
+  ICE | VehC | min: cross_config 3.17 m, in_sample 1.32 m (26 s)
+  ICE | VehD | max: cross_config 2.39 m, in_sample 1.14 m (21 s)
+  ICE | VehD | min: cross_config 2.34 m, in_sample 1.87 m (27 s)
+  ICE | VehE | max: cross_config 1.98 m, in_sample 1.92 m (32 s)
+  ICE | VehE | min: cross_config 1.53 m, in_sample 0.71 m (26 s)
+  ICE | VehF | max: cross_config 3.42 m, in_sample 2.04 m (29 s)
+  ICE | VehF | min: cross_config 2.94 m, in_sample 1.17 m (25 s)
+
+Saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\diagnostics\idm_floor (git c3e6d75)
+powertrain        floor  n_tasks  task_mean_rmse  task_median_rmse  n_collided
+        EV cross_config        6           2.788             1.833           0
+        EV    in_sample        6           1.763             1.611           0
+       ICE cross_config       12           2.726             2.682           0
+       ICE    in_sample       12           1.791             1.881           0

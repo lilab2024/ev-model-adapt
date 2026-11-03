@@ -1,0 +1,36 @@
+physics floor: 18 tasks, models ['idm', 'ovrv', 'idm_lag'], git 0058e6e
+  EV | IONIQ 5 | Long: idm 1.47/1.48; ovrv 1.84/1.85; idm_lag 1.43/1.45 m (72 s)
+  EV | IONIQ 5 | Medium: idm 1.20/1.24; ovrv 1.49/1.55; idm_lag 1.30/1.28 m (80 s)
+  EV | IONIQ 5 | Short: idm 1.90/2.13; ovrv 2.23/2.37; idm_lag 1.84/2.07 m (62 s)
+  EV | IONIQ 5 | XLong: idm 1.52/1.54; ovrv 1.75/1.63; idm_lag 1.53/1.68 m (71 s)
+  EV | Model 3 | Short: idm 2.79/8.16; ovrv 3.39/11.52; idm_lag 2.63/8.13 m (73 s)
+  EV | Polestar 2 | Short: idm 1.70/2.18; ovrv 1.97/2.18; idm_lag 1.40/2.23 m (82 s)
+  ICE | VehA | max: idm 2.36/3.64; ovrv 1.94/2.36; idm_lag 2.36/3.65 m (65 s)
+  ICE | VehA | min: idm 1.11/1.37; ovrv 0.79/1.25; idm_lag 1.13/1.39 m (87 s)
+  ICE | VehB | max: idm 3.72/4.58; ovrv 4.77/5.86; idm_lag 3.12/10.92 m (66 s)
+  ICE | VehB | min: idm 1.90/2.77; ovrv 1.80/2.82; idm_lag 1.90/2.42 m (59 s)
+  ICE | VehC | max: idm 2.23/2.59; ovrv 3.29/4.49; idm_lag 2.37/4.91 m (62 s)
+  ICE | VehC | min: idm 1.32/3.17; ovrv 1.53/2.11; idm_lag 1.29/3.60 m (70 s)
+  ICE | VehD | max: idm 1.14/2.39; ovrv 0.70/2.33; idm_lag 0.90/2.55 m (61 s)
+  ICE | VehD | min: idm 1.87/2.34; ovrv 1.75/2.65; idm_lag 1.75/2.45 m (74 s)
+  ICE | VehE | max: idm 1.92/1.98; ovrv 0.78/1.42; idm_lag 2.38/1.72 m (79 s)
+  ICE | VehE | min: idm 0.71/1.53; ovrv 0.99/1.40; idm_lag 0.65/1.26 m (78 s)
+  ICE | VehF | max: idm 2.04/3.42; ovrv 1.27/2.06; idm_lag 1.77/9.16 m (81 s)
+  ICE | VehF | min: idm 1.17/2.94; ovrv 0.87/3.05; idm_lag 1.13/2.74 m (64 s)
+
+Saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\diagnostics\physics_floor (git 0058e6e)
+  model powertrain        floor  n_tasks  task_mean_rmse  task_median_rmse  n_collided
+    idm         EV cross_config        6           2.788             1.833           0
+    idm         EV    in_sample        6           1.763             1.611           0
+    idm        ICE cross_config       12           2.726             2.682           0
+    idm        ICE    in_sample       12           1.791             1.881           0
+idm_lag         EV cross_config        6           2.806             1.877           0
+idm_lag         EV    in_sample        6           1.687             1.478           0
+idm_lag        ICE cross_config       12           3.897             2.643           0
+idm_lag        ICE    in_sample       12           1.728             1.758           0
+   ovrv         EV cross_config        6           3.515             2.012           1
+   ovrv         EV    in_sample        6           2.112             1.905           1
+   ovrv        ICE cross_config       12           2.650             2.345           0
+   ovrv        ICE    in_sample       12           1.706             1.400           0
+rule (D028): ovrv: cross-config gain vs IDM EV -0.73 m, ICE +0.08 m -> not clearly better
+rule (D028): idm_lag: cross-config gain vs IDM EV -0.02 m, ICE -1.17 m -> not clearly better

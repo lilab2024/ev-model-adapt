@@ -1,0 +1,21 @@
+{
+  "fold_id": "L1_new_setting_01",
+  "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+  "git_dirty": false,
+  "config_md5": "eaaea289ab9d8a056379e5c9a22c7126",
+  "state": {
+    "fold_id": "L1_new_setting_01",
+    "level": "L1_new_setting",
+    "method": "features_gbm",
+    "n_train_runs": 208,
+    "n_train_tasks": 17,
+    "n_samples": 3400,
+    "fold_seed": 1483953254,
+    "train_r2_v0": 0.9115726821541479,
+    "train_r2_T": 0.9532242364536154,
+    "train_r2_s0": 0.933391679530452,
+    "train_r2_a": 0.8589568504691057,
+    "train_r2_b": 0.933478681089691
+  },
+  "finished": "2026-10-29T16:30:34"
+}

@@ -1,0 +1,30 @@
+{
+  "fold_id": "L2_no_ice_03",
+  "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+  "git_dirty": false,
+  "config_md5": "eaaea289ab9d8a056379e5c9a22c7126",
+  "state": {
+    "fold_id": "L2_no_ice_03",
+    "level": "L2_no_ice",
+    "method": "m4a_finetuned",
+    "n_train_runs": 220,
+    "weights_md5": "f906e523788fb0a9ecaacde7184f992a",
+    "n_new_predictions": 22,
+    "n_cached_predictions": 0,
+    "n_val_runs": 53,
+    "n_val_episodes": 50,
+    "n_train_tasks_sampled": 5,
+    "fold_seed": 1938445350,
+    "val_loss_start": 10.386967658996582,
+    "val_loss_best": 2.9988772869110107,
+    "best_step": 2600,
+    "steps_run": 3000,
+    "n_skipped_steps": 0,
+    "finetune_s": 3554.8,
+    "device": "cuda",
+    "gpu_name": "NVIDIA GeForce RTX 4090",
+    "torch_version": "2.11.0+cu126",
+    "torch_threads": 2
+  },
+  "finished": "2026-10-30T02:30:18"
+}

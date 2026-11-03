@@ -1,0 +1,31 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Pretrained networks on synthetic validation vehicles}
+\label{tab:pretrain}
+\begin{tabular}{rrrr}
+\toprule
+ & \multicolumn{3}{c}{Spacing RMSE (m)} \\
+\cmidrule(lr){2-4}
+Observed driving (s) & Predicted & True parameters & Population \\
+\midrule
+\multicolumn{4}{l}{\textit{Network (GRU encoder)}} \\
+10 & 6.12 & 0.08 & 13.14 \\
+30 & 5.12 & 0.08 & 12.89 \\
+60 & 4.16 & 0.08 & 12.75 \\
+\addlinespace
+\multicolumn{4}{l}{\textit{Transformer network}} \\
+10 & 6.14 & 0.08 & 13.14 \\
+30 & 5.19 & 0.08 & 12.89 \\
+60 & 4.56 & 0.08 & 12.75 \\
+\addlinespace
+\multicolumn{4}{l}{\textit{Direct-acceleration network}} \\
+10 & 5.53 & 0.08 & 13.14 \\
+30 & 4.92 & 0.08 & 12.89 \\
+60 & 4.15 & 0.08 & 12.75 \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\parbox{\linewidth}{\footnotesize Each value: 392 synthetic validation episodes. Network (GRU encoder): 8900 training steps, best validation loss 5.30; Transformer network: 4100 training steps, best validation loss 5.43; Direct-acceleration network: 8700 training steps, best validation loss 5.00.}
+\end{table}

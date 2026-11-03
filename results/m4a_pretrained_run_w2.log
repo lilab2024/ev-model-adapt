@@ -1,0 +1,6 @@
+Method m4a_pretrained: 4 folds (shard 2/8) (0 reused, 4 to run), 332 runs, 18 tasks
+  L1_new_setting_03          815 simulations,   0 collided,    7.1 s
+  L1_new_setting_11           50 simulations,   0 collided,    3.3 s
+  L2_new_vehicle_03          156 simulations,   0 collided,    1.7 s
+  L2_no_ice_01              3360 simulations,   0 collided,   14.4 s
+folds saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\m4a_pretrained\folds (git c3e6d75); no summary written

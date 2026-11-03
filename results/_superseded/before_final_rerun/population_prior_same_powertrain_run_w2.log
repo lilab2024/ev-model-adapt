@@ -1,0 +1,8 @@
+Method population_prior_same_powertrain: 6 folds (shard 2/4) (0 reused, 6 to run), 332 runs, 18 tasks
+  L1_new_setting_03          815 simulations,   0 collided,  313.8 s
+  L1_new_setting_07           50 simulations,   0 collided,  428.5 s
+  L1_new_setting_11           50 simulations,   0 collided,  301.1 s
+  L1_new_setting_15           50 simulations,   0 collided,  309.7 s
+  L2_new_vehicle_03          156 simulations,   0 collided,  228.8 s
+  L2_new_vehicle_07          100 simulations,   0 collided,  474.4 s
+folds saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\population_prior_same_powertrain\folds (git 8b10b94); no summary written

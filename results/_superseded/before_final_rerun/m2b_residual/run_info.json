@@ -1,0 +1,16 @@
+{
+  "method": "m2b_residual",
+  "levels": [
+    "L1_new_setting",
+    "L2_new_vehicle"
+  ],
+  "n_folds": 25,
+  "n_folds_reused": 25,
+  "n_simulations": 8204,
+  "git_commit": "e4a5c000d8bd4eb34f50adfc3b6cd609a6bc77db",
+  "git_dirty": false,
+  "config_md5": "4d4ba7cc70e1d4dfdc2de92ccdb96b5d",
+  "data_md5": "8cde7b27a7b0d1cd08cf45bc1c2e6020",
+  "finished": "2026-10-27T17:59:30",
+  "runtime_s": 1.6
+}

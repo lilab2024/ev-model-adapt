@@ -1,0 +1,10 @@
+fold_id,level,method,n_train_runs,weights_md5,n_new_predictions,n_cached_predictions,n_val_runs,n_val_episodes,n_train_tasks_sampled,fold_seed,val_loss_start,val_loss_best,best_step,steps_run,n_skipped_steps,finetune_s,device,gpu_name,torch_version,torch_threads
+L2_new_vehicle_01,L2_new_vehicle,m4a_finetuned,53,f906e523788fb0a9ecaacde7184f992a,100,0,17,140,14,1810670724,7.182225704193115,3.054323196411133,1450,1500,0,2326.0,cuda,NVIDIA GeForce RTX 4090,2.11.0+cu126,24
+L2_new_vehicle_02,L2_new_vehicle,m4a_finetuned,255,f906e523788fb0a9ecaacde7184f992a,23,0,66,170,17,655827214,7.13542366027832,2.8776564598083496,1500,1500,0,2323.1,cuda,NVIDIA GeForce RTX 4090,2.11.0+cu126,24
+L2_new_vehicle_03,L2_new_vehicle,m4a_finetuned,256,f906e523788fb0a9ecaacde7184f992a,22,0,65,170,17,1465435734,7.806149482727051,3.2813022136688232,1500,1500,0,2329.0,cuda,NVIDIA GeForce RTX 4090,2.11.0+cu126,24
+L2_new_vehicle_04,L2_new_vehicle,m4a_finetuned,258,f906e523788fb0a9ecaacde7184f992a,50,0,66,160,16,2344479396,6.7181620597839355,3.266073703765869,1450,1500,0,2325.2,cuda,NVIDIA GeForce RTX 4090,2.11.0+cu126,24
+L2_new_vehicle_05,L2_new_vehicle,m4a_finetuned,258,f906e523788fb0a9ecaacde7184f992a,50,0,66,160,16,1704132387,6.8287248611450195,3.429615020751953,1500,1500,0,2327.0,cuda,NVIDIA GeForce RTX 4090,2.11.0+cu126,24
+L2_new_vehicle_06,L2_new_vehicle,m4a_finetuned,258,f906e523788fb0a9ecaacde7184f992a,50,0,66,160,16,1995806831,6.922332763671875,3.4389023780822754,1500,1500,0,2316.4,cuda,NVIDIA GeForce RTX 4090,2.11.0+cu126,24
+L2_new_vehicle_07,L2_new_vehicle,m4a_finetuned,258,f906e523788fb0a9ecaacde7184f992a,50,0,66,160,16,2952016035,7.845712184906006,3.5141568183898926,1450,1500,0,2324.9,cuda,NVIDIA GeForce RTX 4090,2.11.0+cu126,24
+L2_new_vehicle_08,L2_new_vehicle,m4a_finetuned,258,f906e523788fb0a9ecaacde7184f992a,50,0,66,160,16,719454382,6.736812591552734,3.5632317066192627,1500,1500,0,2332.2,cuda,NVIDIA GeForce RTX 4090,2.11.0+cu126,24
+L2_new_vehicle_09,L2_new_vehicle,m4a_finetuned,258,f906e523788fb0a9ecaacde7184f992a,50,0,66,160,16,836736230,7.782351970672607,3.3559582233428955,1450,1500,0,2326.6,cuda,NVIDIA GeForce RTX 4090,2.11.0+cu126,24

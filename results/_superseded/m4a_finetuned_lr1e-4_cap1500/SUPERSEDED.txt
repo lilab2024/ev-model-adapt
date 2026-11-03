@@ -1,0 +1,1 @@
+m4a_finetuned, level L2, lr 1e-4, max_steps 1500 (git cee136e, local RTX 4090; F026). Superseded by D022 (lr 3e-4, max_steps 3000); not used in the paper.

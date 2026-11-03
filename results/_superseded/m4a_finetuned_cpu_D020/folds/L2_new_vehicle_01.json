@@ -1,0 +1,28 @@
+{
+  "fold_id": "L2_new_vehicle_01",
+  "git_commit": "91f1f2f2ed8d6ac6276f2d063f31eb2a24b1353c",
+  "git_dirty": false,
+  "config_md5": "686766023a2224a91aa0a782d9ff0711",
+  "state": {
+    "fold_id": "L2_new_vehicle_01",
+    "level": "L2_new_vehicle",
+    "method": "m4a_finetuned",
+    "n_train_runs": 53,
+    "weights_md5": "f906e523788fb0a9ecaacde7184f992a",
+    "n_new_predictions": 100,
+    "n_cached_predictions": 0,
+    "n_val_runs": 17,
+    "n_val_episodes": 140,
+    "n_train_tasks_sampled": 14,
+    "fold_seed": 1810670724,
+    "val_loss_start": 7.182774066925049,
+    "val_loss_best": 3.053069829940796,
+    "best_step": 1500,
+    "steps_run": 1500,
+    "n_skipped_steps": 0,
+    "finetune_s": 9174.0,
+    "device": "cpu",
+    "torch_threads": 1
+  },
+  "finished": "2026-10-25T02:32:48"
+}

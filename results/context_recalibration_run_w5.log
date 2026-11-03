@@ -1,0 +1,5 @@
+Method context_recalibration: 3 folds (shard 5/8) (0 reused, 3 to run), 332 runs, 18 tasks
+  L1_new_setting_06           50 simulations,   0 collided,  288.6 s
+  L1_new_setting_14           50 simulations,   0 collided,  231.7 s
+  L2_new_vehicle_06          100 simulations,   0 collided,  457.8 s
+folds saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\context_recalibration\folds (git c3e6d75); no summary written

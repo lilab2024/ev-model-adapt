@@ -1,0 +1,10 @@
+Network,observed driving (s),episodes,predicted (m),true parameters (m),population (m)
+Network (GRU encoder),10,392,6.1162596,0.0841974,13.138582
+Network (GRU encoder),30,392,5.1189766,0.08409554,12.890265
+Network (GRU encoder),60,392,4.164177,0.081820644,12.752111
+Transformer network,10,392,6.141857,0.0841974,13.138582
+Transformer network,30,392,5.1859746,0.08409554,12.890265
+Transformer network,60,392,4.556795,0.081820644,12.752111
+Direct-acceleration network,10,392,5.5335517,0.0841974,13.138582
+Direct-acceleration network,30,392,4.916767,0.08409554,12.890265
+Direct-acceleration network,60,392,4.1520805,0.081820644,12.752111

@@ -1,0 +1,24 @@
+Method population_prior_same_powertrain: 25 folds (25 reused, 0 to run), 332 runs, 18 tasks
+
+Saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\population_prior_same_powertrain (git 8b10b94), 1.7 s
+         level  length_s  n_tasks  spacing_rmse  spacing_rmse_median_draws  speed_rmse  collision_rate       subset
+L1_new_setting      10.0       16         3.691                      3.212       0.351             0.0     all_runs
+L1_new_setting      30.0       16         3.572                      3.210       0.358             0.0     all_runs
+L1_new_setting      60.0       16         3.231                      3.060       0.349             0.0     all_runs
+L1_new_setting     120.0       16         3.029                      2.963       0.343             0.0     all_runs
+L1_new_setting     300.0       16         2.816                      2.723       0.336             0.0     all_runs
+L2_new_vehicle      10.0       18         4.821                      4.617       0.419             0.0     all_runs
+L2_new_vehicle      30.0       18         4.433                      4.092       0.414             0.0     all_runs
+L2_new_vehicle      60.0       18         3.951                      3.726       0.399             0.0     all_runs
+L2_new_vehicle     120.0       18         3.590                      3.474       0.392             0.0     all_runs
+L2_new_vehicle     300.0       18         3.189                      3.071       0.376             0.0     all_runs
+L1_new_setting      10.0       16         3.662                      3.164       0.344             0.0 no_stop_runs
+L1_new_setting      30.0       16         3.391                      3.102       0.341             0.0 no_stop_runs
+L1_new_setting      60.0       16         3.045                      2.918       0.332             0.0 no_stop_runs
+L1_new_setting     120.0       16         2.952                      2.879       0.333             0.0 no_stop_runs
+L1_new_setting     300.0       16         2.776                      2.694       0.330             0.0 no_stop_runs
+L2_new_vehicle      10.0       18         4.600                      4.393       0.397             0.0 no_stop_runs
+L2_new_vehicle      30.0       18         3.963                      3.665       0.386             0.0 no_stop_runs
+L2_new_vehicle      60.0       18         3.618                      3.547       0.376             0.0 no_stop_runs
+L2_new_vehicle     120.0       18         3.398                      3.339       0.375             0.0 no_stop_runs
+L2_new_vehicle     300.0       18         3.096                      3.022       0.366             0.0 no_stop_runs

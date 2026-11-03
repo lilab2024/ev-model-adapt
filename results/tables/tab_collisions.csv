@@ -1,0 +1,4 @@
+Level,stop runs: collided/simulations,stop runs (%),other runs: collided/simulations,other runs (%)
+New vehicle,0/785,0.0,0/3459,0.0
+"New EV, EV-only training",1/785,0.12738853503184713,0/2859,0.0
+"New EV, ICE-only training",28/785,3.56687898089172,0/2859,0.0

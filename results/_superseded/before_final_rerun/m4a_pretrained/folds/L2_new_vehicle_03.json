@@ -1,0 +1,16 @@
+{
+  "fold_id": "L2_new_vehicle_03",
+  "git_commit": "b5b2b4b2f8f7bf323d63c93f24a4022ff5badc4a",
+  "git_dirty": false,
+  "config_md5": "483e6971335a2e09f56987b983b98208",
+  "state": {
+    "fold_id": "L2_new_vehicle_03",
+    "level": "L2_new_vehicle",
+    "method": "m4a_pretrained",
+    "n_train_runs": 0,
+    "weights_md5": "f906e523788fb0a9ecaacde7184f992a",
+    "n_new_predictions": 22,
+    "n_cached_predictions": 0
+  },
+  "finished": "2026-10-24T23:27:41"
+}

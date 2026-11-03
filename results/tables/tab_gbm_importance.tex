@@ -1,0 +1,46 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Feature importance of Features + boosting for a new vehicle}
+\label{tab:gbm_importance}
+\begin{tabular}{lrrrrr}
+\toprule
+Feature & $v_0$ & $T$ & $s_0$ & $a$ & $b$ \\
+\midrule
+\multicolumn{6}{l}{\textit{Gap}} \\
+gap at zero speed & 0.02 & 0.01 & 0.02 & 0.03 & 0.02 \\
+gap per unit speed & 0.02 & 0.02 & 0.02 & 0.02 & \textbf{0.21} \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Time gap}} \\
+time gap, mean & 0.01 & \textbf{0.53} & 0.01 & 0.03 & 0.03 \\
+time gap, median & 0.03 & 0.05 & 0.03 & 0.03 & 0.06 \\
+time gap, 10th percentile & \textbf{0.43} & \textbf{0.24} & 0.05 & \textbf{0.10} & 0.09 \\
+time gap, 90th percentile & 0.04 & 0.02 & \textbf{0.10} & 0.07 & \textbf{0.12} \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Acceleration}} \\
+acceleration, s.d. & 0.01 & 0.00 & 0.00 & 0.01 & 0.01 \\
+acceleration, 5th percentile & 0.03 & 0.02 & 0.01 & 0.01 & 0.02 \\
+acceleration, 95th percentile & 0.01 & 0.01 & 0.01 & 0.03 & 0.02 \\
+acceleration, minimum & 0.06 & 0.02 & 0.01 & 0.02 & 0.02 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Feedback gains}} \\
+gain on gap error & 0.02 & 0.01 & 0.02 & 0.08 & 0.06 \\
+gain on speed difference & 0.03 & 0.01 & 0.02 & \textbf{0.25} & 0.03 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Speed}} \\
+speed, mean & 0.02 & 0.03 & 0.02 & 0.02 & 0.02 \\
+speed, range & 0.03 & 0.01 & 0.01 & 0.02 & 0.01 \\
+speed difference, mean & 0.02 & 0.01 & 0.01 & 0.02 & 0.02 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Context}} \\
+share of time stopped & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+observed length & 0.00 & 0.00 & 0.00 & 0.01 & 0.00 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Powertrain}} \\
+EV indicator & \textbf{0.21} & 0.03 & \textbf{0.67} & \textbf{0.26} & \textbf{0.26} \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\parbox{\linewidth}{\footnotesize Impurity-based importance, mean over the 9 folds; each column sums to 1 before rounding; values of 0.10 or more in bold.}
+\end{table}

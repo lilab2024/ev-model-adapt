@@ -1,0 +1,24 @@
+{
+  "git_commit": "0529b333b8099711c81aca93b7018135a41f498d",
+  "git_dirty": false,
+  "config_md5": "a7cb23ef8bd4f336131ae60047ff80a4",
+  "device": "cuda",
+  "lr": 0.0003,
+  "n_skipped_steps": 15,
+  "resumed_from": "/content/drive/MyDrive/slu_research/ev_model_adapt/ev-model-adapt/results/m4_pretrain_r2/net.pt",
+  "n_vehicles": 3996,
+  "n_train": 3596,
+  "n_val": 400,
+  "steps_run": 8900,
+  "best_val_loss": 5.301997184753418,
+  "population_params": {
+    "delta": 4.0,
+    "v0": 38.57991543517304,
+    "T": 1.0711617956387638,
+    "s0": 2.8248986846673816,
+    "a": 0.9048589248056299,
+    "b": 0.2559624595356747
+  },
+  "started": "2026-10-24T19:28:06",
+  "finished": "2026-10-24T21:28:45"
+}

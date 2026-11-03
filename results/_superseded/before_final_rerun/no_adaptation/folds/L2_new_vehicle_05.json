@@ -1,0 +1,20 @@
+{
+  "fold_id": "L2_new_vehicle_05",
+  "git_commit": "cd9d175b30ba1c0247e3ff34198c8e070df1d28d",
+  "git_dirty": false,
+  "config_md5": "4ca9cfa1279ee42ccc0008ae5d0dec77",
+  "state": {
+    "fold_id": "L2_new_vehicle_05",
+    "level": "L2_new_vehicle",
+    "method": "no_adaptation",
+    "train_rmse": 0.32313507602329833,
+    "n_train_runs": 258,
+    "idm_delta": 4.0,
+    "idm_v0": 43.71464572420277,
+    "idm_T": 1.1279793369070479,
+    "idm_s0": 2.6129372919073215,
+    "idm_a": 0.24640000610774912,
+    "idm_b": 1.6290502251826988
+  },
+  "finished": "2026-10-23T20:47:56"
+}

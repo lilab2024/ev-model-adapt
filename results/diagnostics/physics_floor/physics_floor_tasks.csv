@@ -1,0 +1,109 @@
+powertrain,task,model,floor,n_runs,spacing_rmse_mean,n_collided
+EV,EV | IONIQ 5 | Long,idm,cross_config,12,1.48035816358827,0
+EV,EV | IONIQ 5 | Long,idm,in_sample,12,1.4665772894065408,0
+EV,EV | IONIQ 5 | Long,idm_lag,cross_config,12,1.4503462920427799,0
+EV,EV | IONIQ 5 | Long,idm_lag,in_sample,12,1.4267479448425997,0
+EV,EV | IONIQ 5 | Long,ovrv,cross_config,12,1.8473832678483455,1
+EV,EV | IONIQ 5 | Long,ovrv,in_sample,12,1.839853410612774,1
+EV,EV | IONIQ 5 | Medium,idm,cross_config,12,1.2430629639333628,0
+EV,EV | IONIQ 5 | Medium,idm,in_sample,12,1.1964421946503252,0
+EV,EV | IONIQ 5 | Medium,idm_lag,cross_config,12,1.2750021899443629,0
+EV,EV | IONIQ 5 | Medium,idm_lag,in_sample,12,1.2995204123092055,0
+EV,EV | IONIQ 5 | Medium,ovrv,cross_config,12,1.5462061423284357,0
+EV,EV | IONIQ 5 | Medium,ovrv,in_sample,12,1.4878450853297418,0
+EV,EV | IONIQ 5 | Short,idm,cross_config,13,2.131163172594386,0
+EV,EV | IONIQ 5 | Short,idm,in_sample,13,1.901033340634613,0
+EV,EV | IONIQ 5 | Short,idm_lag,cross_config,13,2.0709542707619937,0
+EV,EV | IONIQ 5 | Short,idm_lag,in_sample,13,1.83709515968193,0
+EV,EV | IONIQ 5 | Short,ovrv,cross_config,13,2.3673205260229504,0
+EV,EV | IONIQ 5 | Short,ovrv,in_sample,13,2.2304933721335134,0
+EV,EV | IONIQ 5 | XLong,idm,cross_config,14,1.5357458720377732,0
+EV,EV | IONIQ 5 | XLong,idm,in_sample,14,1.5223605294022726,0
+EV,EV | IONIQ 5 | XLong,idm_lag,cross_config,14,1.6838423860030842,0
+EV,EV | IONIQ 5 | XLong,idm_lag,in_sample,14,1.529369653515237,0
+EV,EV | IONIQ 5 | XLong,ovrv,cross_config,14,1.626717696551408,0
+EV,EV | IONIQ 5 | XLong,ovrv,in_sample,14,1.7533085815415035,0
+EV,EV | Model 3 | Short,idm,cross_config,2,8.155048885952144,0
+EV,EV | Model 3 | Short,idm,in_sample,2,2.788568184489316,0
+EV,EV | Model 3 | Short,idm_lag,cross_config,2,8.130893377603856,0
+EV,EV | Model 3 | Short,idm_lag,in_sample,2,2.6256649111205896,0
+EV,EV | Model 3 | Short,ovrv,cross_config,2,11.523160474790014,0
+EV,EV | Model 3 | Short,ovrv,in_sample,2,3.389807705688426,0
+EV,EV | Polestar 2 | Short,idm,cross_config,3,2.1842344073955506,0
+EV,EV | Polestar 2 | Short,idm,in_sample,3,1.7004027665139667,0
+EV,EV | Polestar 2 | Short,idm_lag,cross_config,3,2.2270883036971676,0
+EV,EV | Polestar 2 | Short,idm_lag,in_sample,3,1.4033650079036393,0
+EV,EV | Polestar 2 | Short,ovrv,cross_config,3,2.177166479583924,0
+EV,EV | Polestar 2 | Short,ovrv,in_sample,3,1.9699542385552464,0
+ICE,ICE | VehA | max,idm,cross_config,1,3.6410664715750256,0
+ICE,ICE | VehA | max,idm,in_sample,1,2.3587288221965874,0
+ICE,ICE | VehA | max,idm_lag,cross_config,1,3.6473956485254613,0
+ICE,ICE | VehA | max,idm_lag,in_sample,1,2.359645334303535,0
+ICE,ICE | VehA | max,ovrv,cross_config,1,2.3631167417743146,0
+ICE,ICE | VehA | max,ovrv,in_sample,1,1.9433124193483133,0
+ICE,ICE | VehA | min,idm,cross_config,1,1.3704457537818024,0
+ICE,ICE | VehA | min,idm,in_sample,1,1.1125458995559288,0
+ICE,ICE | VehA | min,idm_lag,cross_config,1,1.386216901852275,0
+ICE,ICE | VehA | min,idm_lag,in_sample,1,1.132358219099768,0
+ICE,ICE | VehA | min,ovrv,cross_config,1,1.2541853528524392,0
+ICE,ICE | VehA | min,ovrv,in_sample,1,0.7884405650732441,0
+ICE,ICE | VehB | max,idm,cross_config,1,4.5769915032525335,0
+ICE,ICE | VehB | max,idm,in_sample,1,3.7168041731987467,0
+ICE,ICE | VehB | max,idm_lag,cross_config,1,10.924286521652796,0
+ICE,ICE | VehB | max,idm_lag,in_sample,1,3.119016920557989,0
+ICE,ICE | VehB | max,ovrv,cross_config,1,5.86134954502312,0
+ICE,ICE | VehB | max,ovrv,in_sample,1,4.768112823901924,0
+ICE,ICE | VehB | min,idm,cross_config,1,2.7713998603746135,0
+ICE,ICE | VehB | min,idm,in_sample,1,1.895941080791475,0
+ICE,ICE | VehB | min,idm_lag,cross_config,1,2.415217096608966,0
+ICE,ICE | VehB | min,idm_lag,in_sample,1,1.897157821252702,0
+ICE,ICE | VehB | min,ovrv,cross_config,1,2.819047472678064,0
+ICE,ICE | VehB | min,ovrv,in_sample,1,1.7985252742988744,0
+ICE,ICE | VehC | max,idm,cross_config,1,2.5922595899597307,0
+ICE,ICE | VehC | max,idm,in_sample,1,2.233266471998552,0
+ICE,ICE | VehC | max,idm_lag,cross_config,1,4.914286719617124,0
+ICE,ICE | VehC | max,idm_lag,in_sample,1,2.365628505078595,0
+ICE,ICE | VehC | max,ovrv,cross_config,1,4.489655918464986,0
+ICE,ICE | VehC | max,ovrv,in_sample,1,3.2922645704534044,0
+ICE,ICE | VehC | min,idm,cross_config,1,3.166992369478716,0
+ICE,ICE | VehC | min,idm,in_sample,1,1.3249996371564583,0
+ICE,ICE | VehC | min,idm_lag,cross_config,1,3.597381969517683,0
+ICE,ICE | VehC | min,idm_lag,in_sample,1,1.288914786235236,0
+ICE,ICE | VehC | min,ovrv,cross_config,1,2.1105235179591877,0
+ICE,ICE | VehC | min,ovrv,in_sample,1,1.532326282740529,0
+ICE,ICE | VehD | max,idm,cross_config,1,2.3868535801760604,0
+ICE,ICE | VehD | max,idm,in_sample,1,1.1352540199091652,0
+ICE,ICE | VehD | max,idm_lag,cross_config,1,2.551846405897843,0
+ICE,ICE | VehD | max,idm_lag,in_sample,1,0.9016624880563214,0
+ICE,ICE | VehD | max,ovrv,cross_config,1,2.327744016430123,0
+ICE,ICE | VehD | max,ovrv,in_sample,1,0.6979579016486929,0
+ICE,ICE | VehD | min,idm,cross_config,1,2.336696031912581,0
+ICE,ICE | VehD | min,idm,in_sample,1,1.865864552524182,0
+ICE,ICE | VehD | min,idm_lag,cross_config,1,2.453848538911199,0
+ICE,ICE | VehD | min,idm_lag,in_sample,1,1.7461577470106824,0
+ICE,ICE | VehD | min,ovrv,cross_config,1,2.6480121748514724,0
+ICE,ICE | VehD | min,ovrv,in_sample,1,1.7468383274900794,0
+ICE,ICE | VehE | max,idm,cross_config,1,1.9776462784696187,0
+ICE,ICE | VehE | max,idm,in_sample,1,1.9205383413851835,0
+ICE,ICE | VehE | max,idm_lag,cross_config,1,1.7184468231660863,0
+ICE,ICE | VehE | max,idm_lag,in_sample,1,2.3750899190758044,0
+ICE,ICE | VehE | max,ovrv,cross_config,1,1.419356563717877,0
+ICE,ICE | VehE | max,ovrv,in_sample,1,0.7780754152186509,0
+ICE,ICE | VehE | min,idm,cross_config,1,1.5261037376885866,0
+ICE,ICE | VehE | min,idm,in_sample,1,0.711048326952905,0
+ICE,ICE | VehE | min,idm_lag,cross_config,1,1.2635234285390067,0
+ICE,ICE | VehE | min,idm_lag,in_sample,1,0.6483841009161483,0
+ICE,ICE | VehE | min,ovrv,cross_config,1,1.3990664572611407,0
+ICE,ICE | VehE | min,ovrv,in_sample,1,0.9914795300301659,0
+ICE,ICE | VehF | max,idm,cross_config,1,3.417819943406402,0
+ICE,ICE | VehF | max,idm,in_sample,1,2.0400655590607837,0
+ICE,ICE | VehF | max,idm_lag,cross_config,1,9.15653228505718,0
+ICE,ICE | VehF | max,idm_lag,in_sample,1,1.7707078773974967,0
+ICE,ICE | VehF | max,ovrv,cross_config,1,2.0578286389725218,0
+ICE,ICE | VehF | max,ovrv,in_sample,1,1.2668964187725043,0
+ICE,ICE | VehF | min,idm,cross_config,1,2.944918743271104,0
+ICE,ICE | VehF | min,idm,in_sample,1,1.1734025564961454,0
+ICE,ICE | VehF | min,idm_lag,cross_config,1,2.7350575638227803,0
+ICE,ICE | VehF | min,idm_lag,in_sample,1,1.1277437690338616,0
+ICE,ICE | VehF | min,ovrv,cross_config,1,3.049610331465914,0
+ICE,ICE | VehF | min,ovrv,in_sample,1,0.8691709028716177,0

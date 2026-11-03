@@ -1,0 +1,23 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Training cost of the learned methods per fold}
+\label{tab:compute}
+\begin{tabular}{lrrrr}
+\toprule
+ & \multicolumn{2}{c}{Time per fold (min)} & \multicolumn{2}{c}{Selected steps $S$} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+Method & Median & Range & Median & Range \\
+\midrule
+Network, fine-tuned & 91 & 17--99 & 2750 & 50--3000 \\
+Network, held-out vehicle & 46 & 12--137 & 600 & 50--2650 \\
+Network, no pretraining & 81 & 8--137 & 1100 & 0--2600 \\
+Transformer network & 30 & 9--124 & 250 & 50--2850 \\
+Direct-acceleration network & 30 & 7--77 & 500 & 0--1350 \\
+Powertrain prior + residual & 84 & 15--234 & 800 & 0--3000 \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\parbox{\linewidth}{\footnotesize Folds: 29 Network, fine-tuned; 13 Network, held-out vehicle; 13 Network, no pretraining; 13 Transformer network; 13 Direct-acceleration network; 25 Powertrain prior + residual. GPU: NVIDIA GeForce RTX 4090. $S$: selected number of training steps. Times measured with 4 processes sharing the GPU; one fold of the fine-tuned network (New EV, EV-only training; Polestar 2) was run alone after an interruption. CPU methods (no per-fold times recorded): whole runs with 8 processes, context-only calibration 0.5 h, population and powertrain prior 0.7 h each.}
+\end{table}

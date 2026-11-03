@@ -1,0 +1,31 @@
+{
+  "fold_id": "L3_cross_powertrain_01",
+  "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+  "git_dirty": false,
+  "config_md5": "eaaea289ab9d8a056379e5c9a22c7126",
+  "state": {
+    "fold_id": "L3_cross_powertrain_01",
+    "level": "L3_cross_powertrain",
+    "method": "population_prior",
+    "n_train_runs": 36,
+    "n_train_tasks": 12,
+    "n_new_task_fits": 0,
+    "prior_lambda": 1.0,
+    "pseudo_tasks": "ICE | VehA | min; ICE | VehC | max; ICE | VehD | min; ICE | VehE | min",
+    "lambda_score_0.3": 2.1399618288577136,
+    "lambda_score_1.0": 2.11000506799724,
+    "lambda_score_3.0": 2.3801285203700706,
+    "lambda_score_10.0": 5.385153336740235,
+    "prior_mu_v0": 57.5436725763133,
+    "prior_logsd_v0": 0.09834613725326805,
+    "prior_mu_T": 1.1871229569622015,
+    "prior_logsd_T": 0.4831672627151695,
+    "prior_mu_s0": 12.100742350800216,
+    "prior_logsd_s0": 0.408870364287312,
+    "prior_mu_a": 0.8638522277125952,
+    "prior_logsd_a": 0.22966563056721087,
+    "prior_mu_b": 5.8351551018269685,
+    "prior_logsd_b": 0.09650509938081639
+  },
+  "finished": "2026-10-29T15:43:38"
+}

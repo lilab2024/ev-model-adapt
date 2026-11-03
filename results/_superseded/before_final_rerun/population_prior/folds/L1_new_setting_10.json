@@ -1,0 +1,31 @@
+{
+  "fold_id": "L1_new_setting_10",
+  "git_commit": "7ed3268513821d3092358c77f2a575877a769046",
+  "git_dirty": false,
+  "config_md5": "b1c5f595a3598b27b1eac769e8e6301c",
+  "state": {
+    "fold_id": "L1_new_setting_10",
+    "level": "L1_new_setting",
+    "method": "population_prior",
+    "n_train_runs": 261,
+    "n_train_tasks": 17,
+    "n_new_task_fits": 0,
+    "prior_lambda": 0.3,
+    "pseudo_tasks": "EV | IONIQ 5 | Long; EV | IONIQ 5 | Medium; EV | IONIQ 5 | Short; ICE | VehA | min",
+    "lambda_score_0.3": 3.4250940549670066,
+    "lambda_score_1.0": 3.4433319302972105,
+    "lambda_score_3.0": 3.5627651021620776,
+    "lambda_score_10.0": 4.1384338504950176,
+    "prior_mu_v0": 53.52612393852498,
+    "prior_logsd_v0": 0.21227833845360652,
+    "prior_mu_T": 1.2276116516166926,
+    "prior_logsd_T": 0.43718785354409173,
+    "prior_mu_s0": 6.5913684352403665,
+    "prior_logsd_s0": 1.0259087692077193,
+    "prior_mu_a": 1.0206516663095846,
+    "prior_logsd_a": 0.3014114269915244,
+    "prior_mu_b": 5.437607441574781,
+    "prior_logsd_b": 0.21217164306551559
+  },
+  "finished": "2026-10-24T13:40:16"
+}

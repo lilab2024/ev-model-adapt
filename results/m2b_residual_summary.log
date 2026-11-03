@@ -1,0 +1,24 @@
+Method m2b_residual: 25 folds (25 reused, 0 to run), 332 runs, 18 tasks
+
+Saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\m2b_residual (git c3e6d75), 1.5 s
+         level  length_s  n_tasks  spacing_rmse  spacing_rmse_median_draws  speed_rmse  collision_rate       subset
+L1_new_setting      10.0       16         3.594                      3.145       0.318             0.0     all_runs
+L1_new_setting      30.0       16         3.408                      2.976       0.321             0.0     all_runs
+L1_new_setting      60.0       16         3.061                      2.858       0.311             0.0     all_runs
+L1_new_setting     120.0       16         2.849                      2.816       0.308             0.0     all_runs
+L1_new_setting     300.0       16         2.618                      2.535       0.301             0.0     all_runs
+L2_new_vehicle      10.0       18         4.792                      4.550       0.408             0.0     all_runs
+L2_new_vehicle      30.0       18         4.397                      4.042       0.402             0.0     all_runs
+L2_new_vehicle      60.0       18         3.895                      3.633       0.385             0.0     all_runs
+L2_new_vehicle     120.0       18         3.553                      3.409       0.382             0.0     all_runs
+L2_new_vehicle     300.0       18         3.128                      2.966       0.366             0.0     all_runs
+L1_new_setting      10.0       16         3.580                      3.114       0.315             0.0 no_stop_runs
+L1_new_setting      30.0       16         3.256                      2.923       0.308             0.0 no_stop_runs
+L1_new_setting      60.0       16         2.902                      2.766       0.298             0.0 no_stop_runs
+L1_new_setting     120.0       16         2.794                      2.753       0.302             0.0 no_stop_runs
+L1_new_setting     300.0       16         2.590                      2.507       0.297             0.0 no_stop_runs
+L2_new_vehicle      10.0       18         4.571                      4.326       0.386             0.0 no_stop_runs
+L2_new_vehicle      30.0       18         3.927                      3.615       0.374             0.0 no_stop_runs
+L2_new_vehicle      60.0       18         3.562                      3.454       0.362             0.0 no_stop_runs
+L2_new_vehicle     120.0       18         3.361                      3.274       0.365             0.0 no_stop_runs
+L2_new_vehicle     300.0       18         3.035                      2.917       0.355             0.0 no_stop_runs

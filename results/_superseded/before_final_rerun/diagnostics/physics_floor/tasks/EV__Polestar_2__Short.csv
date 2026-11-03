@@ -1,0 +1,19 @@
+task,model,run_id,floor,n_train_runs,n_val_runs,fit_cost,spacing_rmse,collided,diverged,params
+EV | Polestar 2 | Short,idm,EV_Polestar_Short_d0_55to35_r1,in_sample,8,3,1.5667087547849354,1.1248258721144342,False,False,delta=4; v0=44.15; T=0.6873; s0=8.384; a=0.9556; b=2.383
+EV | Polestar 2 | Short,idm,EV_Polestar_Short_d0_55to35_r2,in_sample,8,3,1.5667087547849354,2.8068399099737285,False,False,delta=4; v0=44.15; T=0.6873; s0=8.384; a=0.9556; b=2.383
+EV | Polestar 2 | Short,idm,EV_Polestar_Short_d0_55to35_r3,in_sample,8,3,1.5667087547849354,1.1695425174537373,False,False,delta=4; v0=44.15; T=0.6873; s0=8.384; a=0.9556; b=2.383
+EV | Polestar 2 | Short,idm,EV_Polestar_Short_d0_55to35_r1,cross_config,8,3,2.1030927697174233,2.095837888153844,False,False,delta=4; v0=32.29; T=0.6399; s0=8.403; a=1.531; b=6
+EV | Polestar 2 | Short,idm,EV_Polestar_Short_d0_55to35_r2,cross_config,8,3,2.1030927697174233,2.7274206544100683,False,False,delta=4; v0=32.29; T=0.6399; s0=8.403; a=1.531; b=6
+EV | Polestar 2 | Short,idm,EV_Polestar_Short_d0_55to35_r3,cross_config,8,3,2.1030927697174233,1.7294446796227392,False,False,delta=4; v0=32.29; T=0.6399; s0=8.403; a=1.531; b=6
+EV | Polestar 2 | Short,ovrv,EV_Polestar_Short_d0_55to35_r1,in_sample,8,3,1.8576875011305591,1.7264654738452672,False,False,k1=0.05722; k2=0.4775; eta=15; tau=0.5417
+EV | Polestar 2 | Short,ovrv,EV_Polestar_Short_d0_55to35_r2,in_sample,8,3,1.8576875011305591,2.5367536424364308,False,False,k1=0.05722; k2=0.4775; eta=15; tau=0.5417
+EV | Polestar 2 | Short,ovrv,EV_Polestar_Short_d0_55to35_r3,in_sample,8,3,1.8576875011305591,1.6466435993840414,False,False,k1=0.05722; k2=0.4775; eta=15; tau=0.5417
+EV | Polestar 2 | Short,ovrv,EV_Polestar_Short_d0_55to35_r1,cross_config,8,3,2.3623319146579007,1.8692707681661416,False,False,k1=0.05546; k2=0.5961; eta=14.08; tau=0.5776
+EV | Polestar 2 | Short,ovrv,EV_Polestar_Short_d0_55to35_r2,cross_config,8,3,2.3623319146579007,2.578669738344678,False,False,k1=0.05546; k2=0.5961; eta=14.08; tau=0.5776
+EV | Polestar 2 | Short,ovrv,EV_Polestar_Short_d0_55to35_r3,cross_config,8,3,2.3623319146579007,2.083558932240951,False,False,k1=0.05546; k2=0.5961; eta=14.08; tau=0.5776
+EV | Polestar 2 | Short,idm_lag,EV_Polestar_Short_d0_55to35_r1,in_sample,8,3,1.1652701465031523,0.3660064562853695,False,False,delta=4; v0=28.91; T=0.4984; s0=6.436; a=1.044; b=1.985; tau_a=1.788
+EV | Polestar 2 | Short,idm_lag,EV_Polestar_Short_d0_55to35_r2,in_sample,8,3,1.1652701465031523,2.9203218804288533,False,False,delta=4; v0=28.91; T=0.4984; s0=6.436; a=1.044; b=1.985; tau_a=1.788
+EV | Polestar 2 | Short,idm_lag,EV_Polestar_Short_d0_55to35_r3,in_sample,8,3,1.1652701465031523,0.9237666869966944,False,False,delta=4; v0=28.91; T=0.4984; s0=6.436; a=1.044; b=1.985; tau_a=1.788
+EV | Polestar 2 | Short,idm_lag,EV_Polestar_Short_d0_55to35_r1,cross_config,8,3,2.0576176219346753,2.0977058501142816,False,False,delta=4; v0=32.96; T=0.824; s0=4.56; a=1.358; b=4.493; tau_a=0.9789
+EV | Polestar 2 | Short,idm_lag,EV_Polestar_Short_d0_55to35_r2,cross_config,8,3,2.0576176219346753,2.7531238813962022,False,False,delta=4; v0=32.96; T=0.824; s0=4.56; a=1.358; b=4.493; tau_a=0.9789
+EV | Polestar 2 | Short,idm_lag,EV_Polestar_Short_d0_55to35_r3,cross_config,8,3,2.0576176219346753,1.8304351795810185,False,False,delta=4; v0=32.96; T=0.824; s0=4.56; a=1.358; b=4.493; tau_a=0.9789

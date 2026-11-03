@@ -1,0 +1,6 @@
+Method population_prior: 4 folds (shard 0/8) (0 reused, 4 to run), 332 runs, 18 tasks
+  L1_new_setting_01          885 simulations,   0 collided,  598.2 s
+  L1_new_setting_09           50 simulations,   0 collided,  400.8 s
+  L2_new_vehicle_01         3360 simulations,   0 collided,  870.4 s
+  L2_new_vehicle_09          100 simulations,   0 collided,  565.1 s
+folds saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\population_prior\folds (git c3e6d75); no summary written

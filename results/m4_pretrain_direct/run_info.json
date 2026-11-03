@@ -1,0 +1,58 @@
+{
+  "git_commit": "dcedc870d26e229cfd594558ee93498493aaa77d",
+  "git_dirty": false,
+  "config_md5": "8f202b68e9039b94b739669455a8ecab",
+  "network": {
+    "scales": {
+      "s": 50.0,
+      "v_f": 30.0,
+      "dv": 5.0,
+      "a_fd": 2.0
+    },
+    "encoder": "gru",
+    "hidden": 64,
+    "z_dim": 8,
+    "head_hidden": 64
+  },
+  "device": "cuda",
+  "lr": 0.001,
+  "n_skipped_steps": 0,
+  "resumed_from": null,
+  "n_vehicles": 3996,
+  "n_train": 3596,
+  "n_val": 400,
+  "steps_run": 8700,
+  "best_val_loss": 5.000709533691406,
+  "population_params": {
+    "delta": 4.0,
+    "v0": 38.57991543517305,
+    "T": 1.0711617956387638,
+    "s0": 2.8248986846673816,
+    "a": 0.9048589248056299,
+    "b": 0.2559624595356747
+  },
+  "started": "2026-10-29T01:15:41",
+  "finished": "2026-10-29T04:59:33",
+  "model": "m4c_direct",
+  "policy": {
+    "hidden": [
+      64,
+      64
+    ],
+    "accel_limits": [
+      -8.0,
+      4.0
+    ],
+    "scales": {
+      "gap": 30.0,
+      "v": 30.0,
+      "dv": 5.0,
+      "a_lead": 2.0,
+      "a_prev": 2.0
+    }
+  },
+  "init_encoder": {
+    "weights": "results/m4_pretrain_r3/net.pt",
+    "md5": "f906e523788fb0a9ecaacde7184f992a"
+  }
+}

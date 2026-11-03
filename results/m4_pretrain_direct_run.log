@@ -1,0 +1,157 @@
+network: {'scales': {'s': 50.0, 'v_f': 30.0, 'dv': 5.0, 'a_fd': 2.0}, 'encoder': 'gru', 'hidden': 64, 'z_dim': 8, 'head_hidden': 64}
+M4-C policy: {'hidden': [64, 64], 'accel_limits': [-8.0, 4.0], 'scales': {'gap': 30.0, 'v': 30.0, 'dv': 5.0, 'a_lead': 2.0, 'a_prev': 2.0}} | encoder from {'weights': 'results/m4_pretrain_r3/net.pt', 'md5': 'f906e523788fb0a9ecaacde7184f992a'}
+torch 2.11.0+cu126, 24 threads, GPU: NVIDIA GeForce RTX 4090
+synthetic: 3996 vehicles (3596 train, 400 val), 11570 runs
+learning rate: 0.001
+device: cuda
+step   100  train   8.385  val   8.704  skipped 0  (1.52 s/step, 2.5 min)
+step   200  train   8.303  val   8.509  skipped 0  (1.54 s/step, 5.1 min)
+step   300  train   5.919  val   9.768  skipped 0  (1.54 s/step, 7.7 min)
+step   400  train   9.491  val   8.124  skipped 0  (1.54 s/step, 10.3 min)
+step   500  train   6.259  val   7.290  skipped 0  (1.55 s/step, 12.9 min)
+step   600  train   9.317  val   7.533  skipped 0  (1.55 s/step, 15.5 min)
+step   700  train   7.614  val   6.913  skipped 0  (1.55 s/step, 18.1 min)
+step   800  train   5.459  val   7.498  skipped 0  (1.55 s/step, 20.6 min)
+step   900  train   6.793  val   7.120  skipped 0  (1.55 s/step, 23.2 min)
+step  1000  train   7.660  val   7.176  skipped 0  (1.55 s/step, 25.8 min)
+step  1100  train   8.312  val   6.989  skipped 0  (1.55 s/step, 28.4 min)
+step  1200  train   5.801  val   6.881  skipped 0  (1.55 s/step, 31.0 min)
+step  1300  train   7.617  val   6.763  skipped 0  (1.55 s/step, 33.6 min)
+step  1400  train   6.222  val   6.767  skipped 0  (1.55 s/step, 36.1 min)
+step  1500  train   7.976  val   7.120  skipped 0  (1.55 s/step, 38.6 min)
+step  1600  train   5.619  val   7.797  skipped 0  (1.54 s/step, 41.2 min)
+step  1700  train   4.820  val   7.140  skipped 0  (1.55 s/step, 43.8 min)
+step  1800  train   5.399  val   6.508  skipped 0  (1.55 s/step, 46.4 min)
+step  1900  train   6.322  val   6.405  skipped 0  (1.54 s/step, 48.9 min)
+step  2000  train   8.192  val   6.801  skipped 0  (1.55 s/step, 51.5 min)
+step  2100  train   6.705  val   6.671  skipped 0  (1.55 s/step, 54.1 min)
+step  2200  train   4.570  val   6.355  skipped 0  (1.55 s/step, 56.7 min)
+step  2300  train   4.425  val   6.586  skipped 0  (1.55 s/step, 59.2 min)
+step  2400  train   6.274  val   6.814  skipped 0  (1.54 s/step, 61.8 min)
+step  2500  train   6.427  val   6.215  skipped 0  (1.54 s/step, 64.4 min)
+step  2600  train   6.258  val   7.161  skipped 0  (1.54 s/step, 66.9 min)
+step  2700  train   6.433  val   6.085  skipped 0  (1.55 s/step, 69.5 min)
+step  2800  train   5.414  val   6.509  skipped 0  (1.54 s/step, 72.1 min)
+step  2900  train   5.934  val   6.318  skipped 0  (1.54 s/step, 74.7 min)
+step  3000  train   7.234  val   6.792  skipped 0  (1.55 s/step, 77.3 min)
+step  3100  train   4.813  val   6.116  skipped 0  (1.54 s/step, 79.8 min)
+step  3200  train   5.683  val   6.021  skipped 0  (1.54 s/step, 82.4 min)
+step  3300  train   5.206  val   6.171  skipped 0  (1.55 s/step, 85.0 min)
+step  3400  train   5.597  val   5.859  skipped 0  (1.54 s/step, 87.5 min)
+step  3500  train   5.840  val   6.009  skipped 0  (1.54 s/step, 90.1 min)
+step  3600  train   5.091  val   6.253  skipped 0  (1.55 s/step, 92.7 min)
+step  3700  train   5.648  val   5.911  skipped 0  (1.55 s/step, 95.3 min)
+step  3800  train   5.777  val   5.790  skipped 0  (1.54 s/step, 97.8 min)
+step  3900  train   6.347  val   6.649  skipped 0  (1.54 s/step, 100.4 min)
+step  4000  train   4.112  val   6.592  skipped 0  (1.55 s/step, 103.0 min)
+step  4100  train   5.351  val   5.716  skipped 0  (1.54 s/step, 105.6 min)
+step  4200  train   4.922  val   5.586  skipped 0  (1.54 s/step, 108.1 min)
+step  4300  train   6.041  val   6.939  skipped 0  (1.54 s/step, 110.7 min)
+step  4400  train   6.349  val   6.147  skipped 0  (1.54 s/step, 113.3 min)
+step  4500  train   8.694  val   6.011  skipped 0  (1.54 s/step, 115.9 min)
+step  4600  train   6.713  val   5.633  skipped 0  (1.55 s/step, 118.5 min)
+step  4700  train   5.344  val   5.797  skipped 0  (1.54 s/step, 121.0 min)
+step  4800  train   5.114  val   5.503  skipped 0  (1.54 s/step, 123.6 min)
+step  4900  train   4.613  val   5.813  skipped 0  (1.54 s/step, 126.1 min)
+step  5000  train   4.329  val   5.881  skipped 0  (1.54 s/step, 128.7 min)
+step  5100  train   5.493  val   5.470  skipped 0  (1.54 s/step, 131.3 min)
+step  5200  train   6.380  val   5.545  skipped 0  (1.54 s/step, 133.9 min)
+step  5300  train   4.653  val   5.749  skipped 0  (1.54 s/step, 136.4 min)
+step  5400  train   6.602  val   6.023  skipped 0  (1.54 s/step, 139.0 min)
+step  5500  train   5.104  val   5.968  skipped 0  (1.54 s/step, 141.6 min)
+step  5600  train   4.169  val   6.233  skipped 0  (1.54 s/step, 144.2 min)
+step  5700  train   5.886  val   5.722  skipped 0  (1.54 s/step, 146.7 min)
+step  5800  train   5.362  val   5.379  skipped 0  (1.54 s/step, 149.3 min)
+step  5900  train   4.780  val   5.612  skipped 0  (1.54 s/step, 151.8 min)
+step  6000  train   5.371  val   5.620  skipped 0  (1.54 s/step, 154.4 min)
+step  6100  train   4.012  val   5.650  skipped 0  (1.54 s/step, 157.0 min)
+step  6200  train   4.948  val   5.295  skipped 0  (1.54 s/step, 159.6 min)
+step  6300  train   5.276  val   5.452  skipped 0  (1.54 s/step, 162.1 min)
+step  6400  train   5.619  val   5.260  skipped 0  (1.54 s/step, 164.7 min)
+step  6500  train   4.132  val   5.301  skipped 0  (1.54 s/step, 167.2 min)
+step  6600  train   5.999  val   6.248  skipped 0  (1.54 s/step, 169.8 min)
+step  6700  train   5.383  val   5.515  skipped 0  (1.54 s/step, 172.4 min)
+step  6800  train   4.590  val   5.207  skipped 0  (1.54 s/step, 175.0 min)
+step  6900  train   4.594  val   5.442  skipped 0  (1.54 s/step, 177.6 min)
+step  7000  train   5.164  val   5.278  skipped 0  (1.54 s/step, 180.1 min)
+step  7100  train   6.035  val   5.393  skipped 0  (1.54 s/step, 182.7 min)
+step  7200  train   6.026  val   5.806  skipped 0  (1.54 s/step, 185.2 min)
+step  7300  train   5.687  val   5.272  skipped 0  (1.54 s/step, 187.7 min)
+step  7400  train   4.926  val   5.248  skipped 0  (1.54 s/step, 190.2 min)
+step  7500  train   4.651  val   5.529  skipped 0  (1.54 s/step, 192.8 min)
+step  7600  train   5.842  val   5.269  skipped 0  (1.54 s/step, 195.4 min)
+step  7700  train   5.443  val   5.001  skipped 0  (1.54 s/step, 198.0 min)
+step  7800  train   5.168  val   5.102  skipped 0  (1.54 s/step, 200.5 min)
+step  7900  train   3.874  val   5.089  skipped 0  (1.54 s/step, 203.1 min)
+step  8000  train   4.503  val   5.328  skipped 0  (1.54 s/step, 205.7 min)
+step  8100  train   4.200  val   5.154  skipped 0  (1.54 s/step, 208.2 min)
+step  8200  train   4.742  val   5.284  skipped 0  (1.54 s/step, 210.8 min)
+step  8300  train   4.894  val   5.289  skipped 0  (1.54 s/step, 213.4 min)
+step  8400  train   5.173  val   5.311  skipped 0  (1.54 s/step, 215.9 min)
+step  8500  train   4.901  val   5.317  skipped 0  (1.54 s/step, 218.5 min)
+step  8600  train   5.339  val   5.280  skipped 0  (1.54 s/step, 221.1 min)
+step  8700  train   5.133  val   5.256  skipped 0  (1.54 s/step, 223.7 min)
+
+Saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\m4_pretrain_direct
+{
+  "git_commit": "dcedc870d26e229cfd594558ee93498493aaa77d",
+  "git_dirty": false,
+  "config_md5": "8f202b68e9039b94b739669455a8ecab",
+  "network": {
+    "scales": {
+      "s": 50.0,
+      "v_f": 30.0,
+      "dv": 5.0,
+      "a_fd": 2.0
+    },
+    "encoder": "gru",
+    "hidden": 64,
+    "z_dim": 8,
+    "head_hidden": 64
+  },
+  "device": "cuda",
+  "lr": 0.001,
+  "n_skipped_steps": 0,
+  "resumed_from": null,
+  "n_vehicles": 3996,
+  "n_train": 3596,
+  "n_val": 400,
+  "steps_run": 8700,
+  "best_val_loss": 5.000709533691406,
+  "population_params": {
+    "delta": 4.0,
+    "v0": 38.57991543517305,
+    "T": 1.0711617956387638,
+    "s0": 2.8248986846673816,
+    "a": 0.9048589248056299,
+    "b": 0.2559624595356747
+  },
+  "started": "2026-10-29T01:15:41",
+  "finished": "2026-10-29T04:59:33",
+  "model": "m4c_direct",
+  "policy": {
+    "hidden": [
+      64,
+      64
+    ],
+    "accel_limits": [
+      -8.0,
+      4.0
+    ],
+    "scales": {
+      "gap": 30.0,
+      "v": 30.0,
+      "dv": 5.0,
+      "a_lead": 2.0,
+      "a_prev": 2.0
+    }
+  },
+  "init_encoder": {
+    "weights": "results/m4_pretrain_r3/net.pt",
+    "md5": "f906e523788fb0a9ecaacde7184f992a"
+  }
+}
+ length_s   n  rmse_pred  rmse_true  rmse_pop
+     10.0 392      5.534      0.084    13.139
+     30.0 392      4.917      0.084    12.890
+     60.0 392      4.152      0.082    12.752

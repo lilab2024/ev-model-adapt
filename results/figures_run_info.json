@@ -1,0 +1,195 @@
+{
+  "git_commit": "e575feb2bc6b257f631744f6056168bdd37447e7",
+  "git_dirty": false,
+  "draft": false,
+  "checks": {
+    "gbm": [
+      {
+        "fold_id": "L2_new_vehicle_01",
+        "targets": "diagnostic C fits",
+        "values": 600,
+        "not_bit_identical": 54,
+        "max_rel_diff": 2.373592001722688e-16,
+        "beyond_rtol": 0
+      },
+      {
+        "fold_id": "L2_new_vehicle_02",
+        "targets": "diagnostic C fits",
+        "values": 138,
+        "not_bit_identical": 18,
+        "max_rel_diff": 2.0427905558870667e-16,
+        "beyond_rtol": 0
+      },
+      {
+        "fold_id": "L2_new_vehicle_03",
+        "targets": "diagnostic C fits",
+        "values": 132,
+        "not_bit_identical": 9,
+        "max_rel_diff": 2.1378929228738882e-16,
+        "beyond_rtol": 0
+      },
+      {
+        "fold_id": "L2_new_vehicle_04",
+        "targets": "diagnostic C fits",
+        "values": 300,
+        "not_bit_identical": 32,
+        "max_rel_diff": 1.8720396327766223e-16,
+        "beyond_rtol": 0
+      },
+      {
+        "fold_id": "L2_new_vehicle_05",
+        "targets": "diagnostic C fits",
+        "values": 300,
+        "not_bit_identical": 29,
+        "max_rel_diff": 1.7349167519291653e-16,
+        "beyond_rtol": 0
+      },
+      {
+        "fold_id": "L2_new_vehicle_06",
+        "targets": "diagnostic C fits",
+        "values": 300,
+        "not_bit_identical": 33,
+        "max_rel_diff": 2.3822467768733726e-16,
+        "beyond_rtol": 0
+      },
+      {
+        "fold_id": "L2_new_vehicle_07",
+        "targets": "diagnostic C fits",
+        "values": 300,
+        "not_bit_identical": 27,
+        "max_rel_diff": 2.436268798864309e-16,
+        "beyond_rtol": 0
+      },
+      {
+        "fold_id": "L2_new_vehicle_08",
+        "targets": "diagnostic C fits",
+        "values": 300,
+        "not_bit_identical": 26,
+        "max_rel_diff": 1.895417925031483e-16,
+        "beyond_rtol": 0
+      },
+      {
+        "fold_id": "L2_new_vehicle_09",
+        "targets": "diagnostic C fits",
+        "values": 300,
+        "not_bit_identical": 28,
+        "max_rel_diff": 2.1947833285857603e-16,
+        "beyond_rtol": 0
+      }
+    ],
+    "collision": {
+      "fold_id": "L3_cross_powertrain_01",
+      "task": "EV | IONIQ 5 | Medium",
+      "draw": 0,
+      "length_s": 10.0,
+      "run_id": "EV_HyundaiIoniq5_Medium_d0_60to0_r2",
+      "collisions_at_level": 28,
+      "collision_step": 173,
+      "collision_time_s": 17.2,
+      "population_prior_spacing_rmse": 23.185670284391776
+    },
+    "residual": [
+      {
+        "fold_id": "L2_new_vehicle_04",
+        "run_id": "ICE_VehA_osc_max",
+        "recorded": 4.105419891129562,
+        "resimulated": 4.105419891129562,
+        "identical": true
+      },
+      {
+        "fold_id": "L2_new_vehicle_05",
+        "run_id": "ICE_VehB_osc_max",
+        "recorded": 5.692110289914072,
+        "resimulated": 5.692110289914072,
+        "identical": true
+      },
+      {
+        "fold_id": "L2_new_vehicle_06",
+        "run_id": "ICE_VehD_dip_max",
+        "recorded": 4.342245860807382,
+        "resimulated": 4.342245860807382,
+        "identical": true
+      },
+      {
+        "fold_id": "L2_new_vehicle_07",
+        "run_id": "ICE_VehE_dip_max",
+        "recorded": 3.753237761158763,
+        "resimulated": 3.753237761158763,
+        "identical": true
+      },
+      {
+        "fold_id": "L2_new_vehicle_08",
+        "run_id": "ICE_VehF_dip_max",
+        "recorded": 2.919245854286159,
+        "resimulated": 2.919245854286159,
+        "identical": true
+      },
+      {
+        "fold_id": "L2_new_vehicle_09",
+        "run_id": "ICE_VehG_dip_max",
+        "recorded": 2.925491406473423,
+        "resimulated": 2.925491406473423,
+        "identical": true
+      }
+    ]
+  },
+  "selections": {
+    "traj_example": {
+      "ice_run": "ICE_VehA_dip_min",
+      "ice_vehicle": "VehA",
+      "ice_gap": "min",
+      "ice_onset_s": 497.2,
+      "ice_min_time_s": 506.4,
+      "ice_leader_cruise_ms": 24.11,
+      "ice_leader_min_ms": 16.34,
+      "ev_run": "EV_HyundaiIoniq5_Short_d0_55to35_r1",
+      "ev_vehicle": "IONIQ 5",
+      "ev_gap": "Short",
+      "ev_v_free_mph": 55.0,
+      "ev_v_reduced_mph": 35.0,
+      "ev_onset_s": 7.1,
+      "ev_min_time_s": 18.9,
+      "ev_leader_max_ms": 24.28,
+      "ev_leader_min_ms": 15.24,
+      "span_s": [
+        -5.0,
+        42.9
+      ]
+    },
+    "levels_schematic": {
+      "L1_new_setting": "L1_new_setting_01",
+      "L2_new_vehicle": "L2_new_vehicle_01",
+      "L2_no_ice": "L2_no_ice_01",
+      "L3_cross_powertrain": "L3_cross_powertrain_01"
+    }
+  },
+  "config_md5": "266889671f184d969f4b30e4cb0db808",
+  "statistics_git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+  "statistics_result_commits": 1,
+  "outputs": [
+    "tab_data",
+    "tab_q1",
+    "fig_q1_l2",
+    "fig_ai_methods",
+    "fig_split_prior",
+    "fig_split_validation",
+    "fig_ablation_pretraining",
+    "fig_method_vehicle",
+    "fig_selected_steps",
+    "fig_idm_params",
+    "tab_idm_params",
+    "fig_physics_floors",
+    "tab_physics_floors",
+    "fig_l3_vehicles",
+    "tab_pretrain_diagnostics",
+    "tab_compute",
+    "tab_collisions",
+    "tab_all_methods",
+    "fig_traj_example",
+    "fig_levels_schematic",
+    "fig_methods_schematic",
+    "tab_gbm_importance",
+    "fig_collision_example",
+    "fig_residual_map"
+  ]
+}

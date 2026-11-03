@@ -1,0 +1,13 @@
+{
+  "method": "context_recalibration",
+  "levels": null,
+  "n_folds": 29,
+  "n_folds_reused": 0,
+  "n_simulations": 15492,
+  "git_commit": "2defba12038c8aa937dc2a0827de56b9ff1a569a",
+  "git_dirty": false,
+  "config_md5": "4ca9cfa1279ee42ccc0008ae5d0dec77",
+  "data_md5": "8cde7b27a7b0d1cd08cf45bc1c2e6020",
+  "finished": "2026-10-23T22:58:07",
+  "runtime_s": 4442.1
+}

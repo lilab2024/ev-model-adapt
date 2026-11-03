@@ -1,0 +1,11 @@
+fold_id,level,method,task,draw,length_s,run_id,collided,diverged,n_steps,n_valid,spacing_rmse,speed_rmse
+L1_new_setting_06,L1_new_setting,no_adaptation_sim,ICE | VehA | min,0,,ICE_VehA_osc_min,False,False,6510,6510,7.810269406824584,0.582706441722763
+L1_new_setting_06,L1_new_setting,no_adaptation_sim,ICE | VehA | min,0,,ICE_VehA_stepH_min,False,False,4346,4346,17.58204983829868,0.20698833793952942
+L1_new_setting_06,L1_new_setting,no_adaptation_sim,ICE | VehA | min,1,,ICE_VehA_dip_min,False,False,6050,6050,8.902222278310274,0.7980463478365982
+L1_new_setting_06,L1_new_setting,no_adaptation_sim,ICE | VehA | min,1,,ICE_VehA_osc_min,False,False,6510,6510,7.810269406824584,0.582706441722763
+L1_new_setting_06,L1_new_setting,no_adaptation_sim,ICE | VehA | min,2,,ICE_VehA_dip_min,False,False,6050,6050,8.902222278310274,0.7980463478365982
+L1_new_setting_06,L1_new_setting,no_adaptation_sim,ICE | VehA | min,2,,ICE_VehA_osc_min,False,False,6510,6510,7.810269406824584,0.582706441722763
+L1_new_setting_06,L1_new_setting,no_adaptation_sim,ICE | VehA | min,3,,ICE_VehA_stepH_min,False,False,4346,4346,17.58204983829868,0.20698833793952942
+L1_new_setting_06,L1_new_setting,no_adaptation_sim,ICE | VehA | min,3,,ICE_VehA_stepL_min,False,False,6989,6989,4.808357201817084,0.27485527608783433
+L1_new_setting_06,L1_new_setting,no_adaptation_sim,ICE | VehA | min,4,,ICE_VehA_osc_min,False,False,6510,6510,7.810269406824584,0.582706441722763
+L1_new_setting_06,L1_new_setting,no_adaptation_sim,ICE | VehA | min,4,,ICE_VehA_stepH_min,False,False,4346,4346,17.58204983829868,0.20698833793952942

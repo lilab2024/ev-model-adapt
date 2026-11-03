@@ -1,0 +1,13 @@
+{
+  "method": "m4a_finetuned",
+  "levels": null,
+  "n_folds": 29,
+  "n_folds_reused": 29,
+  "n_simulations": 15492,
+  "git_commit": "9161e3f2e2c67562f9c9844ac903216e2c89acca",
+  "git_dirty": false,
+  "config_md5": "3f71e3098231b71359b37e51aff50c73",
+  "data_md5": "8cde7b27a7b0d1cd08cf45bc1c2e6020",
+  "finished": "2026-10-26T08:53:36",
+  "runtime_s": 3.1
+}

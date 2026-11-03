@@ -1,0 +1,13 @@
+{
+  "method": "population_prior",
+  "levels": null,
+  "n_folds": 29,
+  "n_folds_reused": 9,
+  "n_simulations": 15492,
+  "git_commit": "7ed3268513821d3092358c77f2a575877a769046",
+  "git_dirty": false,
+  "config_md5": "b1c5f595a3598b27b1eac769e8e6301c",
+  "data_md5": "8cde7b27a7b0d1cd08cf45bc1c2e6020",
+  "finished": "2026-10-24T14:53:53",
+  "runtime_s": 8199.9
+}

@@ -1,0 +1,15 @@
+{
+  "method": "m4a_finetuned",
+  "levels": [
+    "L2_new_vehicle"
+  ],
+  "n_folds": 9,
+  "n_folds_reused": 0,
+  "n_simulations": 4244,
+  "git_commit": "cee136e68e286639e560c218391d79ea17a84936",
+  "git_dirty": false,
+  "config_md5": "bad7872b9d3309f4c160c335787dc266",
+  "data_md5": "8cde7b27a7b0d1cd08cf45bc1c2e6020",
+  "finished": "2026-10-25T06:28:24",
+  "runtime_s": 20973.9
+}

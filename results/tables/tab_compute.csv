@@ -1,0 +1,7 @@
+Method,folds,time/fold median (min),time/fold range (min),S median,S range
+"Network, fine-tuned",29,91.00333333333333,17-99,2750,50-3000
+"Network, held-out vehicle",13,45.905,12-137,600,50-2650
+"Network, no pretraining",13,80.75833333333334,8-137,1100,0-2600
+Transformer network,13,30.148333333333333,9-124,250,50-2850
+Direct-acceleration network,13,30.471666666666668,7-77,500,0-1350
+Powertrain prior + residual,25,83.51333333333334,15-234,800,0-3000

@@ -1,0 +1,73 @@
+task,model,run_id,floor,n_train_runs,n_val_runs,fit_cost,spacing_rmse,collided,diverged,params
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d0_35to0_r1,in_sample,56,12,1.2028345826006412,2.597074856332827,False,False,delta=4; v0=60; T=1.549; s0=2.232; a=1.682; b=6
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d0_35to0_r2,in_sample,56,12,1.2028345826006412,1.9507962576818372,False,False,delta=4; v0=60; T=1.549; s0=2.232; a=1.682; b=6
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d0_55to25_r1,in_sample,56,12,1.2028345826006412,1.3818210132769282,False,False,delta=4; v0=60; T=1.549; s0=2.232; a=1.682; b=6
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d0_55to25_r2,in_sample,56,12,1.2028345826006412,1.6894065843228312,False,False,delta=4; v0=60; T=1.549; s0=2.232; a=1.682; b=6
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d10_35to15_r1,in_sample,56,12,1.2028345826006412,0.6454760678757997,False,False,delta=4; v0=60; T=1.549; s0=2.232; a=1.682; b=6
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d10_35to25_r1,in_sample,56,12,1.2028345826006412,1.1168227539109028,False,False,delta=4; v0=60; T=1.549; s0=2.232; a=1.682; b=6
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d10_45to15_r1,in_sample,56,12,1.2028345826006412,0.7791279347036082,False,False,delta=4; v0=60; T=1.549; s0=2.232; a=1.682; b=6
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d10_55to0_r1,in_sample,56,12,1.2028345826006412,0.6554861446820699,False,False,delta=4; v0=60; T=1.549; s0=2.232; a=1.682; b=6
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d10_55to25_r1,in_sample,56,12,1.2028345826006412,1.6999655552477386,False,False,delta=4; v0=60; T=1.549; s0=2.232; a=1.682; b=6
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d10_60to0_r1,in_sample,56,12,1.2028345826006412,1.6709536569930898,False,False,delta=4; v0=60; T=1.549; s0=2.232; a=1.682; b=6
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d10_60to15_r1,in_sample,56,12,1.2028345826006412,1.9158986558601507,False,False,delta=4; v0=60; T=1.549; s0=2.232; a=1.682; b=6
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d5_55to45_r1,in_sample,56,12,1.2028345826006412,1.4960979919907067,False,False,delta=4; v0=60; T=1.549; s0=2.232; a=1.682; b=6
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d0_35to0_r1,cross_config,56,12,1.1990071162954572,2.545423986705162,False,False,delta=4; v0=60; T=1.534; s0=2.105; a=1.518; b=5.402
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d0_35to0_r2,cross_config,56,12,1.1990071162954572,2.174855644161964,False,False,delta=4; v0=60; T=1.534; s0=2.105; a=1.518; b=5.402
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d0_55to25_r1,cross_config,56,12,1.1990071162954572,1.4337433111244047,False,False,delta=4; v0=60; T=1.534; s0=2.105; a=1.518; b=5.402
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d0_55to25_r2,cross_config,56,12,1.1990071162954572,1.4635590063819217,False,False,delta=4; v0=60; T=1.534; s0=2.105; a=1.518; b=5.402
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d10_35to15_r1,cross_config,56,12,1.1990071162954572,0.5375856977784863,False,False,delta=4; v0=60; T=1.534; s0=2.105; a=1.518; b=5.402
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d10_35to25_r1,cross_config,56,12,1.1990071162954572,1.3144684338277877,False,False,delta=4; v0=60; T=1.534; s0=2.105; a=1.518; b=5.402
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d10_45to15_r1,cross_config,56,12,1.1990071162954572,0.6666333716003466,False,False,delta=4; v0=60; T=1.534; s0=2.105; a=1.518; b=5.402
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d10_55to0_r1,cross_config,56,12,1.1990071162954572,0.6784413718800619,False,False,delta=4; v0=60; T=1.534; s0=2.105; a=1.518; b=5.402
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d10_55to25_r1,cross_config,56,12,1.1990071162954572,1.5900619025774145,False,False,delta=4; v0=60; T=1.534; s0=2.105; a=1.518; b=5.402
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d10_60to0_r1,cross_config,56,12,1.1990071162954572,1.5958843114779557,False,False,delta=4; v0=60; T=1.534; s0=2.105; a=1.518; b=5.402
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d10_60to15_r1,cross_config,56,12,1.1990071162954572,1.9790364881241649,False,False,delta=4; v0=60; T=1.534; s0=2.105; a=1.518; b=5.402
+EV | IONIQ 5 | Long,idm,EV_HyundaiIoniq5_Long_d5_55to45_r1,cross_config,56,12,1.1990071162954572,1.7846044374195709,False,False,delta=4; v0=60; T=1.534; s0=2.105; a=1.518; b=5.402
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d0_35to0_r1,in_sample,56,12,1.6096433530725172,3.1611081132354415,False,False,k1=0.1262; k2=0.3907; eta=3.941; tau=1.525
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d0_35to0_r2,in_sample,56,12,1.6096433530725172,2.2879575761904447,False,False,k1=0.1262; k2=0.3907; eta=3.941; tau=1.525
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d0_55to25_r1,in_sample,56,12,1.6096433530725172,2.0896255509183503,False,False,k1=0.1262; k2=0.3907; eta=3.941; tau=1.525
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d0_55to25_r2,in_sample,56,12,1.6096433530725172,2.083587428220324,False,False,k1=0.1262; k2=0.3907; eta=3.941; tau=1.525
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d10_35to15_r1,in_sample,56,12,1.6096433530725172,1.221258785065534,False,False,k1=0.1262; k2=0.3907; eta=3.941; tau=1.525
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d10_35to25_r1,in_sample,56,12,1.6096433530725172,0.8307548552811811,False,False,k1=0.1262; k2=0.3907; eta=3.941; tau=1.525
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d10_45to15_r1,in_sample,56,12,1.6096433530725172,1.218182901600331,False,False,k1=0.1262; k2=0.3907; eta=3.941; tau=1.525
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d10_55to0_r1,in_sample,56,12,1.6096433530725172,1.5059084537931138,False,False,k1=0.1262; k2=0.3907; eta=3.941; tau=1.525
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d10_55to25_r1,in_sample,56,12,1.6096433530725172,1.6629671337378529,False,False,k1=0.1262; k2=0.3907; eta=3.941; tau=1.525
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d10_60to0_r1,in_sample,56,12,1.6096433530725172,,True,False,k1=0.1262; k2=0.3907; eta=3.941; tau=1.525
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d10_60to15_r1,in_sample,56,12,1.6096433530725172,2.4835434558449276,False,False,k1=0.1262; k2=0.3907; eta=3.941; tau=1.525
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d5_55to45_r1,in_sample,56,12,1.6096433530725172,1.6934932628530106,False,False,k1=0.1262; k2=0.3907; eta=3.941; tau=1.525
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d0_35to0_r1,cross_config,56,12,1.6542593058391302,3.5335837380554525,False,False,k1=0.06411; k2=0.4576; eta=5.424; tau=1.45
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d0_35to0_r2,cross_config,56,12,1.6542593058391302,2.83799661984542,False,False,k1=0.06411; k2=0.4576; eta=5.424; tau=1.45
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d0_55to25_r1,cross_config,56,12,1.6542593058391302,1.9253774476682797,False,False,k1=0.06411; k2=0.4576; eta=5.424; tau=1.45
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d0_55to25_r2,cross_config,56,12,1.6542593058391302,1.6991014808235527,False,False,k1=0.06411; k2=0.4576; eta=5.424; tau=1.45
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d10_35to15_r1,cross_config,56,12,1.6542593058391302,1.4711040487053966,False,False,k1=0.06411; k2=0.4576; eta=5.424; tau=1.45
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d10_35to25_r1,cross_config,56,12,1.6542593058391302,0.8041067594002226,False,False,k1=0.06411; k2=0.4576; eta=5.424; tau=1.45
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d10_45to15_r1,cross_config,56,12,1.6542593058391302,1.1018494063356679,False,False,k1=0.06411; k2=0.4576; eta=5.424; tau=1.45
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d10_55to0_r1,cross_config,56,12,1.6542593058391302,1.4412355011659834,False,False,k1=0.06411; k2=0.4576; eta=5.424; tau=1.45
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d10_55to25_r1,cross_config,56,12,1.6542593058391302,1.3396230111686327,False,False,k1=0.06411; k2=0.4576; eta=5.424; tau=1.45
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d10_60to0_r1,cross_config,56,12,1.6542593058391302,,True,False,k1=0.06411; k2=0.4576; eta=5.424; tau=1.45
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d10_60to15_r1,cross_config,56,12,1.6542593058391302,2.3136113282351554,False,False,k1=0.06411; k2=0.4576; eta=5.424; tau=1.45
+EV | IONIQ 5 | Long,ovrv,EV_HyundaiIoniq5_Long_d5_55to45_r1,cross_config,56,12,1.6542593058391302,1.8536266049280377,False,False,k1=0.06411; k2=0.4576; eta=5.424; tau=1.45
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d0_35to0_r1,in_sample,56,12,1.1499072320745602,2.430111940180985,False,False,delta=4; v0=60; T=1.584; s0=1.723; a=1.593; b=5.196; tau_a=0.7094
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d0_35to0_r2,in_sample,56,12,1.1499072320745602,1.7400382131705738,False,False,delta=4; v0=60; T=1.584; s0=1.723; a=1.593; b=5.196; tau_a=0.7094
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d0_55to25_r1,in_sample,56,12,1.1499072320745602,1.301857132069977,False,False,delta=4; v0=60; T=1.584; s0=1.723; a=1.593; b=5.196; tau_a=0.7094
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d0_55to25_r2,in_sample,56,12,1.1499072320745602,1.9126487056933832,False,False,delta=4; v0=60; T=1.584; s0=1.723; a=1.593; b=5.196; tau_a=0.7094
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d10_35to15_r1,in_sample,56,12,1.1499072320745602,0.5808447391520198,False,False,delta=4; v0=60; T=1.584; s0=1.723; a=1.593; b=5.196; tau_a=0.7094
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d10_35to25_r1,in_sample,56,12,1.1499072320745602,1.0522951722104428,False,False,delta=4; v0=60; T=1.584; s0=1.723; a=1.593; b=5.196; tau_a=0.7094
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d10_45to15_r1,in_sample,56,12,1.1499072320745602,0.7674229124457995,False,False,delta=4; v0=60; T=1.584; s0=1.723; a=1.593; b=5.196; tau_a=0.7094
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d10_55to0_r1,in_sample,56,12,1.1499072320745602,0.6949788853823107,False,False,delta=4; v0=60; T=1.584; s0=1.723; a=1.593; b=5.196; tau_a=0.7094
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d10_55to25_r1,in_sample,56,12,1.1499072320745602,1.898302904466658,False,False,delta=4; v0=60; T=1.584; s0=1.723; a=1.593; b=5.196; tau_a=0.7094
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d10_60to0_r1,in_sample,56,12,1.1499072320745602,1.7714485607627517,False,False,delta=4; v0=60; T=1.584; s0=1.723; a=1.593; b=5.196; tau_a=0.7094
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d10_60to15_r1,in_sample,56,12,1.1499072320745602,1.7950266377268964,False,False,delta=4; v0=60; T=1.584; s0=1.723; a=1.593; b=5.196; tau_a=0.7094
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d5_55to45_r1,in_sample,56,12,1.1499072320745602,1.1759995348494,False,False,delta=4; v0=60; T=1.584; s0=1.723; a=1.593; b=5.196; tau_a=0.7094
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d0_35to0_r1,cross_config,56,12,1.1796036381860473,2.2986180942387042,False,False,delta=4; v0=60; T=1.559; s0=1.569; a=1.395; b=4.23; tau_a=0.4643
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d0_35to0_r2,cross_config,56,12,1.1796036381860473,2.1319766634773214,False,False,delta=4; v0=60; T=1.559; s0=1.569; a=1.395; b=4.23; tau_a=0.4643
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d0_55to25_r1,cross_config,56,12,1.1796036381860473,1.374718437257207,False,False,delta=4; v0=60; T=1.559; s0=1.569; a=1.395; b=4.23; tau_a=0.4643
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d0_55to25_r2,cross_config,56,12,1.1796036381860473,1.4921479695360667,False,False,delta=4; v0=60; T=1.559; s0=1.569; a=1.395; b=4.23; tau_a=0.4643
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d10_35to15_r1,cross_config,56,12,1.1796036381860473,0.4813259264028553,False,False,delta=4; v0=60; T=1.559; s0=1.569; a=1.395; b=4.23; tau_a=0.4643
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d10_35to25_r1,cross_config,56,12,1.1796036381860473,1.406065897117632,False,False,delta=4; v0=60; T=1.559; s0=1.569; a=1.395; b=4.23; tau_a=0.4643
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d10_45to15_r1,cross_config,56,12,1.1796036381860473,0.5749260277879207,False,False,delta=4; v0=60; T=1.559; s0=1.569; a=1.395; b=4.23; tau_a=0.4643
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d10_55to0_r1,cross_config,56,12,1.1796036381860473,0.7811943968918404,False,False,delta=4; v0=60; T=1.559; s0=1.569; a=1.395; b=4.23; tau_a=0.4643
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d10_55to25_r1,cross_config,56,12,1.1796036381860473,1.5998447498185782,False,False,delta=4; v0=60; T=1.559; s0=1.569; a=1.395; b=4.23; tau_a=0.4643
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d10_60to0_r1,cross_config,56,12,1.1796036381860473,1.6131294877731686,False,False,delta=4; v0=60; T=1.559; s0=1.569; a=1.395; b=4.23; tau_a=0.4643
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d10_60to15_r1,cross_config,56,12,1.1796036381860473,1.9698871991883196,False,False,delta=4; v0=60; T=1.559; s0=1.569; a=1.395; b=4.23; tau_a=0.4643
+EV | IONIQ 5 | Long,idm_lag,EV_HyundaiIoniq5_Long_d5_55to45_r1,cross_config,56,12,1.1796036381860473,1.680320655023745,False,False,delta=4; v0=60; T=1.559; s0=1.569; a=1.395; b=4.23; tau_a=0.4643

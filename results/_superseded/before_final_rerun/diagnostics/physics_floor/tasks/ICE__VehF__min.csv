@@ -1,0 +1,7 @@
+task,model,run_id,floor,n_train_runs,n_val_runs,fit_cost,spacing_rmse,collided,diverged,params
+ICE | VehF | min,idm,ICE_VehG_stepH_min,in_sample,3,1,0.9387924982772582,1.1734025564961454,False,False,delta=4; v0=60; T=0.6238; s0=15; a=0.6635; b=6
+ICE | VehF | min,idm,ICE_VehG_stepH_min,cross_config,3,1,1.3263825011182095,2.944918743271104,False,False,delta=4; v0=60; T=0.7151; s0=15; a=0.91; b=6
+ICE | VehF | min,ovrv,ICE_VehG_stepH_min,in_sample,3,1,0.7446295031857243,0.8691709028716177,False,False,k1=0.04226; k2=0.1674; eta=12.56; tau=0.7533
+ICE | VehF | min,ovrv,ICE_VehG_stepH_min,cross_config,3,1,1.4002456675240458,3.049610331465914,False,False,k1=0.06445; k2=0.1601; eta=14.93; tau=0.7724
+ICE | VehF | min,idm_lag,ICE_VehG_stepH_min,in_sample,3,1,0.7215344959331226,1.1277437690338616,False,False,delta=4; v0=60; T=0.6244; s0=15; a=0.6681; b=6; tau_a=2
+ICE | VehF | min,idm_lag,ICE_VehG_stepH_min,cross_config,3,1,0.9201978120975361,2.7350575638227803,False,False,delta=4; v0=60; T=0.7093; s0=15; a=0.9651; b=6; tau_a=0.9292

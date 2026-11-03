@@ -1,0 +1,91 @@
+network: {'scales': {'s': 50.0, 'v_f': 30.0, 'dv': 5.0, 'a_fd': 2.0}, 'encoder': 'transformer', 'd_model': 32, 'layers': 2, 'heads': 4, 'ff': 64, 'z_dim': 8, 'head_hidden': 64}
+torch 2.11.0+cu126, 24 threads, GPU: NVIDIA GeForce RTX 4090
+synthetic: 3996 vehicles (3596 train, 400 val), 11570 runs
+learning rate: 0.001
+device: cuda
+step   100  train   7.024  val   8.161  skipped 0  (1.41 s/step, 2.3 min)
+step   200  train   8.245  val   7.802  skipped 0  (1.41 s/step, 4.7 min)
+step   300  train   7.496  val   7.601  skipped 0  (1.40 s/step, 7.0 min)
+step   400  train  10.060  val   7.698  skipped 0  (1.40 s/step, 9.4 min)
+step   500  train   7.140  val   7.539  skipped 0  (1.40 s/step, 11.7 min)
+step   600  train   8.765  val   7.223  skipped 0  (1.41 s/step, 14.1 min)
+step   700  train   7.034  val   7.355  skipped 0  (1.41 s/step, 16.4 min)
+step   800  train   5.895  val   7.160  skipped 0  (1.41 s/step, 18.8 min)
+step   900  train   6.064  val   6.881  skipped 0  (1.42 s/step, 21.2 min)
+step  1000  train   8.289  val   6.703  skipped 0  (1.42 s/step, 23.6 min)
+step  1100  train   8.230  val   6.979  skipped 0  (1.42 s/step, 26.0 min)
+step  1200  train   5.777  val   6.544  skipped 0  (1.42 s/step, 28.4 min)
+step  1300  train   6.816  val   6.598  skipped 0  (1.42 s/step, 30.8 min)
+step  1400  train   4.754  val   6.627  skipped 0  (1.42 s/step, 33.2 min)
+step  1500  train   6.664  val   6.473  skipped 0  (1.42 s/step, 35.6 min)
+step  1600  train   3.621  val   6.384  skipped 0  (1.42 s/step, 37.9 min)
+step  1700  train   4.865  val   6.338  skipped 0  (1.42 s/step, 40.3 min)
+step  1800  train   5.805  val   6.329  skipped 0  (1.42 s/step, 42.7 min)
+step  1900  train   5.334  val   6.140  skipped 0  (1.42 s/step, 45.1 min)
+step  2000  train   7.729  val   6.148  skipped 0  (1.42 s/step, 47.4 min)
+step  2100  train   6.231  val   6.006  skipped 0  (1.42 s/step, 49.9 min)
+step  2200  train   3.243  val   5.812  skipped 0  (1.42 s/step, 52.2 min)
+step  2300  train   3.862  val   5.764  skipped 0  (1.42 s/step, 54.6 min)
+step  2400  train   5.143  val   5.794  skipped 0  (1.42 s/step, 57.0 min)
+step  2500  train   6.020  val   5.602  skipped 0  (1.43 s/step, 59.4 min)
+step  2600  train   4.578  val   6.064  skipped 0  (1.43 s/step, 61.8 min)
+step  2700  train   5.597  val   5.647  skipped 0  (1.43 s/step, 64.3 min)
+step  2800  train   4.559  val   5.647  skipped 0  (1.43 s/step, 66.7 min)
+step  2900  train   6.531  val   5.807  skipped 0  (1.43 s/step, 69.1 min)
+step  3000  train   6.181  val   5.712  skipped 0  (1.43 s/step, 71.5 min)
+step  3100  train   4.873  val   5.433  skipped 0  (1.43 s/step, 73.9 min)
+step  3200  train   5.192  val   5.633  skipped 0  (1.43 s/step, 76.3 min)
+step  3300  train   4.470  val   5.523  skipped 0  (1.43 s/step, 78.7 min)
+step  3400  train   5.250  val   5.563  skipped 0  (1.43 s/step, 81.1 min)
+step  3500  train   6.470  val   5.786  skipped 0  (1.43 s/step, 83.5 min)
+step  3600  train   5.338  val   5.783  skipped 0  (1.43 s/step, 85.9 min)
+step  3700  train   5.456  val   5.698  skipped 0  (1.43 s/step, 88.3 min)
+step  3800  train   4.829  val   5.456  skipped 0  (1.43 s/step, 90.7 min)
+step  3900  train   6.503  val   5.473  skipped 0  (1.43 s/step, 93.1 min)
+step  4000  train   3.592  val   5.505  skipped 0  (1.43 s/step, 95.5 min)
+step  4100  train   5.187  val   5.503  skipped 0  (1.43 s/step, 97.9 min)
+
+Saved to G:\My Drive\slu_research\ev_model_adapt\ev-model-adapt\results\m4_pretrain_transformer
+{
+  "git_commit": "22d3724d6b91fbaad8a4c794d470480164c15fa0",
+  "git_dirty": false,
+  "config_md5": "8ef7049ad4629ffa77e3cb23f8162e86",
+  "network": {
+    "scales": {
+      "s": 50.0,
+      "v_f": 30.0,
+      "dv": 5.0,
+      "a_fd": 2.0
+    },
+    "encoder": "transformer",
+    "d_model": 32,
+    "layers": 2,
+    "heads": 4,
+    "ff": 64,
+    "z_dim": 8,
+    "head_hidden": 64
+  },
+  "device": "cuda",
+  "lr": 0.001,
+  "n_skipped_steps": 0,
+  "resumed_from": null,
+  "n_vehicles": 3996,
+  "n_train": 3596,
+  "n_val": 400,
+  "steps_run": 4100,
+  "best_val_loss": 5.433099746704102,
+  "population_params": {
+    "delta": 4.0,
+    "v0": 38.57991543517305,
+    "T": 1.0711617956387638,
+    "s0": 2.8248986846673816,
+    "a": 0.9048589248056299,
+    "b": 0.2559624595356747
+  },
+  "started": "2026-10-28T09:34:22",
+  "finished": "2026-10-28T11:12:28"
+}
+ length_s   n  rmse_pred  rmse_true  rmse_pop  spearman_v0  spearman_T  spearman_s0  spearman_a  spearman_b
+     10.0 392      6.142      0.084    13.139        0.053       0.838        0.302       0.323       0.515
+     30.0 392      5.186      0.084    12.890        0.095       0.906        0.316       0.496       0.747
+     60.0 392      4.557      0.082    12.752        0.099       0.919        0.292       0.661       0.830

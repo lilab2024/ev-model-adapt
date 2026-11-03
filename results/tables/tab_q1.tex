@@ -1,0 +1,44 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Pre-specified comparisons for a new vehicle}
+\label{tab:q1}
+\begin{tabular}{rrrrrr}
+\toprule
+ &  & \multicolumn{2}{c}{95\% CI (m)} &  &  \\
+\cmidrule(lr){3-4}
+\begin{tabular}[b]{@{}c@{}}Observed\\driving (s)\end{tabular} & \begin{tabular}[b]{@{}c@{}}Mean\\diff. (m)\end{tabular} & Low & High & \begin{tabular}[b]{@{}c@{}}Vehicles\\better\end{tabular} & \begin{tabular}[b]{@{}c@{}}$p$\\(Holm)\end{tabular} \\
+\midrule
+\multicolumn{6}{l}{\textit{Population prior vs No adaptation}} \\
+10 & $-$4.67 & $-$7.65 & $-$1.68 & 7/9 & 0.0120 \\
+30 & $-$5.85 & $-$8.32 & $-$3.03 & 8/9 & 0.0040 \\
+60 & $-$7.26 & $-$9.08 & $-$5.41 & 9/9 & 0.0040 \\
+120 & $-$7.72 & $-$9.65 & $-$5.73 & 9/9 & 0.0040 \\
+300 & $-$7.90 & $-$9.81 & $-$5.77 & 9/9 & 0.0040 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Population prior vs Context-only calibration}} \\
+10 & $-$26.94 & $-$48.62 & $-$9.37 & 9/9 & 0.0040 \\
+30 & $-$33.59 & $-$87.44 & $-$3.94 & 9/9 & 0.0040 \\
+60 & $-$9.12 & $-$23.91 & $-$1.14 & 8/9 & 0.0040 \\
+120 & $-$2.09 & $-$4.32 & $-$0.42 & 8/9 & 0.0040 \\
+300 & $-$2.40 & $-$6.72 & $-$0.13 & 7/9 & 0.0070 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Network, fine-tuned vs No adaptation}} \\
+10 & $-$5.94 & $-$8.86 & $-$2.72 & 7/9 & 0.0048 \\
+30 & $-$6.52 & $-$9.00 & $-$3.82 & 8/9 & 0.0040 \\
+60 & $-$6.70 & $-$9.29 & $-$3.96 & 9/9 & 0.0040 \\
+120 & $-$6.72 & $-$9.41 & $-$3.92 & 9/9 & 0.0040 \\
+300 & $-$6.64 & $-$9.46 & $-$3.59 & 8/9 & 0.0040 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Network, fine-tuned vs Population prior}} \\
+10 & $-$1.27 & $-$3.58 & 0.15 & 7/9 & 0.2970 \\
+30 & $-$0.68 & $-$1.25 & $-$0.16 & 6/9 & 0.0410 \\
+60 & 0.56 & $-$0.42 & 1.84 & 5/9 & 0.3608 \\
+120 & 1.00 & $-$0.09 & 2.61 & 4/9 & 0.2970 \\
+300 & 1.26 & 0.01 & 2.93 & 3/9 & 0.1832 \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\parbox{\linewidth}{\footnotesize Mean difference of the spacing RMSE (m), first minus second method, over the 9 test vehicles; 95\% paired bootstrap interval; number of vehicles on which the first method is better; Holm-adjusted $p$-value over the 20 tests (smallest attainable value 0.0040).}
+\end{table}

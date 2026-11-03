@@ -1,0 +1,29 @@
+\begin{table*}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\caption{Mean spacing RMSE (m) of all methods at the four levels}
+\label{tab:all_methods}
+\begin{tabular}{llrrrrrrrrrrrrr}
+\toprule
+ &  & \multicolumn{3}{c}{New gap setting} & \multicolumn{3}{c}{New vehicle} & \multicolumn{3}{c}{\begin{tabular}[b]{@{}c@{}}New EV,\\EV-only training\end{tabular}} & \multicolumn{3}{c}{\begin{tabular}[b]{@{}c@{}}New EV,\\ICE-only training\end{tabular}} &  \\
+\cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11} \cmidrule(lr){12-14}
+Method & Status & 10 s & 60 s & 300 s & 10 s & 60 s & 300 s & 10 s & 60 s & 300 s & 10 s & 60 s & 300 s & Coll. \\
+\midrule
+No adaptation & pre & 12.50 & 12.50 & 12.50 & 11.58 & 11.58 & 11.58 & 7.87 & 7.87 & 7.87 & 12.86 & 12.86 & 12.86 & 0 \\
+Context-only calibration & pre & 38.68 & 14.72 & 3.33 & 33.85 & 13.43 & 6.08 & 18.17 & 8.41 & 11.11 & 18.17 & 8.41 & 11.11 & 0 \\
+Population prior & pre & 5.09 & 3.50 & 3.10 & 6.91 & 4.32 & 3.68 & 7.58 & 5.54 & \textbf{3.98} & 11.32 & 6.04 & \textbf{4.92} & 0 \\
+Powertrain prior & plan & 3.65 & 3.26 & 2.96 & 4.92 & 4.05 & 3.43 & -- & -- & -- & -- & -- & -- & 0 \\
+Powertrain prior + residual & post & \textbf{3.53} & \textbf{3.08} & \textbf{2.74} & 4.89 & 4.00 & \textbf{3.37} & -- & -- & -- & -- & -- & -- & 0 \\
+Features + boosting & post & 3.84 & 3.32 & 3.29 & \textbf{4.68} & 4.35 & 4.37 & 7.44 & 7.18 & 7.92 & 14.68 & 8.40 & 9.66 & 0 \\
+Network, zero-shot & pre & 9.79 & 10.32 & 8.93 & 10.16 & 9.08 & 8.11 & 11.11 & 5.76 & 5.18 & 11.11 & \textbf{5.76} & 5.18 & 0 \\
+Network, fine-tuned & pre & 3.74 & 3.20 & 2.97 & 5.64 & 4.88 & 4.94 & 8.62 & 6.40 & 6.85 & 12.47 & 10.93 & 12.12 & 0 \\
+Network, held-out vehicle & post & -- & -- & -- & 5.79 & 4.43 & 3.88 & 7.84 & \textbf{5.24} & 4.50 & 12.45 & 10.64 & 11.50 & 0 \\
+Network, no pretraining & post & -- & -- & -- & 6.07 & 5.57 & 5.47 & 7.64 & 6.73 & 5.95 & 15.45 & 13.62 & 14.76 & 0 \\
+Transformer network & post & -- & -- & -- & 5.53 & 4.11 & 3.73 & \textbf{7.34} & 5.68 & 5.21 & 11.36 & 7.60 & 7.67 & 0 \\
+Direct-acceleration network & post & -- & -- & -- & 5.23 & \textbf{3.93} & 3.77 & 8.37 & 5.55 & 5.36 & \textbf{8.57} & 7.62 & 8.30 & 29 \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\parbox{\linewidth}{\footnotesize Mean over the test vehicles of the spacing RMSE (m) after 10, 60 and 300 s of observed driving; bold: best value per column. Status: pre, pre-specified; plan, planned before the network results; post, designed after seeing test results (post hoc). Coll.: collided simulations. A dash: not run at this level.}
+\end{table*}

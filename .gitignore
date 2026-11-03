@@ -2,8 +2,7 @@
 /data/
 *.parquet
 
-# Results are committed only at submission
-/results/
+# Results are committed (D059); see the last lines of this file
 
 # Model checkpoints and logs
 /checkpoints/
@@ -19,3 +18,6 @@ __pycache__/
 .venv/
 *.egg-info/
 .DS_Store
+
+# D059: everything under results/ is committed, including its .pt and .log files
+!/results/**

@@ -1,0 +1,73 @@
+Method m4a_pretrained: 29 folds (0 reused, 29 to run), 332 runs, 18 tasks
+  L1_new_setting_01          885 simulations,   0 collided,    6.1 s
+  L1_new_setting_02          845 simulations,   0 collided,    2.6 s
+  L1_new_setting_03          815 simulations,   0 collided,    2.5 s
+  L1_new_setting_04          815 simulations,   0 collided,    2.6 s
+  L1_new_setting_05           50 simulations,   0 collided,    3.2 s
+  L1_new_setting_06           50 simulations,   0 collided,    2.6 s
+  L1_new_setting_07           50 simulations,   0 collided,    1.8 s
+  L1_new_setting_08           50 simulations,   0 collided,    2.0 s
+  L1_new_setting_09           50 simulations,   0 collided,    1.8 s
+  L1_new_setting_10           50 simulations,   0 collided,    1.9 s
+  L1_new_setting_11           50 simulations,   0 collided,    1.9 s
+  L1_new_setting_12           50 simulations,   0 collided,    3.2 s
+  L1_new_setting_13           50 simulations,   0 collided,    2.6 s
+  L1_new_setting_14           50 simulations,   0 collided,    1.7 s
+  L1_new_setting_15           50 simulations,   0 collided,    1.8 s
+  L1_new_setting_16           50 simulations,   0 collided,    1.7 s
+  L2_new_vehicle_01         3360 simulations,   0 collided,   11.3 s
+  L2_new_vehicle_02          128 simulations,   0 collided,    0.8 s
+  L2_new_vehicle_03          156 simulations,   0 collided,    0.9 s
+  L2_new_vehicle_04          100 simulations,   0 collided,    2.8 s
+  L2_new_vehicle_05          100 simulations,   0 collided,    3.0 s
+  L2_new_vehicle_06          100 simulations,   0 collided,    4.7 s
+  L2_new_vehicle_07          100 simulations,   0 collided,    2.9 s
+  L2_new_vehicle_08          100 simulations,   0 collided,    2.8 s
+  L2_new_vehicle_09          100 simulations,   0 collided,    2.7 s
+  L3_cross_powertrain_01    3644 simulations,   0 collided,   11.9 s
+  L2_no_ice_01              3360 simulations,   0 collided,   11.0 s
+  L2_no_ice_02               128 simulations,   0 collided,    0.4 s
+  L2_no_ice_03               156 simulations,   0 collided,    0.6 s
+
+Saved to /content/drive/MyDrive/slu_research/ev_model_adapt/ev-model-adapt/results/m4a_pretrained (git b5b2b4b), 100.2 s
+              level  length_s  n_tasks  spacing_rmse  spacing_rmse_median_draws  speed_rmse  collision_rate       subset
+     L1_new_setting      10.0       16         9.858                      8.811       0.636             0.0     all_runs
+     L1_new_setting      30.0       16        10.406                      9.382       0.623             0.0     all_runs
+     L1_new_setting      60.0       16        10.004                      9.229       0.597             0.0     all_runs
+     L1_new_setting     120.0       16         9.089                      8.931       0.565             0.0     all_runs
+     L1_new_setting     300.0       16         8.445                      7.753       0.544             0.0     all_runs
+     L2_new_vehicle      10.0       18        10.039                      8.599       0.661             0.0     all_runs
+     L2_new_vehicle      30.0       18        10.042                      9.024       0.621             0.0     all_runs
+     L2_new_vehicle      60.0       18         9.419                      8.720       0.589             0.0     all_runs
+     L2_new_vehicle     120.0       18         8.717                      8.435       0.568             0.0     all_runs
+     L2_new_vehicle     300.0       18         8.089                      7.443       0.551             0.0     all_runs
+          L2_no_ice      10.0        6        10.741                      8.951       0.810             0.0     all_runs
+          L2_no_ice      30.0        6         8.010                      7.390       0.641             0.0     all_runs
+          L2_no_ice      60.0        6         6.771                      6.708       0.566             0.0     all_runs
+          L2_no_ice     120.0        6         6.085                      5.091       0.547             0.0     all_runs
+          L2_no_ice     300.0        6         5.110                      4.874       0.523             0.0     all_runs
+L3_cross_powertrain      10.0        6        10.741                      8.951       0.810             0.0     all_runs
+L3_cross_powertrain      30.0        6         8.010                      7.390       0.641             0.0     all_runs
+L3_cross_powertrain      60.0        6         6.771                      6.708       0.566             0.0     all_runs
+L3_cross_powertrain     120.0        6         6.085                      5.091       0.547             0.0     all_runs
+L3_cross_powertrain     300.0        6         5.110                      4.874       0.523             0.0     all_runs
+     L1_new_setting      10.0       16         8.532                      7.423       0.578             0.0 no_stop_runs
+     L1_new_setting      30.0       16         9.362                      8.412       0.577             0.0 no_stop_runs
+     L1_new_setting      60.0       16         8.872                      8.132       0.546             0.0 no_stop_runs
+     L1_new_setting     120.0       16         8.239                      8.258       0.524             0.0 no_stop_runs
+     L1_new_setting     300.0       16         7.797                      7.137       0.509             0.0 no_stop_runs
+     L2_new_vehicle      10.0       18         8.860                      7.365       0.610             0.0 no_stop_runs
+     L2_new_vehicle      30.0       18         9.114                      8.163       0.580             0.0 no_stop_runs
+     L2_new_vehicle      60.0       18         8.413                      7.746       0.543             0.0 no_stop_runs
+     L2_new_vehicle     120.0       18         7.962                      7.837       0.531             0.0 no_stop_runs
+     L2_new_vehicle     300.0       18         7.514                      6.896       0.520             0.0 no_stop_runs
+          L2_no_ice      10.0        6         7.204                      5.250       0.656             0.0 no_stop_runs
+          L2_no_ice      30.0        6         5.226                      4.804       0.518             0.0 no_stop_runs
+          L2_no_ice      60.0        6         3.751                      3.785       0.430             0.0 no_stop_runs
+          L2_no_ice     120.0        6         3.819                      3.296       0.437             0.0 no_stop_runs
+          L2_no_ice     300.0        6         3.384                      3.230       0.432             0.0 no_stop_runs
+L3_cross_powertrain      10.0        6         7.204                      5.250       0.656             0.0 no_stop_runs
+L3_cross_powertrain      30.0        6         5.226                      4.804       0.518             0.0 no_stop_runs
+L3_cross_powertrain      60.0        6         3.751                      3.785       0.430             0.0 no_stop_runs
+L3_cross_powertrain     120.0        6         3.819                      3.296       0.437             0.0 no_stop_runs
+L3_cross_powertrain     300.0        6         3.384                      3.230       0.432             0.0 no_stop_runs

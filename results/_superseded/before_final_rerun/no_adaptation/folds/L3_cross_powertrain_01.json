@@ -1,0 +1,20 @@
+{
+  "fold_id": "L3_cross_powertrain_01",
+  "git_commit": "cd9d175b30ba1c0247e3ff34198c8e070df1d28d",
+  "git_dirty": false,
+  "config_md5": "4ca9cfa1279ee42ccc0008ae5d0dec77",
+  "state": {
+    "fold_id": "L3_cross_powertrain_01",
+    "level": "L3_cross_powertrain",
+    "method": "no_adaptation",
+    "train_rmse": 0.20731954196672006,
+    "n_train_runs": 36,
+    "idm_delta": 4.0,
+    "idm_v0": 45.357078159140606,
+    "idm_T": 0.8140219971906577,
+    "idm_s0": 14.999999999999998,
+    "idm_a": 0.20000000000000004,
+    "idm_b": 3.146136767757819
+  },
+  "finished": "2026-10-23T20:48:21"
+}

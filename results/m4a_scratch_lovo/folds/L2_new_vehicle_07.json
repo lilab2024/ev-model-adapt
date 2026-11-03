@@ -1,0 +1,41 @@
+{
+  "fold_id": "L2_new_vehicle_07",
+  "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+  "git_dirty": false,
+  "config_md5": "eaaea289ab9d8a056379e5c9a22c7126",
+  "state": {
+    "fold_id": "L2_new_vehicle_07",
+    "level": "L2_new_vehicle",
+    "method": "m4a_scratch_lovo",
+    "n_train_runs": 258,
+    "weights_md5": "none (random initialisation)",
+    "n_new_predictions": 50,
+    "n_cached_predictions": 0,
+    "lovo_used": true,
+    "heldout_vehicle": "VehB",
+    "heldout_same_powertrain": true,
+    "heldout_tasks": [
+      "ICE | VehB | max",
+      "ICE | VehB | min"
+    ],
+    "n_val_runs": 2,
+    "n_val_episodes": 20,
+    "n_train_tasks_stage1": 14,
+    "n_train_tasks_sampled": 16,
+    "fold_seed": 2952016035,
+    "val_loss_start": 12.498987197875977,
+    "val_loss_best": 4.643580913543701,
+    "best_step": 1650,
+    "steps_run": 2150,
+    "stage2_steps": 1650,
+    "n_skipped_steps": 0,
+    "finetune_s": 6810.5,
+    "device": "cuda",
+    "gpu_name": "NVIDIA GeForce RTX 4090",
+    "torch_version": "2.11.0+cu126",
+    "torch_threads": 2,
+    "init": "random",
+    "init_seed": 3115000130
+  },
+  "finished": "2026-10-30T08:57:26"
+}

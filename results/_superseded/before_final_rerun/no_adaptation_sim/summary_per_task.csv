@@ -1,0 +1,93 @@
+level,task,length_s,spacing_rmse,speed_rmse,collision_rate,subset
+L1_new_setting,EV | IONIQ 5 | Long,,7.502458771010865,0.8996862606523394,0.0,all_runs
+L1_new_setting,EV | IONIQ 5 | Medium,,7.058508807632917,0.8381383393790722,0.0,all_runs
+L1_new_setting,EV | IONIQ 5 | Short,,6.699040366299177,0.7686866897448458,0.0,all_runs
+L1_new_setting,EV | IONIQ 5 | XLong,,9.231073077437852,1.0187108311146549,0.0,all_runs
+L1_new_setting,ICE | VehA | max,,18.1415225444051,0.81274046491673,0.0,all_runs
+L1_new_setting,ICE | VehA | min,,10.659994877410202,0.4822738764288116,0.0,all_runs
+L1_new_setting,ICE | VehB | max,,20.709122114082135,0.8829804914509414,0.0,all_runs
+L1_new_setting,ICE | VehB | min,,14.216019260148931,0.5447012799321611,0.0,all_runs
+L1_new_setting,ICE | VehC | max,,19.19167557536852,0.7859840249876986,0.0,all_runs
+L1_new_setting,ICE | VehC | min,,10.345053887858024,0.6936967130041709,0.0,all_runs
+L1_new_setting,ICE | VehD | max,,15.074457051421732,0.9188445057217123,0.0,all_runs
+L1_new_setting,ICE | VehD | min,,7.750911367693623,0.615115888808621,0.0,all_runs
+L1_new_setting,ICE | VehE | max,,10.99698922963133,0.6042525411216612,0.0,all_runs
+L1_new_setting,ICE | VehE | min,,10.992037021863712,0.7696949313228305,0.0,all_runs
+L1_new_setting,ICE | VehF | max,,11.560856055023596,0.831924674663238,0.0,all_runs
+L1_new_setting,ICE | VehF | min,,10.144677025975838,0.5364900561066364,0.0,all_runs
+L2_new_vehicle,EV | IONIQ 5 | Long,,9.528076153703005,0.9128601025703359,0.0,all_runs
+L2_new_vehicle,EV | IONIQ 5 | Medium,,10.276233028861029,0.8664029106811654,0.0,all_runs
+L2_new_vehicle,EV | IONIQ 5 | Short,,10.604387933534344,0.8453476200297916,0.0,all_runs
+L2_new_vehicle,EV | IONIQ 5 | XLong,,10.088255963852108,1.0200542042879768,0.0,all_runs
+L2_new_vehicle,EV | Model 3 | Short,,10.525242290179843,0.9585223263762416,0.0,all_runs
+L2_new_vehicle,EV | Polestar 2 | Short,,7.016164833709134,0.5803617560226642,0.0,all_runs
+L2_new_vehicle,ICE | VehA | max,,17.189528820488274,0.806683975245309,0.0,all_runs
+L2_new_vehicle,ICE | VehA | min,,9.754380386547211,0.48260518136366926,0.0,all_runs
+L2_new_vehicle,ICE | VehB | max,,20.3201184081858,0.8814587826203845,0.0,all_runs
+L2_new_vehicle,ICE | VehB | min,,13.330055959851427,0.5418765098194807,0.0,all_runs
+L2_new_vehicle,ICE | VehC | max,,18.780089852925208,0.7856901048912183,0.0,all_runs
+L2_new_vehicle,ICE | VehC | min,,9.901534632901724,0.6889785685039272,0.0,all_runs
+L2_new_vehicle,ICE | VehD | max,,14.546760871943722,0.9211652240754755,0.0,all_runs
+L2_new_vehicle,ICE | VehD | min,,7.484883956197099,0.6092179093499592,0.0,all_runs
+L2_new_vehicle,ICE | VehE | max,,10.45249185455141,0.6042230277119571,0.0,all_runs
+L2_new_vehicle,ICE | VehE | min,,10.52008155060174,0.7717720572614291,0.0,all_runs
+L2_new_vehicle,ICE | VehF | max,,11.175530749128125,0.8335539308534713,0.0,all_runs
+L2_new_vehicle,ICE | VehF | min,,9.609027658263233,0.5360528918816877,0.0,all_runs
+L2_no_ice,EV | IONIQ 5 | Long,,5.286694061898176,0.374422792538854,0.0,all_runs
+L2_no_ice,EV | IONIQ 5 | Medium,,2.744569675677673,0.36171543480689416,0.0,all_runs
+L2_no_ice,EV | IONIQ 5 | Short,,3.7630274438526357,0.48604062587871255,0.0,all_runs
+L2_no_ice,EV | IONIQ 5 | XLong,,12.111091749272417,0.67055425216262,0.0,all_runs
+L2_no_ice,EV | Model 3 | Short,,8.943907369902943,0.6010895897157869,0.0,all_runs
+L2_no_ice,EV | Polestar 2 | Short,,8.68442540753649,0.5123219108134498,0.0,all_runs
+L3_cross_powertrain,EV | IONIQ 5 | Long,,15.032171667242164,1.0165097795621207,0.0,all_runs
+L3_cross_powertrain,EV | IONIQ 5 | Medium,,19.1388187854984,1.0878519865558824,0.0,all_runs
+L3_cross_powertrain,EV | IONIQ 5 | Short,,19.316823015009554,1.1300137095646248,0.0,all_runs
+L3_cross_powertrain,EV | IONIQ 5 | XLong,,14.582941549497633,1.0397151841311074,0.0,all_runs
+L3_cross_powertrain,EV | Model 3 | Short,,7.167110209451929,0.7725028483503145,0.0,all_runs
+L3_cross_powertrain,EV | Polestar 2 | Short,,14.404266907526766,0.77006695259048,0.0,all_runs
+L1_new_setting,EV | IONIQ 5 | Long,,7.103273587051801,0.8889316297015464,0.0,no_stop_runs
+L1_new_setting,EV | IONIQ 5 | Medium,,6.619114006789678,0.8187958747645933,0.0,no_stop_runs
+L1_new_setting,EV | IONIQ 5 | Short,,5.453229739063837,0.7211233599947958,0.0,no_stop_runs
+L1_new_setting,EV | IONIQ 5 | XLong,,8.66723147207504,1.004365811739817,0.0,no_stop_runs
+L1_new_setting,ICE | VehA | max,,18.1415225444051,0.81274046491673,0.0,no_stop_runs
+L1_new_setting,ICE | VehA | min,,10.659994877410202,0.4822738764288116,0.0,no_stop_runs
+L1_new_setting,ICE | VehB | max,,20.709122114082135,0.8829804914509414,0.0,no_stop_runs
+L1_new_setting,ICE | VehB | min,,14.216019260148931,0.5447012799321611,0.0,no_stop_runs
+L1_new_setting,ICE | VehC | max,,19.19167557536852,0.7859840249876986,0.0,no_stop_runs
+L1_new_setting,ICE | VehC | min,,10.345053887858024,0.6936967130041709,0.0,no_stop_runs
+L1_new_setting,ICE | VehD | max,,15.074457051421732,0.9188445057217123,0.0,no_stop_runs
+L1_new_setting,ICE | VehD | min,,7.750911367693623,0.615115888808621,0.0,no_stop_runs
+L1_new_setting,ICE | VehE | max,,10.99698922963133,0.6042525411216612,0.0,no_stop_runs
+L1_new_setting,ICE | VehE | min,,10.992037021863712,0.7696949313228305,0.0,no_stop_runs
+L1_new_setting,ICE | VehF | max,,11.560856055023596,0.831924674663238,0.0,no_stop_runs
+L1_new_setting,ICE | VehF | min,,10.144677025975838,0.5364900561066364,0.0,no_stop_runs
+L2_new_vehicle,EV | IONIQ 5 | Long,,7.2514595756507365,0.8844326897168653,0.0,no_stop_runs
+L2_new_vehicle,EV | IONIQ 5 | Medium,,6.914503428718527,0.8049645670701508,0.0,no_stop_runs
+L2_new_vehicle,EV | IONIQ 5 | Short,,5.9207038087076995,0.7279089613127026,0.0,no_stop_runs
+L2_new_vehicle,EV | IONIQ 5 | XLong,,8.627699407698207,1.0077521054144771,0.0,no_stop_runs
+L2_new_vehicle,EV | Model 3 | Short,,10.525242290179843,0.9585223263762416,0.0,no_stop_runs
+L2_new_vehicle,EV | Polestar 2 | Short,,7.016164833709134,0.5803617560226642,0.0,no_stop_runs
+L2_new_vehicle,ICE | VehA | max,,17.189528820488274,0.806683975245309,0.0,no_stop_runs
+L2_new_vehicle,ICE | VehA | min,,9.754380386547211,0.48260518136366926,0.0,no_stop_runs
+L2_new_vehicle,ICE | VehB | max,,20.3201184081858,0.8814587826203845,0.0,no_stop_runs
+L2_new_vehicle,ICE | VehB | min,,13.330055959851427,0.5418765098194807,0.0,no_stop_runs
+L2_new_vehicle,ICE | VehC | max,,18.780089852925208,0.7856901048912183,0.0,no_stop_runs
+L2_new_vehicle,ICE | VehC | min,,9.901534632901724,0.6889785685039272,0.0,no_stop_runs
+L2_new_vehicle,ICE | VehD | max,,14.546760871943722,0.9211652240754755,0.0,no_stop_runs
+L2_new_vehicle,ICE | VehD | min,,7.484883956197099,0.6092179093499592,0.0,no_stop_runs
+L2_new_vehicle,ICE | VehE | max,,10.45249185455141,0.6042230277119571,0.0,no_stop_runs
+L2_new_vehicle,ICE | VehE | min,,10.52008155060174,0.7717720572614291,0.0,no_stop_runs
+L2_new_vehicle,ICE | VehF | max,,11.175530749128125,0.8335539308534713,0.0,no_stop_runs
+L2_new_vehicle,ICE | VehF | min,,9.609027658263233,0.5360528918816877,0.0,no_stop_runs
+L2_no_ice,EV | IONIQ 5 | Long,,5.617267387228554,0.3139592214069967,0.0,no_stop_runs
+L2_no_ice,EV | IONIQ 5 | Medium,,2.267915169183312,0.2814443172819846,0.0,no_stop_runs
+L2_no_ice,EV | IONIQ 5 | Short,,3.2308088154674857,0.41478858001059676,0.0,no_stop_runs
+L2_no_ice,EV | IONIQ 5 | XLong,,13.026593879818511,0.6303342189384266,0.0,no_stop_runs
+L2_no_ice,EV | Model 3 | Short,,8.943907369902943,0.6010895897157869,0.0,no_stop_runs
+L2_no_ice,EV | Polestar 2 | Short,,8.68442540753649,0.5123219108134498,0.0,no_stop_runs
+L3_cross_powertrain,EV | IONIQ 5 | Long,,8.736424885828432,0.779687377719086,0.0,no_stop_runs
+L3_cross_powertrain,EV | IONIQ 5 | Medium,,10.233135931537849,0.7696018423858405,0.0,no_stop_runs
+L3_cross_powertrain,EV | IONIQ 5 | Short,,9.626594278183532,0.7592197774951497,0.0,no_stop_runs
+L3_cross_powertrain,EV | IONIQ 5 | XLong,,8.54239806810573,0.8448669318329765,0.0,no_stop_runs
+L3_cross_powertrain,EV | Model 3 | Short,,7.167110209451929,0.7725028483503145,0.0,no_stop_runs
+L3_cross_powertrain,EV | Polestar 2 | Short,,14.404266907526766,0.77006695259048,0.0,no_stop_runs

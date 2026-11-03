@@ -1,0 +1,22 @@
+{
+  "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+  "git_dirty": false,
+  "config_md5": "1d148b17e2a4e4dd3aa27dbc573baffd",
+  "n_tasks": 18,
+  "decision": {
+    "ovrv": {
+      "gain_m": {
+        "EV": -0.7263901869372655,
+        "ICE": 0.07580809432463465
+      },
+      "clearly_better": false
+    },
+    "idm_lag": {
+      "gain_m": {
+        "EV": -0.018085559091959524,
+        "ICE": -1.1712371699851358
+      },
+      "clearly_better": false
+    }
+  }
+}

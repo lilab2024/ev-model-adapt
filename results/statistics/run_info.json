@@ -1,0 +1,68 @@
+{
+  "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+  "git_dirty": false,
+  "config_md5": "a89ef2f077a3be66be279951bca6efda",
+  "results": {
+    "M0": {
+      "folder": "no_adaptation_sim",
+      "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+      "git_dirty": false
+    },
+    "M1": {
+      "folder": "context_recalibration",
+      "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+      "git_dirty": false
+    },
+    "M2": {
+      "folder": "population_prior",
+      "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+      "git_dirty": false
+    },
+    "M2b": {
+      "folder": "population_prior_same_powertrain",
+      "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+      "git_dirty": false
+    },
+    "M2b_residual": {
+      "folder": "m2b_residual",
+      "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+      "git_dirty": false
+    },
+    "GBM": {
+      "folder": "features_gbm",
+      "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+      "git_dirty": false
+    },
+    "M4A_zero": {
+      "folder": "m4a_pretrained",
+      "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+      "git_dirty": false
+    },
+    "M4A_ft": {
+      "folder": "m4a_finetuned",
+      "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+      "git_dirty": false
+    },
+    "M4A_lovo": {
+      "folder": "m4a_finetuned_lovo",
+      "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+      "git_dirty": false
+    },
+    "M4A_scratch": {
+      "folder": "m4a_scratch_lovo",
+      "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+      "git_dirty": false
+    },
+    "M4A_transformer": {
+      "folder": "m4a_transformer_lovo",
+      "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+      "git_dirty": false
+    },
+    "M4C": {
+      "folder": "m4c_direct_lovo",
+      "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+      "git_dirty": false
+    }
+  },
+  "n_result_commits": 1
+}

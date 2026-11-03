@@ -1,0 +1,17 @@
+{
+  "method": "m4a_scratch_lovo",
+  "levels": [
+    "L2_new_vehicle",
+    "L2_no_ice",
+    "L3_cross_powertrain"
+  ],
+  "n_folds": 13,
+  "n_folds_reused": 13,
+  "n_simulations": 11532,
+  "git_commit": "3d322aab5bb7dc095c424dba211eceaa87b9dd7a",
+  "git_dirty": false,
+  "config_md5": "7d70cff2dedb58e4897f290b22dafc58",
+  "data_md5": "8cde7b27a7b0d1cd08cf45bc1c2e6020",
+  "finished": "2026-10-28T02:51:52",
+  "runtime_s": 1.4
+}

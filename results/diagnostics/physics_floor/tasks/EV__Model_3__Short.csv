@@ -1,0 +1,13 @@
+task,model,run_id,floor,n_train_runs,n_val_runs,fit_cost,spacing_rmse,collided,diverged,params
+EV | Model 3 | Short,idm,EV_Tesla_Short_d0_55to25_r1,in_sample,9,2,1.9388762446574137,2.414530202289569,False,False,delta=4; v0=26.23; T=0.5883; s0=15; a=1.219; b=4.248
+EV | Model 3 | Short,idm,EV_Tesla_Short_d0_55to25_r2,in_sample,9,2,1.9388762446574137,3.162606166689063,False,False,delta=4; v0=26.23; T=0.5883; s0=15; a=1.219; b=4.248
+EV | Model 3 | Short,idm,EV_Tesla_Short_d0_55to25_r1,cross_config,9,2,4.428012135899449,6.881811498933056,False,False,delta=4; v0=31.99; T=1.171; s0=0.5; a=0.7306; b=3.172
+EV | Model 3 | Short,idm,EV_Tesla_Short_d0_55to25_r2,cross_config,9,2,4.428012135899449,9.428286272971231,False,False,delta=4; v0=31.99; T=1.171; s0=0.5; a=0.7306; b=3.172
+EV | Model 3 | Short,ovrv,EV_Tesla_Short_d0_55to25_r1,in_sample,9,2,3.058132586206434,3.5093849263910815,False,False,k1=0.01786; k2=0.4206; eta=15; tau=1.918
+EV | Model 3 | Short,ovrv,EV_Tesla_Short_d0_55to25_r2,in_sample,9,2,3.058132586206434,3.2702304849857704,False,False,k1=0.01786; k2=0.4206; eta=15; tau=1.918
+EV | Model 3 | Short,ovrv,EV_Tesla_Short_d0_55to25_r1,cross_config,9,2,4.541899110454933,9.693733788599639,False,False,k1=0.02255; k2=0.4084; eta=15; tau=0.9819
+EV | Model 3 | Short,ovrv,EV_Tesla_Short_d0_55to25_r2,cross_config,9,2,4.541899110454933,13.352587160980388,False,False,k1=0.02255; k2=0.4084; eta=15; tau=0.9819
+EV | Model 3 | Short,idm_lag,EV_Tesla_Short_d0_55to25_r1,in_sample,9,2,1.7033122747656126,2.2457694766714424,False,False,delta=4; v0=25.85; T=0.5503; s0=15; a=1.222; b=3.728; tau_a=0.6662
+EV | Model 3 | Short,idm_lag,EV_Tesla_Short_d0_55to25_r2,in_sample,9,2,1.7033122747656126,3.005560345569737,False,False,delta=4; v0=25.85; T=0.5503; s0=15; a=1.222; b=3.728; tau_a=0.6662
+EV | Model 3 | Short,idm_lag,EV_Tesla_Short_d0_55to25_r1,cross_config,9,2,4.428115589848121,6.864654968722543,False,False,delta=4; v0=31.93; T=1.169; s0=0.5; a=0.7305; b=3.158; tau_a=0.05
+EV | Model 3 | Short,idm_lag,EV_Tesla_Short_d0_55to25_r2,cross_config,9,2,4.428115589848121,9.397131786485168,False,False,delta=4; v0=31.93; T=1.169; s0=0.5; a=0.7305; b=3.158; tau_a=0.05

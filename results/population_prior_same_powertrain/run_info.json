@@ -1,0 +1,16 @@
+{
+  "method": "population_prior_same_powertrain",
+  "levels": [
+    "L1_new_setting",
+    "L2_new_vehicle"
+  ],
+  "n_folds": 25,
+  "n_folds_reused": 25,
+  "n_simulations": 8204,
+  "git_commit": "c3e6d7536bc5b8fc1c40ed1e52bb5935549fc8ee",
+  "git_dirty": false,
+  "config_md5": "eaaea289ab9d8a056379e5c9a22c7126",
+  "data_md5": "8cde7b27a7b0d1cd08cf45bc1c2e6020",
+  "finished": "2026-10-29T16:25:10",
+  "runtime_s": 1.8
+}

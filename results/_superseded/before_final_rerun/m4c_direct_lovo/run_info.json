@@ -1,0 +1,17 @@
+{
+  "method": "m4c_direct_lovo",
+  "levels": [
+    "L2_new_vehicle",
+    "L2_no_ice",
+    "L3_cross_powertrain"
+  ],
+  "n_folds": 13,
+  "n_folds_reused": 13,
+  "n_simulations": 11532,
+  "git_commit": "01abd76605003f69df32170333428f7201a60616",
+  "git_dirty": false,
+  "config_md5": "eaaea289ab9d8a056379e5c9a22c7126",
+  "data_md5": "8cde7b27a7b0d1cd08cf45bc1c2e6020",
+  "finished": "2026-10-29T12:21:10",
+  "runtime_s": 1.5
+}

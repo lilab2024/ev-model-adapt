@@ -1,0 +1,33 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\caption{IDM parameters of each task (fit on its training runs)}
+\label{tab:idm_params}
+\begin{tabular}{llrrrrrl}
+\toprule
+Vehicle & Gap & \begin{tabular}[b]{@{}c@{}}$v_0$\\(m/s)\end{tabular} & \begin{tabular}[b]{@{}c@{}}$T$\\(s)\end{tabular} & \begin{tabular}[b]{@{}c@{}}$s_0$\\(m)\end{tabular} & \begin{tabular}[b]{@{}c@{}}$a$\\(m/s$^2$)\end{tabular} & \begin{tabular}[b]{@{}c@{}}$b$\\(m/s$^2$)\end{tabular} & \begin{tabular}[b]{@{}c@{}}At\\bound\end{tabular} \\
+\midrule
+IONIQ 5 (EV) & Short & 49.68 & 1.02 & 2.32 & 1.32 & 6.00 & $b$ \\
+IONIQ 5 (EV) & Medium & 60.00 & 1.26 & 3.55 & 1.53 & 6.00 & $v_0$, $b$ \\
+IONIQ 5 (EV) & Long & 60.00 & 1.53 & 2.11 & 1.52 & 5.40 & $v_0$ \\
+IONIQ 5 (EV) & XLong & 60.00 & 2.03 & 1.75 & 1.47 & 3.30 & $v_0$ \\
+Model 3 (EV) & Short & 31.99 & 1.17 & 0.50 & 0.73 & 3.17 & $s_0$ \\
+Polestar 2 (EV) & Short & 32.29 & 0.64 & 8.40 & 1.53 & 6.00 & $b$ \\
+VehA (ICE) & min & 48.01 & 0.69 & 15.00 & 1.28 & 6.00 & $s_0$, $b$ \\
+VehA (ICE) & max & 60.00 & 2.04 & 8.57 & 0.86 & 4.30 & $v_0$ \\
+VehB (ICE) & min & 60.00 & 0.69 & 15.00 & 0.74 & 6.00 & $v_0$, $s_0$, $b$ \\
+VehB (ICE) & max & 60.00 & 1.95 & 15.00 & 0.69 & 6.00 & $v_0$, $s_0$, $b$ \\
+VehC (ICE) & min & 60.00 & 0.72 & 15.00 & 0.61 & 6.00 & $v_0$, $s_0$, $b$ \\
+VehC (ICE) & max & 60.00 & 1.92 & 15.00 & 0.74 & 6.00 & $v_0$, $s_0$, $b$ \\
+VehD (ICE) & min & 60.00 & 1.26 & 4.38 & 0.95 & 6.00 & $v_0$, $b$ \\
+VehD (ICE) & max & 60.00 & 1.74 & 15.00 & 1.30 & 6.00 & $v_0$, $s_0$, $b$ \\
+VehE (ICE) & min & 60.00 & 0.69 & 15.00 & 0.79 & 6.00 & $v_0$, $s_0$, $b$ \\
+VehE (ICE) & max & 45.41 & 1.47 & 14.46 & 0.97 & 6.00 & $b$ \\
+VehF (ICE) & min & 60.00 & 0.72 & 15.00 & 0.91 & 6.00 & $v_0$, $s_0$, $b$ \\
+VehF (ICE) & max & 60.00 & 1.88 & 7.08 & 0.79 & 6.00 & $v_0$, $b$ \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\parbox{\linewidth}{\footnotesize Bounds of the fit: $v_0$ 25--60 m/s; $T$ 0.3--4 s; $s_0$ 0.5--15 m; $a$ 0.2--4 m/s$^2$; $b$ 0.01--6 m/s$^2$.}
+\end{table}

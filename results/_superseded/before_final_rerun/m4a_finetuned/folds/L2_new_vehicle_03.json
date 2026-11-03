@@ -1,0 +1,30 @@
+{
+  "fold_id": "L2_new_vehicle_03",
+  "git_commit": "9161e3f2e2c67562f9c9844ac903216e2c89acca",
+  "git_dirty": false,
+  "config_md5": "3f71e3098231b71359b37e51aff50c73",
+  "state": {
+    "fold_id": "L2_new_vehicle_03",
+    "level": "L2_new_vehicle",
+    "method": "m4a_finetuned",
+    "n_train_runs": 256,
+    "weights_md5": "f906e523788fb0a9ecaacde7184f992a",
+    "n_new_predictions": 22,
+    "n_cached_predictions": 0,
+    "n_val_runs": 65,
+    "n_val_episodes": 170,
+    "n_train_tasks_sampled": 17,
+    "fold_seed": 1465435734,
+    "val_loss_start": 7.806149482727051,
+    "val_loss_best": 2.975639581680298,
+    "best_step": 1850,
+    "steps_run": 2350,
+    "n_skipped_steps": 0,
+    "finetune_s": 4264.8,
+    "device": "cuda",
+    "gpu_name": "NVIDIA GeForce RTX 4090",
+    "torch_version": "2.11.0+cu126",
+    "torch_threads": 2
+  },
+  "finished": "2026-10-26T05:15:20"
+}

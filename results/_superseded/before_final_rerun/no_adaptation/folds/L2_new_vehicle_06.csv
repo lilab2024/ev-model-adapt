@@ -1,0 +1,21 @@
+fold_id,level,method,task,draw,length_s,run_id,collided,diverged,n_steps,n_valid,spacing_rmse,speed_rmse
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | max,0,,ICE_VehD_dip_max,False,False,5971,5971,21.072207522950023,0.9673452975251241
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | max,0,,ICE_VehD_stepH_max,False,False,4149,4149,26.605600417540387,0.397770221202779
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | max,1,,ICE_VehD_osc_max,False,False,6438,6438,25.553917495074447,0.4671297296113845
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | max,1,,ICE_VehD_stepL_max,False,False,6855,6855,28.305148200775836,0.9224992752137523
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | max,2,,ICE_VehD_dip_max,False,False,5971,5971,21.072207522950023,0.9673452975251241
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | max,2,,ICE_VehD_stepL_max,False,False,6855,6855,28.305148200775836,0.9224992752137523
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | max,3,,ICE_VehD_stepH_max,False,False,4149,4149,26.605600417540387,0.397770221202779
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | max,3,,ICE_VehD_stepL_max,False,False,6855,6855,28.305148200775836,0.9224992752137523
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | max,4,,ICE_VehD_dip_max,False,False,5971,5971,21.072207522950023,0.9673452975251241
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | max,4,,ICE_VehD_stepH_max,False,False,4149,4149,26.605600417540387,0.397770221202779
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | min,0,,ICE_VehD_stepH_min,False,False,4302,4302,10.544937682672911,0.42582017255372584
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | min,0,,ICE_VehD_stepL_min,False,False,6619,6619,23.7289975066672,1.0430282960707586
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | min,1,,ICE_VehD_dip_min,False,False,6243,6243,19.167058461628006,1.3715940455741942
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | min,1,,ICE_VehD_osc_min,False,False,6721,6721,7.997054473960875,0.7814209088231219
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | min,2,,ICE_VehD_osc_min,False,False,6721,6721,7.997054473960875,0.7814209088231219
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | min,2,,ICE_VehD_stepH_min,False,False,4302,4302,10.544937682672911,0.42582017255372584
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | min,3,,ICE_VehD_dip_min,False,False,6243,6243,19.167058461628006,1.3715940455741942
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | min,3,,ICE_VehD_stepL_min,False,False,6619,6619,23.7289975066672,1.0430282960707586
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | min,4,,ICE_VehD_dip_min,False,False,6243,6243,19.167058461628006,1.3715940455741942
+L2_new_vehicle_06,L2_new_vehicle,no_adaptation,ICE | VehC | min,4,,ICE_VehD_stepH_min,False,False,4302,4302,10.544937682672911,0.42582017255372584

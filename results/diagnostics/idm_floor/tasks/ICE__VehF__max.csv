@@ -1,0 +1,3 @@
+task,run_id,floor,n_train_runs,n_val_runs,spacing_rmse,speed_rmse,collided,diverged,idm_delta,idm_v0,idm_T,idm_s0,idm_a,idm_b
+ICE | VehF | max,ICE_VehG_dip_max,in_sample,3,1,2.0400655590607837,0.3721297523998102,False,False,4.0,59.83058672946548,2.0538540238244947,2.7534295015188683,0.9952380029836069,6.0
+ICE | VehF | max,ICE_VehG_dip_max,cross_config,3,1,3.417819943406402,0.4391928855117725,False,False,4.0,60.0,1.875589449176731,7.08097978549675,0.7901425350115521,6.0
