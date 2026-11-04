@@ -33,7 +33,7 @@ def _png_size(path):
 
 
 def _check_fig(fig, width_key, height_key, tmp_path, name):
-    assert len(fig.axes) == 1                                        # D037 (1)
+    assert len(fig.axes) == (2 if name == "heat" else 1)             # D037 (1); heat map + colour bar (D061)
     assert fig.axes[0].get_title() == ""                             # D037 (3)
     assert fig.axes[0].get_legend() is None                          # D046: legends below the axes
     if name not in ("heat", "methods"):
@@ -289,6 +289,9 @@ def test_curves_split_heatmap_l3(plt, tmp_path):
     _check_fig(fig, "double_width_in", "method_vehicle", tmp_path, "heat")
     assert len(fig.axes[0].texts) == 12 * 9
     assert {t.get_color() for t in fig.axes[0].texts} <= {"w", "k"}
+    cb_ax = fig.axes[1]                                                   # D061: colour bar
+    assert "spacing RMSE (m)" in cb_ax.get_ylabel() and "logarithmic" in cb_ax.get_ylabel()
+    assert cb_ax.get_yscale() == "log" and len(cb_ax.get_yticklabels()) >= 2
     fig = F.l3_vehicles_figure(plt, v, CFG["groups"]["l3"], CFG)
     _check_fig(fig, "single_width_in", "l3_vehicles", tmp_path, "l3")
     assert len(fig.axes[0].get_yticklabels()) == 10

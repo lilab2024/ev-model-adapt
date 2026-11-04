@@ -516,7 +516,8 @@ def confirmatory_table(intervals, cfg_fig):
 
 def vehicle_heatmap(plt, values, methods, level, length, cfg_fig):
     """fig_method_vehicle (D043 (3)): methods x vehicles at one context length; the values are
-    written in the cells, so no colour bar (one axes); no title."""
+    written in the cells; logarithmic colour scale with a colour bar on the right (D061, the
+    only figure with a second axes); no title."""
     rows, labels, vehicles = [], [], None
     for name in methods:
         if name not in values:
@@ -531,7 +532,9 @@ def vehicle_heatmap(plt, values, methods, level, length, cfg_fig):
         labels.append(cfg_fig["methods"][name]["label"])
     M = np.array(rows, dtype=float)
     fig, ax = new_figure(plt, cfg_fig, "double_width_in", "method_vehicle")
-    im = ax.imshow(np.log(M), aspect="auto", cmap="viridis_r")
+    from matplotlib.colors import LogNorm
+    im = ax.imshow(M, aspect="auto", cmap="viridis_r",
+                   norm=LogNorm(vmin=np.nanmin(M), vmax=np.nanmax(M)))     # same colours as log(M), D061
     ax.set_xticks(range(len(vehicles)))
     ax.set_xticklabels([c.split(" ", 1)[1] + " (" + c.split()[0] + ")" for c in vehicles])
     ax.set_yticks(range(len(labels)))
@@ -540,10 +543,19 @@ def vehicle_heatmap(plt, values, methods, level, length, cfg_fig):
     for i in range(M.shape[0]):
         for j in range(M.shape[1]):
             if np.isfinite(M[i, j]):
-                r, g, b, _ = im.cmap(im.norm(np.log(M[i, j])))
+                r, g, b, _ = im.cmap(im.norm(M[i, j]))
                 lum = 0.2126 * r + 0.7152 * g + 0.0722 * b          # D048: text colour by cell brightness
                 ax.text(j, i, f"{M[i, j]:.1f}", ha="center", va="center",
                         fontsize=cfg_fig["style"]["font_size"] - 2, color="w" if lum < 0.45 else "k")
+    cb = fig.colorbar(im, ax=ax, fraction=0.025, pad=0.01, aspect=30)          # D061
+    lo, hi = np.nanmin(M), np.nanmax(M)
+    ticks = [t for t in (1, 2, 3, 5, 10, 20, 30, 50, 100, 200) if lo <= t <= hi]
+    cb.ax.minorticks_off()
+    cb.set_ticks(ticks)
+    cb.set_ticklabels([f"{t:g}" for t in ticks])
+    cb.ax.tick_params(labelsize=cfg_fig["style"]["font_size"] - 1, length=2)
+    cb.set_label("spacing RMSE (m), logarithmic scale", fontsize=cfg_fig["style"]["font_size"] - 1)
+    cb.outline.set_linewidth(0.5)
     return fig
 
 
